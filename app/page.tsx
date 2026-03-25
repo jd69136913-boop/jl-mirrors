@@ -62,11 +62,11 @@ export default function Home() {
 
         {/* RIGHT SIDE - PRO FORM */}
         <form
-          action="https://formspree.io/f/xqegzdrw"
-          method="POST"
-          className="space-y-4 bg-zinc-900/60 backdrop-blur border border-purple-500/30 p-6 rounded-xl shadow-[0_0_40px_rgba(168,85,247,0.2)]"
-        >
-
+  action="https://formspree.io/f/xqegzdrw"
+  method="POST"
+  encType="multipart/form-data"
+  className="space-y-4 bg-zinc-900/60 backdrop-blur border border-purple-500/30 p-6 rounded-xl shadow-[0_0_40px_rgba(168,85,247,0.2)]"
+>
           <h3 className="text-xl font-semibold text-white">
             Get Your Custom Quote
           </h3>
@@ -134,7 +134,19 @@ export default function Home() {
             rows={4}
             className="w-full p-3 bg-black border border-gray-700 rounded focus:outline-none focus:border-purple-500"
           />
+{/* FILE UPLOAD */}
+<div>
+  <label className="text-sm text-gray-400 block mb-1">
+    Upload Design / Logo (optional)
+  </label>
 
+  <input
+    type="file"
+    name="file"
+    accept="image/*"
+    className="w-full p-2 bg-black border border-gray-700 rounded text-gray-400 file:bg-purple-600 file:text-white file:border-none file:px-4 file:py-2 file:rounded file:cursor-pointer"
+  />
+</div>
           {/* SUBMIT */}
           <button
             type="submit"
