@@ -5,11 +5,11 @@ export default function Home() {
     <div className="min-h-screen bg-black text-white p-6">
 
       {/* HEADER */}
-      <h1 className="text-3xl font-bold mb-8">
+      <h1 className="text-3xl font-bold mb-10">
         J&L Custom Infinity Mirrors
       </h1>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 gap-12">
 
         {/* LEFT SIDE */}
         <div className="space-y-6 max-w-xl">
@@ -22,26 +22,20 @@ export default function Home() {
             Handcrafted LED mirrors with custom designs, colors, and sizes — built to order.
           </p>
 
-          <p className="text-xs text-gray-600">
-  Limited build slots available each week
-</p>
-<p className="text-purple-400 font-semibold">
-  Get Your Custom Quote in 24 Hours
-</p>
+          <p className="text-purple-400 font-semibold">
+            Get Your Custom Quote in 24 Hours
+          </p>
 
-<p className="text-sm text-gray-500">
-  Projects typically start at $150+ depending on size and design
-</p>
+          <p className="text-sm text-gray-500">
+            Limited build slots available each week
+          </p>
 
-<p className="text-xs text-gray-600">
-  Limited build slots available each week
-</p>
+          <div className="text-sm text-gray-400 space-y-1">
+            <p>✔ Built in Arizona</p>
+            <p>✔ Custom sizes & designs</p>
+            <p>✔ LED color control included</p>
+          </div>
 
-<div className="text-sm text-gray-500 space-y-1 mt-2">
-  <p>✔ Built in Arizona</p>
-  <p>✔ Custom sizes & designs</p>
-  <p>✔ LED color control included</p>
-</div>
           {/* IMAGE */}
           <div className="mt-6 relative rounded-xl overflow-hidden border border-purple-500 shadow-[0_0_60px_rgba(168,85,247,0.6)]">
 
@@ -66,52 +60,91 @@ export default function Home() {
 
         </div>
 
-        {/* RIGHT SIDE - FORM */}
+        {/* RIGHT SIDE - PRO FORM */}
         <form
           action="https://formspree.io/f/xqegzdrw"
           method="POST"
-          className="space-y-5 bg-zinc-900/60 backdrop-blur-md p-6 rounded-xl border border-zinc-700 shadow-[0_0_30px_rgba(168,85,247,0.15)]"
+          className="space-y-4 bg-zinc-900/60 backdrop-blur border border-purple-500/30 p-6 rounded-xl shadow-[0_0_40px_rgba(168,85,247,0.2)]"
         >
 
-          <h2 className="text-xl font-semibold text-white">
-            Request a Custom Build
-          </h2>
+          <h3 className="text-xl font-semibold text-white">
+            Get Your Custom Quote
+          </h3>
 
           <p className="text-sm text-gray-400">
-            Tell me what you want — I’ll get back to you within 24 hours.
+            Tell me what you want built. I'll get back to you within 24 hours.
           </p>
 
+          {/* NAME */}
           <input
             name="name"
-            placeholder="Full Name"
+            placeholder="Your Name"
             required
-            className="w-full p-3 bg-black/60 border border-zinc-700 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+            className="w-full p-3 bg-black border border-gray-700 rounded focus:outline-none focus:border-purple-500"
           />
 
+          {/* EMAIL */}
           <input
             name="email"
             type="email"
-            placeholder="Email Address"
+            placeholder="Best Email"
             required
-            className="w-full p-3 bg-black/60 border border-zinc-700 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+            className="w-full p-3 bg-black border border-gray-700 rounded focus:outline-none focus:border-purple-500"
           />
 
+          {/* SIZE */}
+          <select
+            name="size"
+            className="w-full p-3 bg-black border border-gray-700 rounded text-gray-300"
+          >
+            <option value="">Select Size</option>
+            <option>Small (Desk / Under 24")</option>
+            <option>Medium (24" - 36")</option>
+            <option>Large (36" - 60")</option>
+            <option>Custom / Oversized</option>
+          </select>
+
+          {/* BUDGET */}
+          <select
+            name="budget"
+            className="w-full p-3 bg-black border border-gray-700 rounded text-gray-300"
+          >
+            <option value="">Budget Range</option>
+            <option>$100 - $300</option>
+            <option>$300 - $700</option>
+            <option>$700 - $1500</option>
+            <option>$1500+</option>
+          </select>
+
+          {/* TIMELINE */}
+          <select
+            name="timeline"
+            className="w-full p-3 bg-black border border-gray-700 rounded text-gray-300"
+          >
+            <option value="">When do you want it?</option>
+            <option>ASAP</option>
+            <option>1–2 Weeks</option>
+            <option>Flexible</option>
+          </select>
+
+          {/* DETAILS */}
           <textarea
             name="details"
-            placeholder="Describe your mirror (size, colors, logo, idea, etc.)"
+            placeholder="Describe your design idea (logo, colors, style, etc.)"
             rows={4}
-            className="w-full p-3 bg-black/60 border border-zinc-700 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
+            className="w-full p-3 bg-black border border-gray-700 rounded focus:outline-none focus:border-purple-500"
           />
 
+          {/* SUBMIT */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 transition p-4 rounded-lg font-semibold tracking-wide shadow-[0_0_20px_rgba(168,85,247,0.5)]"
+            className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 transition p-3 rounded font-semibold"
           >
             Get My Custom Quote →
           </button>
 
           <p className="text-xs text-gray-500 text-center">
-            No spam. Just a custom quote.
+            No spam. Serious custom builds only.
           </p>
 
         </form>
