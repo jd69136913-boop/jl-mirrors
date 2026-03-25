@@ -27,19 +27,33 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="text-center text-sm text-gray-500 mb-6 space-y-1">
+         <div className="text-left space-y-4 mb-6 max-w-xl">
             <p>✔ Built in Arizona</p>
             <p>✔ Custom sizes & designs</p>
             <p>✔ LED color control included</p>
           </div>
 
-          <div className="h-40 flex items-center justify-center border border-purple-500">
-            <img
-  src="/mirror.jpg"
-  alt="Custom Infinity Mirror"
-  className="w-full h-64 object-cover rounded"
-/>
-          </div>
+        <div className="mt-8 relative rounded-xl overflow-hidden border border-purple-500 shadow-[0_0_60px_rgba(168,85,247,0.6)]">
+
+  <img
+    src="/mirror.jpg"
+    alt="Custom Infinity Mirror"
+    className="w-full h-[420px] object-cover"
+  />
+
+  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+
+  {/* Overlay Text */}
+  <div className="absolute bottom-6 left-6">
+    <p className="text-lg font-semibold text-white">
+      Custom LED Infinity Mirror
+    </p>
+    <p className="text-sm text-gray-300">
+      Built by hand • Made in Arizona
+    </p>
+  </div>
+
+</div>
 
         </div>
 
