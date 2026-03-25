@@ -1,4 +1,4 @@
-'use client'
+'use client'// FORCE CHANGE
 
 export default function Home() {
   return (
@@ -34,7 +34,11 @@ export default function Home() {
           </div>
 
           <div className="h-40 flex items-center justify-center border border-purple-500">
-            LOGO AREA
+            <img
+  src="/mirror.jpg"
+  alt="Custom Infinity Mirror"
+  className="w-full h-64 object-cover rounded"
+/>
           </div>
 
         </div>
