@@ -13,15 +13,11 @@ export default function Home() {
         muted
         playsInline
         controls
-        style={{
-          width: "100%",
-          borderRadius: "12px",
-          marginBottom: "20px"
-        }}
+        style={{ width: "100%", borderRadius: "12px", marginBottom: "20px" }}
       />
 
       <p style={{ fontSize: "20px", marginBottom: "30px" }}>
-        Upload your logo. Get a custom mirror built for you.
+        Upload your logo and get a one-of-a-kind custom mirror built for you.
       </p>
 
       <img
@@ -30,20 +26,44 @@ export default function Home() {
         style={{ width: "100%", borderRadius: "12px", marginBottom: "20px" }}
       />
 
-      <a
-        href="#order"
-        style={{
-          display: "inline-block",
-          padding: "15px 30px",
-          fontSize: "18px",
-          background: "black",
-          color: "white",
-          borderRadius: "8px",
-          textDecoration: "none"
-        }}
+      {/* ORDER FORM */}
+      <form
+        action="https://formspree.io/f/xqegzdrw"
+        method="POST"
+        encType="multipart/form-data"
+        style={{ display: "flex", flexDirection: "column", gap: "15px", marginTop: "30px" }}
       >
-        Get Your Custom Mirror
-      </a>
+
+        <input type="text" name="name" placeholder="Your Name" required style={{ padding: "12px" }} />
+
+        <input type="email" name="email" placeholder="Your Email" required style={{ padding: "12px" }} />
+
+        <input type="file" name="logo" accept="image/*" required />
+
+        <select name="size" required style={{ padding: "12px" }}>
+          <option value="">Select Size</option>
+          <option value="Small">Small (12-16")</option>
+          <option value="Medium">Medium (18-24")</option>
+          <option value="Large">Large (24-36")</option>
+        </select>
+
+        <textarea name="notes" placeholder="Anything specific you want?" style={{ padding: "12px" }} />
+
+        <button
+          type="submit"
+          style={{
+            padding: "15px",
+            fontSize: "18px",
+            background: "black",
+            color: "white",
+            borderRadius: "8px",
+            cursor: "pointer"
+          }}
+        >
+          Submit Order Request
+        </button>
+
+      </form>
 
     </main>
   );
