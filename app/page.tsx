@@ -4,15 +4,15 @@ export default function Home() {
   return (
     <main
       style={{
-        padding: "40px",
-        maxWidth: "800px",
+        padding: "30px",
+        maxWidth: "700px",
         margin: "0 auto",
         fontFamily: "Arial",
         color: "white",
         backgroundColor: "black",
       }}
     >
-      {/* VIDEO */}
+      {/* 🔥 VIDEO (FIXED SIZE) */}
       <video
         src="/20260301_012211.mp4"
         autoPlay
@@ -21,21 +21,23 @@ export default function Home() {
         playsInline
         style={{
           width: "100%",
+          maxHeight: "320px",
+          objectFit: "cover",
           borderRadius: "12px",
-          marginBottom: "30px",
+          marginBottom: "20px",
         }}
       />
 
       {/* HEADLINE */}
-      <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
+      <h1 style={{ fontSize: "36px", marginBottom: "8px" }}>
         Custom Infinity Mirrors
       </h1>
 
-      <p style={{ marginBottom: "30px", color: "#ccc" }}>
-        Upload your logo or design. We build it custom for you.
+      <p style={{ marginBottom: "20px", color: "#ccc" }}>
+        Upload your logo. We build it custom. Limited slots available.
       </p>
 
-      {/* 🔥 IMAGE (FIXED SIZE — NO MORE HUGE IMAGE) */}
+      {/* 🔥 IMAGE (CONTROLLED SIZE) */}
       <Image
         src="/mirror3.jpg"
         alt="Infinity Mirror Example"
@@ -43,15 +45,15 @@ export default function Home() {
         height={600}
         style={{
           width: "100%",
-          maxWidth: "450px",
+          maxWidth: "350px",
           height: "auto",
           borderRadius: "12px",
-          margin: "20px auto",
+          margin: "10px auto 20px auto",
           display: "block",
         }}
       />
 
-      {/* FORM */}
+      {/* 🔥 FORM */}
       <form
         action="https://formspree.io/f/xqegzdrw"
         method="POST"
@@ -59,11 +61,10 @@ export default function Home() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "20px",
-          marginTop: "30px",
+          gap: "15px",
         }}
       >
-        {/* 🔥 AUTO REDIRECT AFTER SUBMIT */}
+        {/* AUTO REDIRECT */}
         <input
           type="hidden"
           name="_redirect"
@@ -95,25 +96,25 @@ export default function Home() {
 
         <select name="size" required style={inputStyle}>
           <option value="">Select Size</option>
-          <option value="Small (12x12)">Small (12x12)</option>
-          <option value="Medium (18x18)">Medium (18x18)</option>
-          <option value="Large (24x24)">Large (24x24)</option>
-          <option value="Custom">Custom Size</option>
+          <option value="12x12">12x12</option>
+          <option value="18x18">18x18</option>
+          <option value="24x24">24x24</option>
+          <option value="Custom">Custom</option>
         </select>
 
         <textarea
           name="notes"
           placeholder="Anything specific you want?"
-          rows={4}
+          rows={3}
           style={inputStyle}
         />
 
-        {/* 🔥 MAIN BUTTON */}
+        {/* 🔥 PRIMARY CTA */}
         <button type="submit" style={submitStyle}>
           Submit Design & Pay Deposit
         </button>
 
-        {/* 🔥 SECOND DEPOSIT BUTTON */}
+        {/* 🔥 STRONG SECOND CTA */}
         <a
           href="https://cash.app/$Jamie6913"
           target="_blank"
