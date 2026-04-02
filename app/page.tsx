@@ -1,6 +1,24 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
+  const [size, setSize] = useState("");
+  const [price, setPrice] = useState(0);
+
+  const pricing: any = {
+    Small: 150,
+    Medium: 250,
+    Large: 400,
+    Custom: 0,
+  };
+
+  const handleSizeChange = (value: string) => {
+    setSize(value);
+    setPrice(pricing[value] || 0);
+  };
+
   return (
     <main
       style={{
@@ -13,75 +31,57 @@ export default function Home() {
         textAlign: "center",
       }}
     >
-      {/* 🔥 VIDEO (HARD CONTAINED — NO MORE HUGE VIDEO) */}
-      <div
-        style={{
-          width: "100%",
-          maxWidth: "500px",
-          margin: "0 auto 20px auto",
-          borderRadius: "12px",
-          overflow: "hidden",
-        }}
-      >
+      {/* VIDEO */}
+      <div style={videoWrap}>
         <video
           src="/20260301_012211.mp4"
           autoPlay
           loop
           muted
           playsInline
-          style={{
-            width: "100%",
-            height: "240px",   // 🔥 LOCKED HEIGHT
-            objectFit: "cover",
-            display: "block",
-          }}
+          style={videoStyle}
         />
       </div>
 
-      {/* 🔥 HEADLINE */}
-      <h1 style={{ fontSize: "30px", marginBottom: "8px" }}>
+      {/* HEADLINE */}
+      <h1 style={{ fontSize: "30px" }}>
         Custom Infinity Mirrors Built For You
       </h1>
 
-      {/* 🔥 URGENCY */}
-      <p style={{ color: "#ff4d4d", fontWeight: "bold", marginBottom: "10px" }}>
+      <p style={urgencyStyle}>
         ⚠️ Only 3 Build Slots Left This Week
       </p>
 
-      {/* VALUE */}
       <p style={{ color: "#ccc", marginBottom: "20px" }}>
-        Upload your logo or idea. We design and build your custom mirror.
+        Upload your design. See your price instantly.
       </p>
 
-      {/* 🔥 IMAGE (LOCKED SIZE — NO MORE GIANT IMAGE) */}
+      {/* IMAGE */}
       <Image
         src="/mirror3.jpg"
-        alt="Infinity Mirror"
+        alt="Mirror"
         width={500}
         height={400}
-        style={{
-          width: "100%",
-          maxWidth: "280px",
-          height: "180px",   // 🔥 LOCK HEIGHT
-          objectFit: "cover",
-          borderRadius: "12px",
-          margin: "0 auto 20px auto",
-          display: "block",
-        }}
+        style={imageStyle}
       />
 
-      {/* 🔥 FORM */}
+      {/* 🔥 PRICE DISPLAY */}
+      {price > 0 && (
+        <div style={priceBox}>
+          <h2>Total Price: ${price}</h2>
+          <p style={{ color: "#aaa" }}>
+            $50 deposit required to secure your spot
+          </p>
+        </div>
+      )}
+
+      {/* FORM */}
       <form
         action="https://formspree.io/f/xqegzdrw"
         method="POST"
         encType="multipart/form-data"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-        }}
+        style={formStyle}
       >
-        {/* 🔥 AUTO REDIRECT TO PAYMENT */}
         <input
           type="hidden"
           name="_redirect"
@@ -89,7 +89,6 @@ export default function Home() {
         />
 
         <input
-          type="text"
           name="name"
           placeholder="Your Name"
           required
@@ -97,8 +96,8 @@ export default function Home() {
         />
 
         <input
-          type="email"
           name="email"
+          type="email"
           placeholder="Your Email"
           required
           style={inputStyle}
@@ -111,12 +110,18 @@ export default function Home() {
           style={{ color: "white" }}
         />
 
-        <select name="size" required style={inputStyle}>
+        {/* 🔥 SIZE SELECT (DRIVES PRICE) */}
+        <select
+          name="size"
+          required
+          style={inputStyle}
+          onChange={(e) => handleSizeChange(e.target.value)}
+        >
           <option value="">Select Size</option>
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large">Large</option>
-          <option value="Custom">Custom</option>
+          <option value="Small">Small ($150)</option>
+          <option value="Medium">Medium ($250)</option>
+          <option value="Large">Large ($400)</option>
+          <option value="Custom">Custom Quote</option>
         </select>
 
         <textarea
@@ -126,25 +131,56 @@ export default function Home() {
           style={inputStyle}
         />
 
-        {/* 🔥 PRIMARY CTA */}
+        {/* CTA */}
         <button type="submit" style={submitStyle}>
-          Submit Design & Secure Your Spot
+          Submit & Secure Your Spot
         </button>
 
-        {/* 🔥 SECOND CTA */}
-        <a
-          href="https://cash.app/$Jamie6913"
-          target="_blank"
-          style={depositStyle}
-        >
-          Pay $50 Deposit Now
-        </a>
+        {/* PAYMENT BUTTON */}
+        {price > 0 && (
+          <a
+            href="https://cash.app/$Jamie6913"
+            target="_blank"
+            style={depositStyle}
+          >
+            Pay $50 Deposit Now
+          </a>
+        )}
       </form>
     </main>
   );
 }
 
 /* ================= STYLES ================= */
+
+const videoWrap = {
+  maxWidth: "500px",
+  margin: "0 auto 20px auto",
+  borderRadius: "12px",
+  overflow: "hidden",
+};
+
+const videoStyle = {
+  width: "100%",
+  height: "240px",
+  objectFit: "cover",
+};
+
+const imageStyle = {
+  width: "100%",
+  maxWidth: "280px",
+  height: "180px",
+  objectFit: "cover",
+  borderRadius: "12px",
+  margin: "0 auto 20px auto",
+  display: "block",
+};
+
+const formStyle = {
+  display: "flex",
+  flexDirection: "column" as const,
+  gap: "12px",
+};
 
 const inputStyle = {
   padding: "12px",
@@ -171,4 +207,17 @@ const depositStyle = {
   borderRadius: "6px",
   textDecoration: "none",
   fontWeight: "bold",
+};
+
+const priceBox = {
+  marginBottom: "20px",
+  padding: "15px",
+  backgroundColor: "#111",
+  borderRadius: "10px",
+};
+
+const urgencyStyle = {
+  color: "#ff4d4d",
+  fontWeight: "bold",
+  marginBottom: "10px",
 };
