@@ -1,12 +1,17 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <main style={{ padding: "40px", maxWidth: "800px", margin: "0 auto", fontFamily: "Arial" }}>
-
-      {/* HEADLINE */}
-      <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
-        Custom Infinity Mirrors Built From Your Logo
-      </h1>
-
+    <main
+      style={{
+        padding: "40px",
+        maxWidth: "800px",
+        margin: "0 auto",
+        fontFamily: "Arial",
+        color: "white",
+        backgroundColor: "black",
+      }}
+    >
       {/* VIDEO */}
       <video
         src="/20260301_012211.mp4"
@@ -14,100 +19,139 @@ export default function Home() {
         loop
         muted
         playsInline
-        controls
-        style={{ width: "100%", borderRadius: "12px", marginBottom: "20px" }}
+        style={{
+          width: "100%",
+          borderRadius: "12px",
+          marginBottom: "30px",
+        }}
       />
 
-      {/* PRICE ANCHOR */}
-      <p style={{ fontSize: "18px", marginBottom: "20px" }}>
-        Custom builds typically range from <b>$150 – $400+</b> depending on size and complexity.
+      {/* HEADLINE */}
+      <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
+        Custom Infinity Mirrors
+      </h1>
+
+      <p style={{ marginBottom: "30px", color: "#ccc" }}>
+        Upload your logo or design. We build it custom for you.
       </p>
 
-      {/* DESCRIPTION */}
-      <p style={{ fontSize: "20px", marginBottom: "30px" }}>
-        Upload your logo and get a one-of-a-kind custom mirror built for you.
-      </p>
-
-      {/* IMAGE */}
-      <img
-        src="/mirror1.jpg"
-        alt="Mirror Example"
-        style={{ width: "100%", borderRadius: "12px", marginBottom: "20px" }}
+      {/* 🔥 IMAGE (FIXED SIZE — NO MORE HUGE IMAGE) */}
+      <Image
+        src="/mirror3.jpg"
+        alt="Infinity Mirror Example"
+        width={800}
+        height={600}
+        style={{
+          width: "100%",
+          maxWidth: "450px",
+          height: "auto",
+          borderRadius: "12px",
+          margin: "20px auto",
+          display: "block",
+        }}
       />
-
-      {/* STEP 1 */}
-      <h2 style={{ marginTop: "40px" }}>
-        Step 1: Submit Your Design
-      </h2>
 
       {/* FORM */}
       <form
         action="https://formspree.io/f/xqegzdrw"
         method="POST"
         encType="multipart/form-data"
-        style={{ display: "flex", flexDirection: "column", gap: "15px", marginTop: "20px" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+          marginTop: "30px",
+        }}
       >
+        {/* 🔥 AUTO REDIRECT AFTER SUBMIT */}
+        <input
+          type="hidden"
+          name="_redirect"
+          value="https://cash.app/$Jamie6913"
+        />
 
-        <input type="text" name="name" placeholder="Your Name" required style={{ padding: "12px" }} />
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+          style={inputStyle}
+        />
 
-        <input type="email" name="email" placeholder="Your Email" required style={{ padding: "12px" }} />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+          style={inputStyle}
+        />
 
-        <input type="file" name="logo" accept="image/*" required />
+        <input
+          type="file"
+          name="file"
+          required
+          style={{ color: "white" }}
+        />
 
-        <select name="size" required style={{ padding: "12px" }}>
+        <select name="size" required style={inputStyle}>
           <option value="">Select Size</option>
-          <option value="Small">Small (12-16")</option>
-          <option value="Medium">Medium (18-24")</option>
-          <option value="Large">Large (24-36")</option>
+          <option value="Small (12x12)">Small (12x12)</option>
+          <option value="Medium (18x18)">Medium (18x18)</option>
+          <option value="Large (24x24)">Large (24x24)</option>
+          <option value="Custom">Custom Size</option>
         </select>
 
-        <textarea name="notes" placeholder="Anything specific you want?" style={{ padding: "12px" }} />
+        <textarea
+          name="notes"
+          placeholder="Anything specific you want?"
+          rows={4}
+          style={inputStyle}
+        />
 
-        <button
-          type="submit"
-          style={{
-            padding: "15px",
-            fontSize: "18px",
-            background: "black",
-            color: "white",
-            borderRadius: "8px",
-            cursor: "pointer"
-          }}
-        >
-          Submit Design & Continue
+        {/* 🔥 MAIN BUTTON */}
+        <button type="submit" style={submitStyle}>
+          Submit Design & Pay Deposit
         </button>
 
-        <p style={{ fontSize: "14px", color: "gray", textAlign: "center" }}>
-          You’ll be prompted to submit your $50 deposit after this step.
-        </p>
-
-      </form>
-
-      {/* STEP 2 */}
-      <div style={{ marginTop: "50px", textAlign: "center" }}>
-        <h2>Step 2: Secure Your Build Slot</h2>
-
-        <p style={{ fontSize: "18px", marginBottom: "10px" }}>
-          🔒 Your build is NOT started until deposit is received.
-        </p>
-
+        {/* 🔥 SECOND DEPOSIT BUTTON */}
         <a
           href="https://cash.app/$Jamie6913"
           target="_blank"
-          style={{
-            display: "inline-block",
-            padding: "15px 25px",
-            background: "green",
-            color: "white",
-            fontSize: "18px",
-            borderRadius: "8px",
-            textDecoration: "none"
-          }}
+          style={depositStyle}
         >
-          Pay $50 Deposit
+          Pay $50 Deposit Now
         </a>
-      </div>
-
+      </form>
     </main>
   );
 }
+
+/* ================= STYLES ================= */
+
+const inputStyle = {
+  padding: "12px",
+  borderRadius: "6px",
+  border: "none",
+  fontSize: "16px",
+};
+
+const submitStyle = {
+  padding: "14px",
+  fontSize: "18px",
+  backgroundColor: "#00ff99",
+  color: "black",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer",
+  fontWeight: "bold",
+};
+
+const depositStyle = {
+  textAlign: "center" as const,
+  padding: "14px",
+  backgroundColor: "#00cc66",
+  color: "black",
+  borderRadius: "6px",
+  textDecoration: "none",
+  fontWeight: "bold",
+};
