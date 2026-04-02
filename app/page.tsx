@@ -62,4 +62,30 @@ export default function Home() {
 
     </main>
   );
-}
+}<div style={{ marginTop: "40px", textAlign: "center" }}>
+  <h2>Secure Your Build Slot</h2>
+
+  <p style={{ fontSize: "18px", marginBottom: "10px" }}>
+    $50 Deposit Required to Start Your Custom Mirror
+  </p>
+
+  <a
+    href="https://cash.app/$Jamie6913"
+    target="_blank"
+    style={{
+      display: "inline-block",
+      padding: "15px 25px",
+      background: "green",
+      color: "white",
+      fontSize: "18px",
+      borderRadius: "8px",
+      textDecoration: "none"
+    }}
+  >
+    Pay Deposit Now
+  </a>
+
+  <p style={{ marginTop: "10px", fontSize: "14px", color: "gray" }}>
+    After submitting your form, send your deposit to begin production.
+  </p>
+</div>
