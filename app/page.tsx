@@ -1,159 +1,218 @@
 "use client";
 
 import { useState } from "react";
-import { CSSProperties } from "react";
 
 export default function Home() {
-  const formAction = "https://formspree.io/f/xqegzdrw";
-  const depositLink = "https://cash.app/$Jamie6913";
-
-  // 🔥 STATE
-  const [size, setSize] = useState("");
   const [preview, setPreview] = useState<string | null>(null);
+  const [size, setSize] = useState("large");
+  const [price, setPrice] = useState(500);
+  const [upsellLED, setUpsellLED] = useState(false);
+  const [upsellRemote, setUpsellRemote] = useState(false);
 
-  const basePrices: any = {
-    small: 220,
-    medium: 350,
-    large: 500,
-  };
+  const depositLink = "https://cash.app/$Jamie6913";
+  const formAction = "https://formspree.io/f/xqegzdrw";
 
-  const price = basePrices[size] || 0;
-
-  // 🔒 STYLES
-  const videoStyle: CSSProperties = {
-    width: "100%",
-    height: "220px",
-    objectFit: "cover",
-    borderRadius: "12px",
-    marginBottom: "12px",
-  };
-
-  const imageStyle: CSSProperties = {
-    width: "100%",
-    maxWidth: "260px",
-    height: "160px",
-    objectFit: "cover",
-    borderRadius: "12px",
-    margin: "0 auto 12px auto",
-    display: "block",
-  };
-
-  const previewStyle: CSSProperties = {
-    width: "100%",
-    maxWidth: "260px",
-    height: "160px",
-    objectFit: "contain",
-    borderRadius: "12px",
-    margin: "0 auto 12px auto",
-    background: "#111",
-    padding: "10px",
-  };
-
-  const inputStyle: CSSProperties = {
+  const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "12px",
-    marginBottom: "10px",
+    marginBottom: "12px",
     borderRadius: "6px",
-    border: "1px solid #333",
-    background: "#111",
-    color: "white",
+    border: "none",
+    background: "#1a1a1a",
+    color: "white"
+  };
+
+  const recalcPrice = (base: number, led: boolean, remote: boolean) => {
+    let total = base;
+    if (led) total += 75;
+    if (remote) total += 25;
+    setPrice(total);
+  };
+
+  const handleSizeChange = (value: string) => {
+    setSize(value);
+    let base = 500;
+    if (value === "small") base = 300;
+    if (value === "medium") base = 400;
+    if (value === "large") base = 500;
+    recalcPrice(base, upsellLED, upsellRemote);
+  };
+
+  const toggleLED = () => {
+    const newVal = !upsellLED;
+    setUpsellLED(newVal);
+    recalcPrice(
+      size === "small" ? 300 : size === "medium" ? 400 : 500,
+      newVal,
+      upsellRemote
+    );
+  };
+
+  const toggleRemote = () => {
+    const newVal = !upsellRemote;
+    setUpsellRemote(newVal);
+    recalcPrice(
+      size === "small" ? 300 : size === "medium" ? 400 : 500,
+      upsellLED,
+      newVal
+    );
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   return (
     <main
       style={{
-        background: "black",
-        color: "white",
         minHeight: "100vh",
-        padding: "18px",
-        maxWidth: "480px",
-        margin: "0 auto",
-        fontFamily: "Arial",
+        background: "#0a0a0a",
+        color: "white",
+        display: "flex",
+        justifyContent: "center",
+        padding: "40px 20px"
       }}
     >
-      {/* 🔥 VIDEO */}
-      <video
-        src="/20260301_012211.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={videoStyle}
-      />
+      <div style={{ maxWidth: "900px", width: "100%" }}>
 
-      {/* 🔥 MAIN IMAGE (FIXED ISSUE) */}
-      <img src="/mirror1.jpg" style={imageStyle} />
+        {/* HEADLINE */}
+        <h1 style={{
+          fontSize: "32px",
+          textAlign: "center",
+          marginBottom: "10px"
+        }}>
+          Custom Infinity Mirrors Built For You
+        </h1>
 
-      {/* 🔥 GALLERY */}
-      <img src="/mirror3.jpg" style={imageStyle} />
-      <img src="/mirror11.jpg" style={imageStyle} />
+        <p style={{
+          textAlign: "center",
+          opacity: 0.7,
+          marginBottom: "30px"
+        }}>
+          Upload your design. See your build. Lock your slot.
+        </p>
 
-      {/* 🔥 HEADLINE */}
-      <h1>Custom Infinity Mirrors — Premium Builds</h1>
+        {/* PREVIEW */}
+        <div style={{
+          background: "#111",
+          padding: "25px",
+          borderRadius: "12px",
+          textAlign: "center",
+          marginBottom: "20px",
+          boxShadow: "0 0 40px rgba(0,255,200,0.15)"
+        }}>
+          <h3>Live Preview</h3>
 
-      <p style={{ color: "#aaa" }}>
-        Upload your design. See your custom build come to life.
-      </p>
-
-      {/* 🔥 PREVIEW SYSTEM */}
-      {preview && (
-        <>
-          <p style={{ marginTop: "10px" }}>Your Design Preview:</p>
-          <img src={preview} style={previewStyle} />
-        </>
-      )}
-
-      {/* 🔥 PRICE */}
-      {price > 0 && (
-        <div style={{ margin: "10px 0" }}>
-          Estimated Price: ${price}
+          {preview ? (
+            <img
+              src={preview}
+              style={{
+                maxWidth: "100%",
+                borderRadius: "10px"
+              }}
+            />
+          ) : (
+            <div style={{ opacity: 0.5 }}>
+              Upload an image to preview
+            </div>
+          )}
         </div>
-      )}
 
-      {/* 🔥 FORM */}
-      <form action={formAction} method="POST">
-        <input name="name" placeholder="Your Name" required style={inputStyle} />
-        <input name="email" type="email" placeholder="Your Email" required style={inputStyle} />
+        {/* PRICE */}
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <div style={{ opacity: 0.5 }}>
+            Typical builds: $800–$1500
+          </div>
 
-        {/* 🔥 FILE INPUT WITH PREVIEW */}
-        <input
-          type="file"
-          name="file"
-          style={inputStyle}
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              setPreview(URL.createObjectURL(file));
-            }
+          <div style={{
+            fontSize: "28px",
+            color: "#00ffcc",
+            fontWeight: "bold"
+          }}>
+            Your Price: ${price}
+          </div>
+        </div>
+
+        {/* DEPOSIT */}
+        <a
+          href={depositLink}
+          target="_blank"
+          style={{
+            display: "block",
+            textAlign: "center",
+            padding: "14px",
+            background: "#00cc66",
+            color: "black",
+            borderRadius: "8px",
+            marginBottom: "10px",
+            fontWeight: "bold",
+            textDecoration: "none"
           }}
-        />
-
-        <select
-          name="size"
-          style={inputStyle}
-          onChange={(e) => setSize(e.target.value)}
         >
-          <option value="">Select Size</option>
-          <option value="small">Small ($220)</option>
-          <option value="medium">Medium ($350)</option>
-          <option value="large">Large ($500)</option>
-        </select>
+          🔥 Secure Your Build Slot ($50 Deposit)
+        </a>
 
-        <textarea
-          name="details"
-          placeholder="Describe your custom vision..."
-          style={inputStyle}
-        />
+        <div style={{
+          textAlign: "center",
+          fontSize: "12px",
+          opacity: 0.6,
+          marginBottom: "30px"
+        }}>
+          Only 3 build slots available this week
+        </div>
 
-        <button type="submit" style={inputStyle}>
-          Submit Custom Request
-        </button>
-      </form>
+        {/* FORM */}
+        <form action={formAction} method="POST">
 
-      {/* 🔥 DEPOSIT */}
-      <a href={depositLink} target="_blank" style={inputStyle}>
-        Secure Build Slot ($50 Deposit)
-      </a>
+          <input name="name" placeholder="Your Name" required style={inputStyle} />
+          <input name="email" type="email" placeholder="Your Email" required style={inputStyle} />
+
+          <input type="file" name="file" onChange={handleFileChange} style={inputStyle} />
+
+          <select
+            value={size}
+            onChange={(e) => handleSizeChange(e.target.value)}
+            style={inputStyle}
+          >
+            <option value="small">Small ($300)</option>
+            <option value="medium">Medium ($400)</option>
+            <option value="large">Large ($500)</option>
+          </select>
+
+          {/* UPSELLS */}
+          <div style={{ marginBottom: "15px" }}>
+            <label>
+              <input type="checkbox" onChange={toggleLED} /> RGB Lighting Upgrade (+$75)
+            </label>
+            <br />
+            <label>
+              <input type="checkbox" onChange={toggleRemote} /> Remote Control (+$25)
+            </label>
+          </div>
+
+          <textarea
+            name="details"
+            placeholder="Describe your custom vision..."
+            style={inputStyle}
+          />
+
+          <button
+            type="submit"
+            style={{
+              ...inputStyle,
+              background: "#222",
+              cursor: "pointer"
+            }}
+          >
+            Submit Custom Request
+          </button>
+
+        </form>
+
+      </div>
     </main>
   );
 }
