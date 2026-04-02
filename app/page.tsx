@@ -4,51 +4,68 @@ export default function Home() {
   return (
     <main
       style={{
-        padding: "30px",
-        maxWidth: "700px",
+        padding: "20px",
+        maxWidth: "600px",
         margin: "0 auto",
         fontFamily: "Arial",
         color: "white",
         backgroundColor: "black",
+        textAlign: "center",
       }}
     >
-      {/* 🔥 VIDEO (FIXED SIZE) */}
-      <video
-        src="/20260301_012211.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
+      {/* 🔥 VIDEO (HARD CONTAINED — NO MORE HUGE VIDEO) */}
+      <div
         style={{
           width: "100%",
-          maxHeight: "320px",
-          objectFit: "cover",
+          maxWidth: "500px",
+          margin: "0 auto 20px auto",
           borderRadius: "12px",
-          marginBottom: "20px",
+          overflow: "hidden",
         }}
-      />
+      >
+        <video
+          src="/20260301_012211.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            height: "240px",   // 🔥 LOCKED HEIGHT
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+      </div>
 
-      {/* HEADLINE */}
-      <h1 style={{ fontSize: "36px", marginBottom: "8px" }}>
-        Custom Infinity Mirrors
+      {/* 🔥 HEADLINE */}
+      <h1 style={{ fontSize: "30px", marginBottom: "8px" }}>
+        Custom Infinity Mirrors Built For You
       </h1>
 
-      <p style={{ marginBottom: "20px", color: "#ccc" }}>
-        Upload your logo. We build it custom. Limited slots available.
+      {/* 🔥 URGENCY */}
+      <p style={{ color: "#ff4d4d", fontWeight: "bold", marginBottom: "10px" }}>
+        ⚠️ Only 3 Build Slots Left This Week
       </p>
 
-      {/* 🔥 IMAGE (CONTROLLED SIZE) */}
+      {/* VALUE */}
+      <p style={{ color: "#ccc", marginBottom: "20px" }}>
+        Upload your logo or idea. We design and build your custom mirror.
+      </p>
+
+      {/* 🔥 IMAGE (LOCKED SIZE — NO MORE GIANT IMAGE) */}
       <Image
         src="/mirror3.jpg"
-        alt="Infinity Mirror Example"
-        width={800}
-        height={600}
+        alt="Infinity Mirror"
+        width={500}
+        height={400}
         style={{
           width: "100%",
-          maxWidth: "350px",
-          height: "auto",
+          maxWidth: "280px",
+          height: "180px",   // 🔥 LOCK HEIGHT
+          objectFit: "cover",
           borderRadius: "12px",
-          margin: "10px auto 20px auto",
+          margin: "0 auto 20px auto",
           display: "block",
         }}
       />
@@ -61,10 +78,10 @@ export default function Home() {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "15px",
+          gap: "12px",
         }}
       >
-        {/* AUTO REDIRECT */}
+        {/* 🔥 AUTO REDIRECT TO PAYMENT */}
         <input
           type="hidden"
           name="_redirect"
@@ -96,25 +113,25 @@ export default function Home() {
 
         <select name="size" required style={inputStyle}>
           <option value="">Select Size</option>
-          <option value="12x12">12x12</option>
-          <option value="18x18">18x18</option>
-          <option value="24x24">24x24</option>
+          <option value="Small">Small</option>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
           <option value="Custom">Custom</option>
         </select>
 
         <textarea
           name="notes"
-          placeholder="Anything specific you want?"
+          placeholder="Describe your design..."
           rows={3}
           style={inputStyle}
         />
 
         {/* 🔥 PRIMARY CTA */}
         <button type="submit" style={submitStyle}>
-          Submit Design & Pay Deposit
+          Submit Design & Secure Your Spot
         </button>
 
-        {/* 🔥 STRONG SECOND CTA */}
+        {/* 🔥 SECOND CTA */}
         <a
           href="https://cash.app/$Jamie6913"
           target="_blank"
@@ -143,12 +160,11 @@ const submitStyle = {
   color: "black",
   border: "none",
   borderRadius: "6px",
-  cursor: "pointer",
   fontWeight: "bold",
+  cursor: "pointer",
 };
 
 const depositStyle = {
-  textAlign: "center" as const,
   padding: "14px",
   backgroundColor: "#00cc66",
   color: "black",
