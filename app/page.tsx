@@ -26,18 +26,14 @@ export default function Home() {
         style={{ width: "100%", borderRadius: "12px", marginBottom: "20px" }}
       />
 
-      {/* ORDER FORM */}
       <form
         action="https://formspree.io/f/xqegzdrw"
         method="POST"
         encType="multipart/form-data"
         style={{ display: "flex", flexDirection: "column", gap: "15px", marginTop: "30px" }}
       >
-
         <input type="text" name="name" placeholder="Your Name" required style={{ padding: "12px" }} />
-
         <input type="email" name="email" placeholder="Your Email" required style={{ padding: "12px" }} />
-
         <input type="file" name="logo" accept="image/*" required />
 
         <select name="size" required style={{ padding: "12px" }}>
@@ -62,7 +58,6 @@ export default function Home() {
         >
           Submit Order Request
         </button>
-
       </form>
 
     </main>
