@@ -9,22 +9,15 @@ export default function Home() {
 
   // 🔥 STATE
   const [size, setSize] = useState("");
-  const [rush, setRush] = useState(false);
-  const [remote, setRemote] = useState(false);
-  const [premium, setPremium] = useState(false);
+  const [preview, setPreview] = useState<string | null>(null);
 
-  // 🔥 PREMIUM PRICING (UPGRADED)
   const basePrices: any = {
     small: 220,
     medium: 350,
     large: 500,
   };
 
-  const price =
-    (basePrices[size] || 0) +
-    (rush ? 60 : 0) +
-    (remote ? 40 : 0) +
-    (premium ? 120 : 0);
+  const price = basePrices[size] || 0;
 
   // 🔒 STYLES
   const videoStyle: CSSProperties = {
@@ -35,19 +28,25 @@ export default function Home() {
     marginBottom: "12px",
   };
 
-  const galleryStyle: CSSProperties = {
-    display: "flex",
-    gap: "8px",
-    overflowX: "auto",
-    marginBottom: "15px",
+  const imageStyle: CSSProperties = {
+    width: "100%",
+    maxWidth: "260px",
+    height: "160px",
+    objectFit: "cover",
+    borderRadius: "12px",
+    margin: "0 auto 12px auto",
+    display: "block",
   };
 
-  const imageStyle: CSSProperties = {
-    width: "120px",
-    height: "120px",
-    objectFit: "cover",
-    borderRadius: "10px",
-    flexShrink: 0,
+  const previewStyle: CSSProperties = {
+    width: "100%",
+    maxWidth: "260px",
+    height: "160px",
+    objectFit: "contain",
+    borderRadius: "12px",
+    margin: "0 auto 12px auto",
+    background: "#111",
+    padding: "10px",
   };
 
   const inputStyle: CSSProperties = {
@@ -58,30 +57,6 @@ export default function Home() {
     border: "1px solid #333",
     background: "#111",
     color: "white",
-  };
-
-  const buttonStyle: CSSProperties = {
-    width: "100%",
-    padding: "14px",
-    background: "#00cc66",
-    border: "none",
-    borderRadius: "6px",
-    fontWeight: "bold",
-    cursor: "pointer",
-    marginTop: "10px",
-  };
-
-  const depositStyle: CSSProperties = {
-    display: "block",
-    width: "100%",
-    padding: "14px",
-    background: "#ffcc00",
-    color: "black",
-    textAlign: "center",
-    borderRadius: "6px",
-    fontWeight: "bold",
-    textDecoration: "none",
-    marginTop: "12px",
   };
 
   return (
@@ -96,7 +71,7 @@ export default function Home() {
         fontFamily: "Arial",
       }}
     >
-      {/* 🔥 HERO VIDEO */}
+      {/* 🔥 VIDEO */}
       <video
         src="/20260301_012211.mp4"
         autoPlay
@@ -106,45 +81,32 @@ export default function Home() {
         style={videoStyle}
       />
 
+      {/* 🔥 MAIN IMAGE (FIXED ISSUE) */}
+      <img src="/mirror1.jpg" style={imageStyle} />
+
       {/* 🔥 GALLERY */}
-      <div style={galleryStyle}>
-        <img src="/mirror1.jpg" style={imageStyle} />
-        <img src="/mirror3.jpg" style={imageStyle} />
-        <img src="/mirror11.jpg" style={imageStyle} />
-      </div>
+      <img src="/mirror3.jpg" style={imageStyle} />
+      <img src="/mirror11.jpg" style={imageStyle} />
 
-      {/* 🔥 PREMIUM HEADLINE */}
-      <h1 style={{ fontSize: "26px" }}>
-        Custom Infinity Mirrors — Built Like Art
-      </h1>
+      {/* 🔥 HEADLINE */}
+      <h1>Custom Infinity Mirrors — Premium Builds</h1>
 
-      {/* 🔥 PREMIUM VALUE */}
-      <p style={{ color: "#ccc", marginBottom: "10px" }}>
-        Hand-built, one-of-a-kind illuminated pieces designed around your vision.
+      <p style={{ color: "#aaa" }}>
+        Upload your design. See your custom build come to life.
       </p>
 
-      {/* 🔥 PRICE ANCHOR */}
-      <p style={{ color: "#aaa", marginBottom: "10px" }}>
-        Most custom builds range from <strong>$300 – $600+</strong>
-      </p>
+      {/* 🔥 PREVIEW SYSTEM */}
+      {preview && (
+        <>
+          <p style={{ marginTop: "10px" }}>Your Design Preview:</p>
+          <img src={preview} style={previewStyle} />
+        </>
+      )}
 
-      {/* 🔥 URGENCY */}
-      <p style={{ color: "#ff4444", fontWeight: "bold" }}>
-        Only 3 build slots available this week
-      </p>
-
-      {/* 🔥 LIVE PRICE */}
+      {/* 🔥 PRICE */}
       {price > 0 && (
-        <div
-          style={{
-            background: "#111",
-            padding: "10px",
-            borderRadius: "8px",
-            margin: "10px 0",
-            textAlign: "center",
-          }}
-        >
-          Estimated Build Price: ${price}
+        <div style={{ margin: "10px 0" }}>
+          Estimated Price: ${price}
         </div>
       )}
 
@@ -152,7 +114,19 @@ export default function Home() {
       <form action={formAction} method="POST">
         <input name="name" placeholder="Your Name" required style={inputStyle} />
         <input name="email" type="email" placeholder="Your Email" required style={inputStyle} />
-        <input type="file" name="file" style={inputStyle} />
+
+        {/* 🔥 FILE INPUT WITH PREVIEW */}
+        <input
+          type="file"
+          name="file"
+          style={inputStyle}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              setPreview(URL.createObjectURL(file));
+            }
+          }}
+        />
 
         <select
           name="size"
@@ -165,41 +139,21 @@ export default function Home() {
           <option value="large">Large ($500)</option>
         </select>
 
-        {/* 🔥 UPSSELLS (REPOSITIONED AS PREMIUM FEATURES) */}
-        <label>
-          <input type="checkbox" onChange={() => setRush(!rush)} /> Priority Build (+$60)
-        </label>
-        <br />
-
-        <label>
-          <input type="checkbox" onChange={() => setRemote(!remote)} /> LED Remote Control (+$40)
-        </label>
-        <br />
-
-        <label>
-          <input type="checkbox" onChange={() => setPremium(!premium)} /> Premium Mirror Finish (+$120)
-        </label>
-
         <textarea
           name="details"
           placeholder="Describe your custom vision..."
           style={inputStyle}
         />
 
-        <button type="submit" style={buttonStyle}>
+        <button type="submit" style={inputStyle}>
           Submit Custom Request
         </button>
       </form>
 
       {/* 🔥 DEPOSIT */}
-      <a href={depositLink} target="_blank" style={depositStyle}>
-        Secure Your Build Slot ($50 Deposit)
+      <a href={depositLink} target="_blank" style={inputStyle}>
+        Secure Build Slot ($50 Deposit)
       </a>
-
-      {/* 🔥 TRUST */}
-      <p style={{ fontSize: "12px", color: "#888", marginTop: "10px" }}>
-        Deposit is applied toward final price and locks your production slot.
-      </p>
     </main>
   );
 }
