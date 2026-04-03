@@ -52,6 +52,7 @@ export default function Home() {
           <img src="/images/mirror3.jpg" />
           <img src="/images/mirror6.jpg" />
           <img src="/images/mirror7.jpg" />
+          <img src="/images/mirror8.jpg" />
         </div>
       </section>
 
