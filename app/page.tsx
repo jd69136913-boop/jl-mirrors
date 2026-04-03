@@ -31,10 +31,7 @@ export default function Home() {
 
   const handleSizeChange = (value: string) => {
     setSize(value);
-    let base = 500;
-    if (value === "small") base = 300;
-    if (value === "medium") base = 400;
-    if (value === "large") base = 500;
+    let base = value === "small" ? 300 : value === "medium" ? 400 : 500;
     recalcPrice(base, upsellLED, upsellRemote);
   };
 
@@ -80,19 +77,19 @@ export default function Home() {
 
         {/* HEADLINE */}
         <h1 style={{
-          fontSize: "32px",
+          fontSize: "34px",
           textAlign: "center",
           marginBottom: "10px"
         }}>
-          Custom Infinity Mirrors Built For You
+          Design Your Own Custom Infinity Mirror
         </h1>
 
         <p style={{
           textAlign: "center",
           opacity: 0.7,
-          marginBottom: "30px"
+          marginBottom: "25px"
         }}>
-          Upload your design. See your build. Lock your slot.
+          Hand-built custom LED infinity mirrors. Upload your design and bring it to life.
         </p>
 
         {/* PREVIEW */}
@@ -102,7 +99,7 @@ export default function Home() {
           borderRadius: "12px",
           textAlign: "center",
           marginBottom: "20px",
-          boxShadow: "0 0 40px rgba(0,255,200,0.15)"
+          boxShadow: "0 0 40px rgba(0,255,200,0.2)"
         }}>
           <h3>Live Preview</h3>
 
@@ -116,7 +113,7 @@ export default function Home() {
             />
           ) : (
             <div style={{ opacity: 0.5 }}>
-              Upload an image to preview
+              Upload an image to preview your custom mirror
             </div>
           )}
         </div>
@@ -128,7 +125,7 @@ export default function Home() {
           </div>
 
           <div style={{
-            fontSize: "28px",
+            fontSize: "30px",
             color: "#00ffcc",
             fontWeight: "bold"
           }}>
@@ -143,7 +140,7 @@ export default function Home() {
           style={{
             display: "block",
             textAlign: "center",
-            padding: "14px",
+            padding: "16px",
             background: "#00cc66",
             color: "black",
             borderRadius: "8px",
@@ -169,7 +166,6 @@ export default function Home() {
 
           <input name="name" placeholder="Your Name" required style={inputStyle} />
           <input name="email" type="email" placeholder="Your Email" required style={inputStyle} />
-
           <input type="file" name="file" onChange={handleFileChange} style={inputStyle} />
 
           <select
@@ -182,14 +178,29 @@ export default function Home() {
             <option value="large">Large ($500)</option>
           </select>
 
-          {/* UPSELLS */}
-          <div style={{ marginBottom: "15px" }}>
-            <label>
-              <input type="checkbox" onChange={toggleLED} /> RGB Lighting Upgrade (+$75)
+          {/* UPSSELLS */}
+          <div style={{
+            background: "#111",
+            padding: "20px",
+            borderRadius: "10px",
+            marginBottom: "20px"
+          }}>
+            <h3>Upgrade Your Build</h3>
+
+            <label style={{ display: "block", marginBottom: "10px", cursor: "pointer" }}>
+              <input type="checkbox" onChange={toggleLED} style={{ marginRight: "8px" }} />
+              🔥 RGB Infinity Glow (+$75)
+              <div style={{ fontSize: "12px", opacity: 0.6 }}>
+                Full color-changing LED depth effect
+              </div>
             </label>
-            <br />
-            <label>
-              <input type="checkbox" onChange={toggleRemote} /> Remote Control (+$25)
+
+            <label style={{ display: "block", cursor: "pointer" }}>
+              <input type="checkbox" onChange={toggleRemote} style={{ marginRight: "8px" }} />
+              🎮 Remote Control Experience (+$25)
+              <div style={{ fontSize: "12px", opacity: 0.6 }}>
+                Control brightness, color, and effects
+              </div>
             </label>
           </div>
 
