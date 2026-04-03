@@ -3,179 +3,170 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [size, setSize] = useState("Large ($500)");
-  const [extras, setExtras] = useState({
-    glow: false,
-    remote: false,
-  });
+  const [price, setPrice] = useState(149);
+  const [size, setSize] = useState("Small");
+  const [color, setColor] = useState("White");
 
-  const basePrice = size.includes("500") ? 500 : 300;
-
-  const total =
-    basePrice +
-    (extras.glow ? 75 : 0) +
-    (extras.remote ? 25 : 0);
+  const updatePrice = (selectedSize: string) => {
+    if (selectedSize === "Small") setPrice(149);
+    if (selectedSize === "Medium") setPrice(249);
+    if (selectedSize === "Large") setPrice(399);
+  };
 
   return (
-    <main style={{ background: "#000", color: "#fff", fontFamily: "Arial" }}>
+    <main className="bg-black text-white min-h-screen font-sans">
 
       {/* HERO */}
-      <section style={{ textAlign: "center", padding: "60px 20px" }}>
-        <h1 style={{ fontSize: "36px", marginBottom: "10px" }}>
-          Custom Infinity Mirrors
+      <section className="text-center py-20 px-6">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Custom Infinity Mirrors That Turn Heads
         </h1>
-
-        <p style={{ color: "#aaa" }}>
-          Built to order. Limited weekly slots.
+        <p className="text-lg text-gray-300 mb-6">
+          Built by hand. Fully customizable. Designed to stand out.
         </p>
 
-        <img
-          src="/images/mirror1.jpg"
-          alt="Infinity Mirror"
-          style={{
-            width: "100%",
-            maxWidth: "450px",
-            borderRadius: "12px",
-            marginTop: "30px",
-            objectFit: "cover",
-            boxShadow: "0 0 40px rgba(0,255,255,0.35)",
-          }}
-        />
+        <button
+          onClick={() => document.getElementById("custom")?.scrollIntoView()}
+          className="bg-white text-black px-6 py-3 rounded-full font-bold hover:scale-105 transition"
+        >
+          Start Your Custom Design
+        </button>
       </section>
 
-      {/* GALLERY */}
-      <section style={{ padding: "40px 20px" }}>
-        <h2 style={{ textAlign: "center" }}>Recent Builds</h2>
+      {/* IMAGE SHOWCASE */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 px-6">
+        <img src="/images/mirror1.jpg" className="rounded-xl" />
+        <img src="/images/mirror2.jpg" className="rounded-xl" />
+        <img src="/images/mirror3.jpg" className="rounded-xl" />
+        <img src="/images/mirror4.jpg" className="rounded-xl" />
+      </section>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "12px",
-            marginTop: "25px",
-          }}
-        >
-          <img src="/images/mirror2.jpg" style={imgStyle} />
-          <img src="/images/mirror3.jpg" style={imgStyle} />
-          <img src="/images/mirror6.jpg" style={imgStyle} />
-          <img src="/images/mirror7.jpg" style={imgStyle} />
-          <img src="/images/mirror8.jpg" style={imgStyle} />
+      {/* TRUST + VALUE */}
+      <section className="text-center py-16 px-6">
+        <h2 className="text-3xl font-bold mb-6">Why These Sell Fast</h2>
+        <div className="space-y-2 text-gray-300">
+          <p>✔ Hand-built craftsmanship</p>
+          <p>✔ Fully customizable (logos, colors, size)</p>
+          <p>✔ Built in Arizona</p>
+          <p>✔ One-of-a-kind designs</p>
         </div>
       </section>
 
-      {/* FORM */}
-      <section
-        style={{
-          padding: "50px 20px",
-          maxWidth: "500px",
-          margin: "auto",
-        }}
-      >
-        <h2 style={{ textAlign: "center", marginBottom: "20px" }}>
-          Start Your Custom Build
+      {/* PRICE + URGENCY */}
+      <section className="text-center py-12 px-6">
+        <h2 className="text-3xl font-bold mb-4">
+          Custom Builds Starting at $149
+        </h2>
+        <p className="text-red-400 font-bold">
+          Only 5 build slots available this month
+        </p>
+      </section>
+
+      {/* CUSTOM BUILDER */}
+      <section id="custom" className="py-20 px-6 max-w-xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-center">
+          Customize Your Mirror
         </h2>
 
-        <form
-          action="https://formspree.io/f/xqegzdrw"
-          method="POST"
-        >
-          <input type="hidden" name="source" value="website" />
-          <input
-            type="hidden"
-            name="_redirect"
-            value="https://jl-mirrors-git-main-jd69136913-boops-projects.vercel.app/thank-you"
-          />
+        <div className="space-y-4">
 
-          <input name="name" placeholder="Your Name" required style={inputStyle} />
-          <input name="email" placeholder="Your Email" required style={inputStyle} />
-
-          <input type="file" name="file" style={inputStyle} />
-
+          {/* SIZE */}
           <select
-            name="size"
-            value={size}
-            onChange={(e) => setSize(e.target.value)}
-            style={inputStyle}
+            onChange={(e) => {
+              setSize(e.target.value);
+              updatePrice(e.target.value);
+            }}
+            className="w-full p-3 rounded text-black"
           >
-            <option>Small ($300)</option>
-            <option>Large ($500)</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
           </select>
 
-          <div style={{ marginTop: "20px" }}>
-            <h3>Upgrade Your Build</h3>
+          {/* COLOR */}
+          <select
+            onChange={(e) => setColor(e.target.value)}
+            className="w-full p-3 rounded text-black"
+          >
+            <option>White</option>
+            <option>RGB</option>
+            <option>Blue</option>
+            <option>Red</option>
+          </select>
 
-            <label>
-              <input
-                type="checkbox"
-                checked={extras.glow}
-                onChange={() =>
-                  setExtras({ ...extras, glow: !extras.glow })
-                }
-              />
-              🔥 RGB Glow (+$75)
-            </label>
-
-            <br />
-
-            <label>
-              <input
-                type="checkbox"
-                checked={extras.remote}
-                onChange={() =>
-                  setExtras({ ...extras, remote: !extras.remote })
-                }
-              />
-              🎮 Remote Control (+$25)
-            </label>
-          </div>
-
-          <textarea
-            name="notes"
-            placeholder="Describe your custom vision..."
-            style={{ ...inputStyle, height: "100px" }}
+          {/* FILE UPLOAD */}
+          <input
+            type="file"
+            className="w-full p-3 bg-white text-black rounded"
           />
 
-          <div style={{ marginTop: "20px", fontSize: "18px" }}>
-            Estimated Build: <strong>${total}</strong>
+          {/* PRICE DISPLAY */}
+          <div className="text-center text-2xl font-bold">
+            ${price}
           </div>
 
-          <button style={buttonStyle}>
-            Submit Custom Request
-          </button>
-        </form>
+          {/* CTA */}
+          <a
+            href="https://cash.app/$Jamie6913"
+            target="_blank"
+            className="block text-center bg-green-500 py-4 rounded-xl font-bold text-lg hover:scale-105 transition"
+          >
+            Reserve Build Slot ($25 Deposit)
+          </a>
+
+          {/* FORM */}
+          <form
+            action="https://formspree.io/f/xqegzdrw"
+            method="POST"
+            className="space-y-3"
+          >
+            <input
+              name="name"
+              placeholder="Your Name"
+              className="w-full p-3 rounded text-black"
+              required
+            />
+            <input
+              name="email"
+              placeholder="Email"
+              className="w-full p-3 rounded text-black"
+              required
+            />
+            <textarea
+              name="details"
+              placeholder="Describe your custom mirror (logo, size, etc)"
+              className="w-full p-3 rounded text-black"
+              required
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-white text-black py-3 rounded font-bold"
+            >
+              Submit Custom Request
+            </button>
+          </form>
+
+        </div>
       </section>
 
-      {/* FOOTER */}
-      <section style={{ textAlign: "center", padding: "20px", color: "#555" }}>
-        J&L Custom Infinity Mirrors
+      {/* FINAL CTA */}
+      <section className="text-center py-16 px-6">
+        <h2 className="text-3xl font-bold mb-4">
+          Turn Your Space Into a Showpiece
+        </h2>
+        <p className="text-gray-400 mb-6">
+          Custom-built. Limited availability. No mass production.
+        </p>
+
+        <a
+          href="https://cash.app/$Jamie6913"
+          className="bg-white text-black px-6 py-3 rounded-full font-bold"
+        >
+          Secure Your Spot Now
+        </a>
       </section>
+
     </main>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-  padding: "12px",
-  marginTop: "10px",
-  borderRadius: "8px",
-  border: "1px solid #333",
-  background: "#111",
-  color: "#fff",
-};
-
-const imgStyle = {
-  width: "100%",
-  borderRadius: "8px",
-};
-
-const buttonStyle = {
-  marginTop: "20px",
-  width: "100%",
-  padding: "15px",
-  background: "#00ff88",
-  color: "#000",
-  fontWeight: "bold",
-  borderRadius: "10px",
-  border: "none",
-  boxShadow: "0 0 20px rgba(0,255,136,0.4)",
-};
