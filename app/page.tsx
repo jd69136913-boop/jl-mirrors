@@ -3,227 +3,167 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [size, setSize] = useState("large");
-  const [price, setPrice] = useState(500);
-  const [upsellLED, setUpsellLED] = useState(false);
-  const [upsellRemote, setUpsellRemote] = useState(false);
+  const [size, setSize] = useState("Large ($500)");
+  const [extras, setExtras] = useState({
+    glow: false,
+    remote: false,
+  });
 
-  const depositLink = "https://cash.app/$Jamie6913";
-  const formAction = "https://formspree.io/f/xqegzdrw";
+  const basePrice = size.includes("500") ? 500 : 300;
 
-  const inputStyle: React.CSSProperties = {
-    width: "100%",
-    padding: "12px",
-    marginBottom: "12px",
-    borderRadius: "6px",
-    border: "none",
-    background: "#1a1a1a",
-    color: "white"
-  };
-
-  const recalcPrice = (base: number, led: boolean, remote: boolean) => {
-    let total = base;
-    if (led) total += 75;
-    if (remote) total += 25;
-    setPrice(total);
-  };
-
-  const handleSizeChange = (value: string) => {
-    setSize(value);
-    let base = value === "small" ? 300 : value === "medium" ? 400 : 500;
-    recalcPrice(base, upsellLED, upsellRemote);
-  };
-
-  const toggleLED = () => {
-    const newVal = !upsellLED;
-    setUpsellLED(newVal);
-    recalcPrice(
-      size === "small" ? 300 : size === "medium" ? 400 : 500,
-      newVal,
-      upsellRemote
-    );
-  };
-
-  const toggleRemote = () => {
-    const newVal = !upsellRemote;
-    setUpsellRemote(newVal);
-    recalcPrice(
-      size === "small" ? 300 : size === "medium" ? 400 : 500,
-      upsellLED,
-      newVal
-    );
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-    }
-  };
+  const total =
+    basePrice +
+    (extras.glow ? 75 : 0) +
+    (extras.remote ? 25 : 0);
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#0a0a0a",
-        color: "white",
-        display: "flex",
-        justifyContent: "center",
-        padding: "40px 20px"
-      }}
-    >
-      <div style={{ maxWidth: "900px", width: "100%" }}>
+    <main style={{ background: "#000", color: "#fff", fontFamily: "Arial" }}>
 
-        {/* HEADLINE */}
-        <h1 style={{
-          fontSize: "34px",
-          textAlign: "center",
-          marginBottom: "10px"
-        }}>
-          Design Your Own Custom Infinity Mirror
-        </h1>
-
-        <p style={{
-          textAlign: "center",
-          opacity: 0.7,
-          marginBottom: "25px"
-        }}>
-          Hand-built custom LED infinity mirrors. Upload your design and bring it to life.
+      {/* HERO */}
+      <section style={{ textAlign: "center", padding: "40px 20px" }}>
+        <h1>Custom Infinity Mirrors — Built For You</h1>
+        <p style={{ color: "#aaa" }}>
+          Only a few build slots available each week
         </p>
 
-        {/* PREVIEW */}
-        <div style={{
-          background: "#111",
-          padding: "25px",
-          borderRadius: "12px",
-          textAlign: "center",
-          marginBottom: "20px",
-          boxShadow: "0 0 40px rgba(0,255,200,0.2)"
-        }}>
-          <h3>Live Preview</h3>
-
-          {preview ? (
-            <img
-              src={preview}
-              style={{
-                maxWidth: "100%",
-                borderRadius: "10px"
-              }}
-            />
-          ) : (
-            <div style={{ opacity: 0.5 }}>
-              Upload an image to preview your custom mirror
-            </div>
-          )}
-        </div>
-
-        {/* PRICE */}
-        <div style={{ textAlign: "center", marginBottom: "20px" }}>
-          <div style={{ opacity: 0.5 }}>
-            Typical builds: $800–$1500
-          </div>
-
-          <div style={{
-            fontSize: "30px",
-            color: "#00ffcc",
-            fontWeight: "bold"
-          }}>
-            Your Price: ${price}
-          </div>
-        </div>
-
-        {/* DEPOSIT */}
-        <a
-          href={depositLink}
-          target="_blank"
+        <img
+          src="/images/mirror1.jpg"
           style={{
-            display: "block",
-            textAlign: "center",
-            padding: "16px",
-            background: "#00cc66",
-            color: "black",
-            borderRadius: "8px",
-            marginBottom: "10px",
-            fontWeight: "bold",
-            textDecoration: "none"
+            width: "100%",
+            maxWidth: "400px",
+            borderRadius: "12px",
+            boxShadow: "0 0 40px rgba(0,255,255,0.3)",
+            marginTop: "20px",
           }}
-        >
-          🔥 Secure Your Build Slot ($50 Deposit)
-        </a>
+        />
+      </section>
+
+      {/* GALLERY */}
+      <section style={{ padding: "20px" }}>
+        <h2 style={{ textAlign: "center" }}>Recent Builds</h2>
 
         <div style={{
-          textAlign: "center",
-          fontSize: "12px",
-          opacity: 0.6,
-          marginBottom: "30px"
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "10px",
+          marginTop: "20px"
         }}>
-          Only 3 build slots available this week
+          <img src="/images/mirror2.jpg" />
+          <img src="/images/mirror3.jpg" />
+          <img src="/images/mirror6.jpg" />
+          <img src="/images/mirror7.jpg" />
         </div>
+      </section>
 
-        {/* FORM */}
-        <form action={formAction} method="POST">
+      {/* ORDER FORM */}
+      <section style={{ padding: "40px 20px", maxWidth: "500px", margin: "auto" }}>
+        <h2 style={{ textAlign: "center" }}>Start Your Custom Build</h2>
 
-          <input name="name" placeholder="Your Name" required style={inputStyle} />
-          <input name="email" type="email" placeholder="Your Email" required style={inputStyle} />
-          <input type="file" name="file" onChange={handleFileChange} style={inputStyle} />
+        <form
+          action="https://formspree.io/f/your-form-id"
+          method="POST"
+          style={{ marginTop: "20px" }}
+        >
+
+          <input
+            name="name"
+            placeholder="Your Name"
+            required
+            style={inputStyle}
+          />
+
+          <input
+            name="email"
+            placeholder="Your Email"
+            required
+            style={inputStyle}
+          />
+
+          <input
+            type="file"
+            name="file"
+            style={inputStyle}
+          />
 
           <select
+            name="size"
             value={size}
-            onChange={(e) => handleSizeChange(e.target.value)}
+            onChange={(e) => setSize(e.target.value)}
             style={inputStyle}
           >
-            <option value="small">Small ($300)</option>
-            <option value="medium">Medium ($400)</option>
-            <option value="large">Large ($500)</option>
+            <option>Small ($300)</option>
+            <option>Large ($500)</option>
           </select>
 
-          {/* UPSSELLS */}
-          <div style={{
-            background: "#111",
-            padding: "20px",
-            borderRadius: "10px",
-            marginBottom: "20px"
-          }}>
+          <div style={{ marginTop: "20px" }}>
             <h3>Upgrade Your Build</h3>
 
-            <label style={{ display: "block", marginBottom: "10px", cursor: "pointer" }}>
-              <input type="checkbox" onChange={toggleLED} style={{ marginRight: "8px" }} />
-              🔥 RGB Infinity Glow (+$75)
-              <div style={{ fontSize: "12px", opacity: 0.6 }}>
-                Full color-changing LED depth effect
-              </div>
+            <label>
+              <input
+                type="checkbox"
+                checked={extras.glow}
+                onChange={() =>
+                  setExtras({ ...extras, glow: !extras.glow })
+                }
+              />
+              🔥 RGB Glow (+$75)
             </label>
 
-            <label style={{ display: "block", cursor: "pointer" }}>
-              <input type="checkbox" onChange={toggleRemote} style={{ marginRight: "8px" }} />
-              🎮 Remote Control Experience (+$25)
-              <div style={{ fontSize: "12px", opacity: 0.6 }}>
-                Control brightness, color, and effects
-              </div>
+            <br />
+
+            <label>
+              <input
+                type="checkbox"
+                checked={extras.remote}
+                onChange={() =>
+                  setExtras({ ...extras, remote: !extras.remote })
+                }
+              />
+              🎮 Remote Control (+$25)
             </label>
           </div>
 
           <textarea
-            name="details"
+            name="notes"
             placeholder="Describe your custom vision..."
-            style={inputStyle}
+            style={{ ...inputStyle, height: "100px" }}
           />
 
+          {/* PRICE DISPLAY */}
+          <div style={{ marginTop: "20px", fontSize: "18px" }}>
+            Estimated Build: <strong>${total}</strong>
+          </div>
+
+          {/* CTA */}
           <button
             type="submit"
             style={{
-              ...inputStyle,
-              background: "#222",
-              cursor: "pointer"
+              marginTop: "20px",
+              width: "100%",
+              padding: "15px",
+              background: "#00ff88",
+              color: "#000",
+              fontWeight: "bold",
+              borderRadius: "10px",
+              border: "none",
             }}
           >
             Submit Custom Request
           </button>
 
         </form>
+      </section>
 
-      </div>
     </main>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  padding: "12px",
+  marginTop: "10px",
+  borderRadius: "8px",
+  border: "1px solid #333",
+  background: "#111",
+  color: "#fff",
+};
