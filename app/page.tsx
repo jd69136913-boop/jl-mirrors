@@ -22,11 +22,9 @@ export default function Home() {
 
   const calculatePrice = () => {
     let total = basePrices[size];
-
     if (color === "RGB") total += addOns.RGB;
     if (logo) total += addOns.logo;
     if (premium) total += addOns.premium;
-
     return total;
   };
 
@@ -51,25 +49,24 @@ export default function Home() {
         </button>
       </section>
 
-      {/* 🔥 IMAGE GRID (OPTIMIZED FOR SALES) */}
+      {/* 🔥 IMAGE GRID */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-4 px-6">
 
-        {/* HERO IMAGE */}
+        {/* HERO IMAGE (FIXED CROP) */}
         <div className="col-span-2">
           <img
             src="/images/mirror1.jpg"
-            className="rounded-xl transition duration-300 hover:scale-105 shadow-[0_0_30px_rgba(0,255,255,0.25)] hover:shadow-[0_0_50px_rgba(0,255,255,0.6)]"
+            className="rounded-xl w-full h-[350px] object-cover transition duration-300 hover:scale-105 shadow-[0_0_30px_rgba(0,255,255,0.25)] hover:shadow-[0_0_50px_rgba(0,255,255,0.6)]"
           />
           <p className="text-xs text-gray-400 mt-1">
             Custom infinity mirror build
           </p>
         </div>
 
-        {/* SUPPORT */}
         <div>
           <img
             src="/images/mirror2.jpg"
-            className="rounded-xl transition hover:scale-105 shadow-[0_0_20px_rgba(255,0,255,0.25)]"
+            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(255,0,255,0.25)]"
           />
           <p className="text-xs text-gray-400 mt-1">RGB depth effect</p>
         </div>
@@ -77,27 +74,25 @@ export default function Home() {
         <div>
           <img
             src="/images/mirror3.jpg"
-            className="rounded-xl transition hover:scale-105 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
+            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
           />
           <p className="text-xs text-gray-400 mt-1">Custom logo work</p>
         </div>
 
-        {/* 🔥 SKULL (DEPTH SELLER) */}
         <div>
           <img
             src="/images/mirror5.jpg"
-            className="rounded-xl transition hover:scale-105 shadow-[0_0_25px_rgba(255,0,0,0.35)] hover:shadow-[0_0_45px_rgba(255,0,0,0.7)]"
+            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_25px_rgba(255,0,0,0.35)] hover:shadow-[0_0_45px_rgba(255,0,0,0.7)]"
           />
           <p className="text-xs text-gray-400 mt-1">
             Deep infinity effect
           </p>
         </div>
 
-        {/* 🔧 DETAIL (CRAFTSMANSHIP) */}
         <div>
           <img
             src="/images/mirror6.jpg"
-            className="rounded-xl transition hover:scale-105 shadow-[0_0_20px_rgba(0,150,255,0.25)]"
+            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,150,255,0.25)]"
           />
           <p className="text-xs text-gray-400 mt-1">
             Precision engraving detail
@@ -145,125 +140,98 @@ export default function Home() {
         </p>
       </section>
 
-      {/* BUILDER */}
-      <section id="custom" className="py-16 px-6 max-w-xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-center">
-          Customize Your Mirror
-        </h2>
+      {/* 🔥 BUILDER (FIXED CENTER + PREMIUM) */}
+      <section id="custom" className="py-16 px-6 flex justify-center">
+        <div className="w-full max-w-md">
 
-        <div className="bg-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 space-y-4">
+          <div className="bg-gray-900 p-6 rounded-2xl shadow-xl border border-gray-700 space-y-4">
 
-          {/* SIZE */}
-          <select
-            value={size}
-            onChange={(e) => setSize(e.target.value)}
-            className="w-full p-3 rounded text-black"
-          >
-            <option value="Small">Small - $149 (Entry)</option>
-            <option value="Medium">Medium - $249 (Most Popular)</option>
-            <option value="Large">Large - $399 (Premium)</option>
-          </select>
+            <h2 className="text-2xl font-bold text-center">
+              Customize Your Mirror
+            </h2>
 
-          {/* COLOR */}
-          <select
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-            className="w-full p-3 rounded text-black"
-          >
-            <option value="White">White (Included)</option>
-            <option value="RGB">RGB +$50</option>
-            <option value="Blue">Blue (Included)</option>
-            <option value="Red">Red (Included)</option>
-          </select>
-
-          {/* UPSELLS */}
-          <div className="space-y-2 text-sm">
-
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={logo}
-                onChange={() => setLogo(!logo)}
-              />
-              Custom Logo Engraving (+$75)
-            </label>
-
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={premium}
-                onChange={() => setPremium(!premium)}
-              />
-              Premium Depth + Lighting (+$75)
-            </label>
-
-          </div>
-
-          {/* FILE */}
-          <input
-            type="file"
-            className="w-full p-3 bg-white text-black rounded"
-          />
-
-          {/* PRICE */}
-          <div className="text-center text-4xl font-extrabold text-green-400">
-            ${calculatePrice()}
-          </div>
-
-          {/* CTA */}
-          <a
-            href="https://cash.app/$Jamie6913"
-            target="_blank"
-            className="block text-center bg-green-500 py-5 rounded-xl font-bold text-xl hover:scale-105 transition shadow-[0_0_25px_rgba(34,197,94,0.6)]"
-          >
-            Reserve Your Custom Build Slot ($25 Deposit)
-          </a>
-
-          <p className="text-center text-gray-400 text-xs">
-            Every mirror is built by hand — no mass production.
-          </p>
-
-          {/* FORM */}
-          <form
-            action="https://formspree.io/f/xqegzdrw"
-            method="POST"
-            className="space-y-3"
-          >
-            <input
-              name="name"
-              placeholder="Your Name"
+            {/* SIZE */}
+            <select
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
               className="w-full p-3 rounded text-black"
-              required
-            />
-            <input
-              name="email"
-              placeholder="Email"
-              className="w-full p-3 rounded text-black"
-              required
-            />
-            <textarea
-              name="details"
-              placeholder="Describe your mirror"
-              className="w-full p-3 rounded text-black"
-              required
-            />
-
-            <button
-              type="submit"
-              className="w-full bg-white text-black py-3 rounded font-bold hover:scale-105 transition"
             >
-              Submit Custom Request
-            </button>
-          </form>
+              <option value="Small">Small - $149 (Entry)</option>
+              <option value="Medium">Medium - $249 (Most Popular)</option>
+              <option value="Large">Large - $399 (Premium)</option>
+            </select>
 
+            {/* COLOR */}
+            <select
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              className="w-full p-3 rounded text-black"
+            >
+              <option value="White">White (Included)</option>
+              <option value="RGB">RGB +$50</option>
+              <option value="Blue">Blue (Included)</option>
+              <option value="Red">Red (Included)</option>
+            </select>
+
+            {/* UPSELLS */}
+            <div className="space-y-2 text-sm">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={logo} onChange={() => setLogo(!logo)} />
+                Custom Logo Engraving (+$75)
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={premium} onChange={() => setPremium(!premium)} />
+                Premium Depth + Lighting (+$75)
+              </label>
+            </div>
+
+            {/* FILE */}
+            <input type="file" className="w-full p-3 bg-white text-black rounded" />
+
+            {/* PRICE */}
+            <div className="text-center text-4xl font-extrabold text-green-400">
+              ${calculatePrice()}
+            </div>
+
+            {/* CTA */}
+            <a
+              href="https://cash.app/$Jamie6913"
+              target="_blank"
+              className="block text-center bg-green-500 py-5 rounded-xl font-bold text-xl hover:scale-105 transition shadow-[0_0_25px_rgba(34,197,94,0.6)]"
+            >
+              Reserve Your Custom Build Slot ($25 Deposit)
+            </a>
+
+            <p className="text-center text-gray-400 text-xs">
+              Every mirror is built by hand — no mass production.
+            </p>
+
+            {/* FORM (DE-EMPHASIZED) */}
+            <form
+              action="https://formspree.io/f/xqegzdrw"
+              method="POST"
+              className="space-y-3"
+            >
+              <input name="name" placeholder="Your Name" className="w-full p-3 rounded text-black" required />
+              <input name="email" placeholder="Email" className="w-full p-3 rounded text-black" required />
+              <textarea name="details" placeholder="Describe your mirror" className="w-full p-3 rounded text-black" required />
+
+              <button
+                type="submit"
+                className="w-full bg-gray-700 text-white py-3 rounded font-semibold opacity-80 hover:opacity-100 transition"
+              >
+                Submit Custom Request
+              </button>
+            </form>
+
+          </div>
         </div>
       </section>
 
       {/* PROCESS */}
       <section className="text-center py-12 px-6">
-        <h2 className="text-2xl font-bold mb-4">
-          How It Works
-        </h2>
+        <h2 className="text-2xl font-bold mb-4">How It Works</h2>
 
         <div className="text-gray-300 space-y-2">
           <p>1. Reserve your slot ($25 deposit)</p>
@@ -287,7 +255,7 @@ export default function Home() {
         </a>
       </section>
 
-      {/* MOBILE STICKY CTA */}
+      {/* MOBILE CTA */}
       <div className="fixed bottom-0 left-0 w-full bg-black p-4 border-t border-gray-700 md:hidden">
         <a
           href="https://cash.app/$Jamie6913"
