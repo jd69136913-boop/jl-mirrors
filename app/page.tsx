@@ -49,32 +49,42 @@ export default function Home() {
         </button>
       </section>
 
-      {/* 🔥 IMAGE GRID */}
+      {/* 🔥 FINAL IMAGE GRID */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-4 px-6">
 
-        {/* HERO IMAGE (FIXED CROP) */}
+        {/* HERO IMAGE (BEST IMAGE) */}
         <div className="col-span-2">
           <img
-            src="/images/mirror1.jpg"
-            className="rounded-xl w-full h-[350px] object-cover transition duration-300 hover:scale-105 shadow-[0_0_30px_rgba(0,255,255,0.25)] hover:shadow-[0_0_50px_rgba(0,255,255,0.6)]"
+            src="/images/mirror.jpg"
+            className="rounded-xl w-full max-h-[420px] object-contain bg-black transition duration-300 hover:scale-105 shadow-[0_0_40px_rgba(0,255,100,0.35)] hover:shadow-[0_0_70px_rgba(0,255,100,0.7)]"
           />
           <p className="text-xs text-gray-400 mt-1">
-            Custom infinity mirror build
+            Custom branded infinity mirror (Highland build)
           </p>
         </div>
 
+        {/* TOP RIGHT */}
+        <div>
+          <img
+            src="/images/mirror1.jpg"
+            className="rounded-xl w-full h-[200px] object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
+          />
+          <p className="text-xs text-gray-400 mt-1">Deep infinity effect</p>
+        </div>
+
+        {/* ROW 2 */}
         <div>
           <img
             src="/images/mirror2.jpg"
-            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(255,0,255,0.25)]"
+            className="rounded-xl w-full h-[200px] object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(255,0,255,0.25)]"
           />
-          <p className="text-xs text-gray-400 mt-1">RGB depth effect</p>
+          <p className="text-xs text-gray-400 mt-1">RGB lighting styles</p>
         </div>
 
         <div>
           <img
             src="/images/mirror3.jpg"
-            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,255,255,0.25)]"
+            className="rounded-xl w-full h-[200px] object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,200,255,0.25)]"
           />
           <p className="text-xs text-gray-400 mt-1">Custom logo work</p>
         </div>
@@ -82,21 +92,17 @@ export default function Home() {
         <div>
           <img
             src="/images/mirror5.jpg"
-            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_25px_rgba(255,0,0,0.35)] hover:shadow-[0_0_45px_rgba(255,0,0,0.7)]"
+            className="rounded-xl w-full h-[200px] object-cover transition hover:scale-105 shadow-[0_0_25px_rgba(255,0,0,0.35)]"
           />
-          <p className="text-xs text-gray-400 mt-1">
-            Deep infinity effect
-          </p>
+          <p className="text-xs text-gray-400 mt-1">High depth infinity effect</p>
         </div>
 
         <div>
           <img
             src="/images/mirror6.jpg"
-            className="rounded-xl h-[170px] w-full object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,150,255,0.25)]"
+            className="rounded-xl w-full h-[200px] object-cover transition hover:scale-105 shadow-[0_0_20px_rgba(0,150,255,0.25)]"
           />
-          <p className="text-xs text-gray-400 mt-1">
-            Precision engraving detail
-          </p>
+          <p className="text-xs text-gray-400 mt-1">Precision engraving detail</p>
         </div>
 
       </section>
@@ -104,7 +110,6 @@ export default function Home() {
       {/* USE CASE */}
       <section className="text-center py-12 px-6">
         <h2 className="text-2xl font-bold mb-4">Perfect For:</h2>
-
         <div className="text-gray-300 space-y-2">
           <p>✔ Garages & Man Caves</p>
           <p>✔ Automotive Shops</p>
@@ -116,7 +121,6 @@ export default function Home() {
       {/* VALUE */}
       <section className="text-center py-12 px-6">
         <h2 className="text-3xl font-bold mb-6">Why These Sell Fast</h2>
-
         <div className="space-y-2 text-gray-300">
           <p>✔ Hand-built craftsmanship</p>
           <p>✔ Fully customizable</p>
@@ -140,7 +144,7 @@ export default function Home() {
         </p>
       </section>
 
-      {/* 🔥 BUILDER (FIXED CENTER + PREMIUM) */}
+      {/* BUILDER (CENTERED) */}
       <section id="custom" className="py-16 px-6 flex justify-center">
         <div className="w-full max-w-md">
 
@@ -194,7 +198,7 @@ export default function Home() {
               ${calculatePrice()}
             </div>
 
-            {/* CTA */}
+            {/* PRIMARY CTA */}
             <a
               href="https://cash.app/$Jamie6913"
               target="_blank"
@@ -207,7 +211,7 @@ export default function Home() {
               Every mirror is built by hand — no mass production.
             </p>
 
-            {/* FORM (DE-EMPHASIZED) */}
+            {/* SECONDARY FORM */}
             <form
               action="https://formspree.io/f/xqegzdrw"
               method="POST"
@@ -232,7 +236,6 @@ export default function Home() {
       {/* PROCESS */}
       <section className="text-center py-12 px-6">
         <h2 className="text-2xl font-bold mb-4">How It Works</h2>
-
         <div className="text-gray-300 space-y-2">
           <p>1. Reserve your slot ($25 deposit)</p>
           <p>2. Submit your design</p>
