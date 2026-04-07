@@ -9,9 +9,9 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
 
   const priceMap: any = {
-    small: "$150 - $300",
-    medium: "$300 - $600",
-    large: "$600 - $1200",
+    small: "$150",
+    medium: "$400",
+    large: "$900",
   };
 
   async function handleSubmit(e: any) {
@@ -22,237 +22,137 @@ export default function Home() {
     formData.append("size", size);
     if (file) formData.append("file", file);
 
-    try {
-      const res = await fetch("https://formspree.io/f/xqegzdrw", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-        },
-        body: formData,
-      });
+    await fetch("https://formspree.io/f/xqegzdrw", {
+      method: "POST",
+      body: formData,
+    });
 
-      if (res.ok) {
-        setSubmitted(true);
-        setMessage("");
-        setFile(null);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    setSubmitted(true);
   }
 
   return (
-    <main
-      style={{
-        padding: 40,
-        background: "black",
-        color: "white",
-        minHeight: "100vh",
-        fontFamily: "sans-serif",
-        maxWidth: 900,
-        margin: "0 auto",
-      }}
-    >
+    <main className="min-h-screen bg-black text-white px-6 py-10">
+
       {/* HERO */}
-      <div
-        style={{
-          marginBottom: 40,
-          padding: 30,
-          borderRadius: 12,
-          background: "linear-gradient(135deg, #000, #111)",
-          boxShadow: "0 0 40px rgba(0,255,255,0.1)",
-        }}
-      >
-        <h1 style={{ fontSize: 42, marginBottom: 10 }}>
+      <section className="max-w-4xl mx-auto text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4">
           Custom LED Infinity Mirrors
         </h1>
 
-        <p style={{ color: "#aaa", maxWidth: 600 }}>
-          Designed to stand out. Built to order. Each piece is handcrafted to
-          create a one-of-a-kind visual centerpiece.
+        <p className="text-gray-400 mb-6">
+          Hand-built. One-of-a-kind. Designed to stand out.
         </p>
 
-        <div style={{ marginTop: 20 }}>
-          <a
-            href="https://cash.app/$Jamie6913"
-            target="_blank"
-            style={{
-              padding: "14px 28px",
-              background: "lime",
-              color: "black",
-              fontWeight: "bold",
-              borderRadius: 8,
-              textDecoration: "none",
-              marginRight: 10,
-            }}
-          >
-            Secure Your Build
-          </a>
-
-          <span style={{ color: "#888" }}>Starting at $150</span>
+        <div className="bg-green-500 text-black px-6 py-3 rounded-xl font-bold inline-block animate-pulse">
+          🔥 Limited Build Slots Available This Week
         </div>
-      </div>
+      </section>
 
       {/* GALLERY */}
-      <div style={{ marginTop: 20 }}>
-        <h2 style={{ marginBottom: 10 }}>Recent Builds</h2>
+      <section className="max-w-5xl mx-auto mb-16">
+        <h2 className="text-xl mb-4">Recent Builds</h2>
 
-        <div style={{ display: "flex", gap: 20 }}>
-          <img
-            src="/images/mirror1.jpg"
-            style={{
-              width: "33%",
-              borderRadius: 12,
-              boxShadow: "0 0 20px rgba(0,255,255,0.3)",
-            }}
-          />
-          <img
-            src="/images/mirror2.jpg"
-            style={{
-              width: "33%",
-              borderRadius: 12,
-              boxShadow: "0 0 20px rgba(255,0,255,0.3)",
-            }}
-          />
-          <img
-            src="/images/mirror3.jpg"
-            style={{
-              width: "33%",
-              borderRadius: 12,
-              boxShadow: "0 0 20px rgba(0,255,0,0.3)",
-            }}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <img src="/images/mirror1.jpg" className="rounded-xl" />
+          <img src="/images/mirror2.jpg" className="rounded-xl" />
+          <img src="/images/mirror3.jpg" className="rounded-xl" />
         </div>
-      </div>
+      </section>
 
-      {/* URGENCY */}
-      <p style={{ color: "orange", marginTop: 30 }}>
-        ⚠️ Only 3 build slots left this month — first come, first served
-      </p>
+      {/* CONVERSION BOX */}
+      <section className="max-w-3xl mx-auto bg-zinc-900 p-8 rounded-2xl shadow-lg">
 
-      {/* DEPOSIT */}
-      <div style={{ marginTop: 30 }}>
-        <h2>Secure Your Build Slot</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          Secure Your Build Slot
+        </h2>
 
-        <p style={{ color: "#aaa" }}>
-          Lock in your custom mirror with a $50 deposit.
+        <p className="text-gray-400 mb-6">
+          A $50 deposit locks your spot. Only a few builds are accepted each week.
         </p>
 
+        {/* DEPOSIT BUTTON (PRIMARY CTA) */}
         <a
-          href="https://cash.app/$Jamie6913"
+          href="https://cash.app/$Jamie6913/50"
           target="_blank"
-          style={{
-            display: "inline-block",
-            marginTop: 15,
-            padding: "14px 28px",
-            background: "lime",
-            color: "black",
-            fontWeight: "bold",
-            textDecoration: "none",
-            borderRadius: 8,
-          }}
+          className="block text-center bg-green-500 text-black font-bold py-4 rounded-xl text-lg hover:scale-105 transition mb-6"
         >
           Pay $50 Deposit
         </a>
 
-        <p style={{ marginTop: 10, color: "#aaa" }}>
-          ✔️ Deposit locks your spot <br />
-          ✔️ Final design approved before full payment <br />
-          ✔️ Custom built exactly to your request
-        </p>
-      </div>
+        {/* TRUST BULLETS */}
+        <ul className="text-sm text-gray-400 mb-6 space-y-2">
+          <li>✔ Deposit secures your spot</li>
+          <li>✔ You approve design before final build</li>
+          <li>✔ Built exactly to your specs</li>
+        </ul>
 
-      {/* SUCCESS */}
-      {submitted && (
-        <p style={{ color: "lime", marginTop: 20 }}>
-          Request sent. I’ll contact you shortly.
-        </p>
-      )}
+        {/* FORM */}
+        {!submitted ? (
+          <form onSubmit={handleSubmit} className="space-y-5">
 
-      {/* FORM */}
-      <form onSubmit={handleSubmit} style={{ marginTop: 40 }}>
-        <label>Choose Size:</label>
-        <select
-          value={size}
-          onChange={(e) => setSize(e.target.value)}
-          style={{
-            display: "block",
-            marginTop: 10,
-            padding: 10,
-            background: "#111",
-            color: "white",
-            border: "1px solid #333",
-          }}
-        >
-          <option value="small">Small (Desktop)</option>
-          <option value="medium">Medium (Wall)</option>
-          <option value="large">Large (Statement Piece)</option>
-        </select>
+            {/* SIZE */}
+            <div>
+              <label className="block mb-2">Choose Size</label>
+              <select
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+                className="w-full p-3 rounded bg-black border border-gray-700"
+              >
+                <option value="small">Small (~$150)</option>
+                <option value="medium">Medium (~$400)</option>
+                <option value="large">Large (~$900)</option>
+              </select>
+            </div>
 
-        <p style={{ marginTop: 10 }}>
-          Estimated Price: <strong>{priceMap[size]}</strong>
-        </p>
+            {/* PRICE DISPLAY */}
+            <div className="text-lg font-bold text-green-400">
+              Estimated Price: {priceMap[size]}
+            </div>
 
-        <textarea
-          placeholder="Describe your mirror (serious inquiries only)"
-          rows={4}
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          style={{
-            width: "100%",
-            padding: 12,
-            marginTop: 15,
-            background: "#111",
-            color: "white",
-            border: "1px solid #333",
-          }}
-        />
-
-        {/* 🔥 CLEAN FILE UPLOAD */}
-        <div style={{ marginTop: 20 }}>
-          <label
-            style={{
-              display: "inline-block",
-              padding: "10px 20px",
-              background: "#222",
-              cursor: "pointer",
-              borderRadius: 6,
-              border: "1px solid #444",
-            }}
-          >
-            Upload Reference Image
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => {
-                if (e.target.files) setFile(e.target.files[0]);
-              }}
-              style={{ display: "none" }}
+            {/* MESSAGE */}
+            <textarea
+              required
+              placeholder="Describe your custom mirror (be specific)"
+              className="w-full p-4 rounded bg-black border border-gray-700"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
             />
-          </label>
 
-          {file && (
-            <p style={{ marginTop: 10, color: "lime" }}>
-              Selected: {file.name}
-            </p>
-          )}
-        </div>
+            {/* FILE UPLOAD (STRONG STYLE) */}
+            <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
+              <span className="block mb-2 font-semibold text-green-400">
+                Upload Reference Image (REQUIRED)
+              </span>
 
-        <button
-          type="submit"
-          style={{
-            marginTop: 25,
-            padding: "14px 28px",
-            background: "white",
-            color: "black",
-            cursor: "pointer",
-            fontWeight: "bold",
-            borderRadius: 8,
-          }}
-        >
-          Request Custom Build
-        </button>
-      </form>
+              <input
+                type="file"
+                required
+                onChange={(e) => setFile(e.target.files?.[0] || null)}
+                className="hidden"
+              />
+            </label>
+
+            {/* SUBMIT */}
+            <button
+              type="submit"
+              className="w-full bg-white text-black py-4 rounded-xl font-bold hover:scale-105 transition"
+            >
+              Submit Build Request
+            </button>
+
+          </form>
+        ) : (
+          <div className="text-center text-green-400 font-bold text-xl">
+            Request Sent — Check Your Email
+          </div>
+        )}
+      </section>
+
+      {/* SCARCITY FOOTER */}
+      <section className="text-center mt-12 text-sm text-gray-500">
+        Only a limited number of builds are accepted each week to maintain quality.
+      </section>
+
     </main>
   );
 }
