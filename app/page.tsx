@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
   const [size, setSize] = useState("medium");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -45,19 +44,21 @@ export default function Home() {
     setSubmitted(true);
   }
 
-  function handleFileChange(e: any) {
-    const selected = e.target.files?.[0];
-    if (selected) {
-      setFile(selected);
-      setPreview(URL.createObjectURL(selected));
-    }
-  }
-
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
       {/* HERO */}
       <section className="w-full max-w-5xl text-center mb-12">
+
+        {/* HERO IMAGE */}
+        <div className="mb-8">
+          <img
+            src="/images/mirror.jpg"
+            alt="Custom Infinity Mirror"
+            className="w-full max-h-[500px] object-cover rounded-2xl shadow-xl shadow-green-500/20"
+          />
+        </div>
+
         <h1 className="text-4xl font-bold mb-4">
           Custom LED Infinity Mirrors
         </h1>
@@ -86,7 +87,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONVERSION */}
+      {/* CONVERSION BOX */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
 
         <div className="flex flex-col gap-6">
@@ -95,7 +96,7 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          <div className="text-center text-green-400 font-bold text-lg">
+          <div className="text-center text-red-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
@@ -115,36 +116,11 @@ export default function Home() {
             Step 1: Pay deposit → Step 2: Submit your build details below
           </p>
 
-          {/* 🔥 REALISTIC INFINITY PREVIEW */}
-          {preview && (
-            <div className="flex justify-center mt-4">
-              <div className="relative w-64 h-64 rounded-xl overflow-hidden">
-
-                {/* glow frame */}
-                <div className="absolute inset-0 rounded-xl shadow-[0_0_40px_rgba(0,255,150,0.4)] border border-green-500"></div>
-
-                {/* depth layers */}
-                {[...Array(6)].map((_, i) => (
-                  <img
-                    key={i}
-                    src={preview}
-                    className="absolute inset-0 w-full h-full object-cover opacity-20"
-                    style={{
-                      transform: `scale(${1 - i * 0.08})`,
-                      filter: `blur(${i * 1.5}px) brightness(${1 - i * 0.1})`,
-                    }}
-                  />
-                ))}
-
-                {/* main image */}
-                <img
-                  src={preview}
-                  className="relative w-full h-full object-cover opacity-95"
-                />
-
-              </div>
-            </div>
-          )}
+          <ul className="text-sm text-gray-400 space-y-2 text-center leading-relaxed">
+            <li>✔ Deposit secures your spot</li>
+            <li>✔ You approve design before final build</li>
+            <li>✔ Built exactly to your specs</li>
+          </ul>
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -190,11 +166,14 @@ export default function Home() {
                 <span className="block text-lg font-bold text-green-400 mb-2">
                   Upload Your Design (REQUIRED)
                 </span>
+                <span className="text-sm text-gray-400">
+                  This is what we build from — don’t skip this
+                </span>
 
                 <input
                   type="file"
                   required
-                  onChange={handleFileChange}
+                  onChange={(e) => setFile(e.target.files?.[0] || null)}
                   className="hidden"
                 />
               </label>
