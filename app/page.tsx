@@ -11,7 +11,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(86400);
-  const [color, setColor] = useState("#22c55e"); // default green
+  const [color, setColor] = useState("#22c55e");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GALLERY BACK */}
+      {/* GALLERY */}
       <section className="w-full max-w-5xl mb-16">
         <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
 
@@ -185,35 +185,58 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 FINAL MOCKUP */}
+              {/* MIRROR MOCKUP */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-3">
-                    Your Mirror Preview
+                    This Is Your Custom Mirror
                   </p>
 
                   <div className="flex justify-center">
 
                     <div
-                      className="relative p-4 bg-black rounded-xl border"
+                      className="relative p-6 bg-black rounded-xl"
                       style={{
-                        borderColor: color,
-                        boxShadow: `0 0 60px ${color}`
+                        boxShadow: `0 0 20px ${color}, 0 0 40px ${color}, 0 0 80px ${color}22`
                       }}
                     >
 
+                      {/* OUTER GLOW */}
                       <div
                         className="absolute inset-0 rounded-xl blur-2xl"
-                        style={{ backgroundColor: color, opacity: 0.3 }}
+                        style={{ backgroundColor: color, opacity: 0.15 }}
                       />
 
-                      <div className="absolute inset-3 rounded-lg border"
-                        style={{ borderColor: color, opacity: 0.5 }}
+                      {/* INNER LED FRAME */}
+                      <div
+                        className="absolute inset-2 rounded-lg"
+                        style={{
+                          border: `2px solid ${color}`,
+                          boxShadow: `inset 0 0 15px ${color}`
+                        }}
                       />
 
+                      {/* DEPTH */}
+                      <div
+                        className="absolute inset-4 rounded-lg"
+                        style={{
+                          background: `radial-gradient(circle at center, ${color}22 0%, transparent 70%)`
+                        }}
+                      />
+
+                      {/* REFLECTION */}
                       <img
                         src={preview}
-                        className="relative max-h-[280px] object-contain rounded-lg"
+                        className="absolute top-4 left-4 opacity-20 scale-95 blur-[2px]"
+                      />
+
+                      {/* MAIN IMAGE */}
+                      <img
+                        src={preview}
+                        className="relative max-h-[260px] object-contain rounded-lg bg-black"
+                        style={{
+                          filter: "brightness(0.8) contrast(1.15)"
+                        }}
                       />
 
                     </div>
