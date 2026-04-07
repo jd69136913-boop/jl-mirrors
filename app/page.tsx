@@ -72,17 +72,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GALLERY */}
-      <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-4 text-center">Recent Builds</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
-          <img src="/images/mirror2.jpg" className="rounded-xl w-full object-cover" />
-          <img src="/images/mirror3.jpg" className="rounded-xl w-full object-cover" />
-        </div>
-      </section>
-
-      {/* CONVERSION BOX */}
+      {/* CONVERSION */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
         <div className="flex flex-col gap-6">
 
@@ -136,7 +126,7 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              {/* FILE UPLOAD */}
+              {/* UPLOAD */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
                   Upload Your Design
@@ -163,16 +153,20 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 FIXED PREVIEW */}
+              {/* 🔥 CLEAN PREVIEW */}
               {preview && (
                 <div className="text-center">
-                  <p className="text-sm text-gray-400 mb-2">Preview:</p>
+                  <p className="text-sm text-gray-400 mb-2">
+                    Your Design Preview
+                  </p>
 
-                  <div className="bg-black p-4 rounded-xl border border-green-500/30">
-                    <img
-                      src={preview}
-                      className="max-h-[300px] w-auto mx-auto rounded-lg"
-                    />
+                  <div className="flex justify-center">
+                    <div className="bg-black p-4 rounded-xl border border-green-500/30 shadow-lg">
+                      <img
+                        src={preview}
+                        className="max-h-[280px] w-auto rounded-lg"
+                      />
+                    </div>
                   </div>
                 </div>
               )}
