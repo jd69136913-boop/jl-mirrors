@@ -50,12 +50,12 @@ export default function Home() {
       {/* HERO */}
       <section className="w-full max-w-5xl text-center mb-12">
 
-        {/* HERO IMAGE (FIXED SIZE) */}
-        <div className="mb-8 rounded-2xl overflow-hidden shadow-lg shadow-green-500/20 max-h-[350px]">
+        {/* HERO IMAGE — FIXED */}
+        <div className="mb-8 rounded-2xl overflow-hidden shadow-lg shadow-green-500/20 bg-black p-4">
           <img
             src="/images/mirror.jpg"
             alt="Custom Infinity Mirror"
-            className="w-full h-full object-cover"
+            className="w-full max-h-[420px] object-contain mx-auto"
           />
         </div>
 
@@ -97,7 +97,7 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          {/* ✅ FIXED COLOR */}
+          {/* FIXED COLOR */}
           <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
