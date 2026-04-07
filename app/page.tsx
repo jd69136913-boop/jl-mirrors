@@ -6,10 +6,10 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [size, setSize] = useState("medium");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(86400);
-  const [color, setColor] = useState("#00ff88");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,21 +22,13 @@ export default function Home() {
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = timeLeft % 60;
 
-  function handleFileChange(e: any) {
-    const selected = e.target.files?.[0];
-    if (selected) {
-      setFile(selected);
-      setPreview(URL.createObjectURL(selected));
-    }
-  }
-
   async function handleSubmit(e: any) {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("message", message);
+    formData.append("size", size);
     formData.append("email", email);
-    formData.append("color", color);
     if (file) formData.append("file", file);
 
     await fetch("https://formspree.io/f/xqegzdrw", {
@@ -45,6 +37,14 @@ export default function Home() {
     });
 
     setSubmitted(true);
+  }
+
+  function handleFileChange(e: any) {
+    const selected = e.target.files?.[0];
+    if (selected) {
+      setFile(selected);
+      setPreview(URL.createObjectURL(selected));
+    }
   }
 
   return (
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONVERSION BOX */}
+      {/* CONVERSION */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
 
         <div className="flex flex-col gap-6">
@@ -78,21 +78,10 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          {/* TIMER */}
           <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
-          {/* URGENCY */}
-          <p className="text-center text-green-400 text-sm font-semibold">
-            Most builds are reserved within hours
-          </p>
-
-          <p className="text-gray-400 text-center">
-            A $50 deposit locks your spot.
-          </p>
-
-          {/* DEPOSIT */}
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
@@ -101,48 +90,36 @@ export default function Home() {
             Pay $50 Deposit
           </a>
 
-          {/* COLOR PICKER */}
-          <div className="text-center">
-            <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-16 h-10 cursor-pointer"
-            />
-          </div>
-
-          {/* PREVIEW */}
+          {/* 🔥 ANIMATED INFINITY PREVIEW */}
           {preview && (
-            <div className="flex justify-center">
-              <div className="relative w-64 h-64 rounded-xl overflow-hidden">
+            <div className="flex justify-center mt-4">
+              <div className="relative w-64 h-64 rounded-xl overflow-hidden group">
 
-                <div
-                  className="absolute inset-0 rounded-xl"
-                  style={{
-                    border: `2px solid ${color}`,
-                    boxShadow: `0 0 40px ${color}`,
-                    animation: "pulse 2.5s infinite"
-                  }}
-                />
+                {/* animated glow */}
+                <div className="absolute inset-0 rounded-xl border border-green-500 animate-pulse"></div>
 
+                <div className="absolute inset-0 rounded-xl shadow-[0_0_50px_rgba(0,255,150,0.5)] animate-[pulse_2.5s_infinite]"></div>
+
+                {/* depth layers with motion */}
                 {[...Array(6)].map((_, i) => (
                   <img
                     key={i}
                     src={preview}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     style={{
-                      transform: `scale(${1 - i * 0.08})`,
+                      transform: `scale(${1 - i * 0.08}) translateY(${i * 2}px)`,
                       opacity: 0.15,
-                      filter: `blur(${i * 1.5}px)`
+                      filter: `blur(${i * 1.5}px) brightness(${1 - i * 0.1})`,
                     }}
                   />
                 ))}
 
+                {/* main image */}
                 <img
                   src={preview}
-                  className="relative w-full h-full object-cover z-10"
+                  className="relative w-full h-full object-cover z-10 transition-transform duration-500 group-hover:scale-105"
                 />
+
               </div>
             </div>
           )}
@@ -150,17 +127,15 @@ export default function Home() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
 
-              {/* EMAIL FIX */}
               <input
                 type="email"
                 required
-                placeholder="Enter your email (required)"
+                placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 rounded bg-black border-2 border-green-500 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
               />
 
-              {/* MESSAGE */}
               <textarea
                 required
                 placeholder="Describe your custom mirror"
@@ -169,12 +144,8 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              {/* UPLOAD */}
-              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
-                <span className="text-green-400 font-bold">
-                  Upload Your Design (Required to Build)
-                </span>
-
+              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer">
+                Upload Design
                 <input
                   type="file"
                   required
@@ -183,27 +154,6 @@ export default function Home() {
                 />
               </label>
 
-              {/* CONFIRMATION */}
-              {file && (
-                <p className="text-green-400 text-sm text-center">
-                  ✅ Image uploaded: {file.name}
-                </p>
-              )}
-
-              {/* PRICE FLEX */}
-              <p className="text-center text-xs text-gray-500">
-                Final price depends on design complexity and lighting effects
-              </p>
-
-              {/* TRUST BOOST */}
-              <p className="text-center text-xs text-gray-400">
-                Trusted builds. Real customers. Custom-crafted results.
-              </p>
-
-              {/* SPACING FIX */}
-              <div className="mt-4"></div>
-
-              {/* SUBMIT */}
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-500 transition"
@@ -211,29 +161,10 @@ export default function Home() {
                 Submit Build Request
               </button>
 
-              {/* MICRO CONFIDENCE */}
-              <p className="text-xs text-gray-500 text-center">
-                We respond within 24 hours. Your design is reviewed personally.
-              </p>
-
             </form>
           ) : (
-            <div className="text-center space-y-4">
-              <p className="text-green-400 font-bold text-xl">
-                Request Received
-              </p>
-
-              <p className="text-gray-400">
-                To secure your build slot, complete your deposit below:
-              </p>
-
-              <a
-                href="https://cash.app/$Jamie6913/50"
-                target="_blank"
-                className="block bg-green-500 text-black font-bold py-4 rounded-xl"
-              >
-                Complete Deposit
-              </a>
+            <div className="text-center text-green-400 font-bold text-xl">
+              Request Sent — Check Your Email
             </div>
           )}
 
