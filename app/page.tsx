@@ -48,22 +48,22 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
       {/* HERO */}
-      <section className="w-full max-w-5xl text-center mb-12">
+      <section className="w-full max-w-6xl text-center mb-16">
 
-        {/* HERO IMAGE */}
-        <div className="mb-8">
+        {/* HERO IMAGE FIXED */}
+        <div className="mb-10 rounded-2xl overflow-hidden shadow-2xl shadow-green-500/20">
           <img
             src="/images/mirror.jpg"
             alt="Custom Infinity Mirror"
-            className="w-full max-h-[500px] object-cover rounded-2xl shadow-xl shadow-green-500/20"
+            className="w-full h-auto object-contain bg-black"
           />
         </div>
 
-        <h1 className="text-4xl font-bold mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Custom LED Infinity Mirrors
         </h1>
 
-        <p className="text-gray-400 mb-2">
+        <p className="text-gray-400 mb-2 text-lg">
           Hand-built. One-of-a-kind. Designed to stand out.
         </p>
 
@@ -74,11 +74,12 @@ export default function Home() {
         <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
           🔥 Limited Build Slots Available This Week
         </div>
+
       </section>
 
       {/* GALLERY */}
       <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-4 text-center">Recent Builds</h2>
+        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
