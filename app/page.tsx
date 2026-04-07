@@ -11,6 +11,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(86400);
+  const [color, setColor] = useState("#22c55e"); // default green
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -71,7 +72,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CONVERSION */}
+      {/* GALLERY BACK */}
+      <section className="w-full max-w-5xl mb-16">
+        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
+            <img src="/images/mirror1.jpg" className="max-h-[250px] object-contain" />
+          </div>
+
+          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
+            <img src="/images/mirror2.jpg" className="max-h-[250px] object-contain" />
+          </div>
+
+          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
+            <img src="/images/mirror3.jpg" className="max-h-[250px] object-contain" />
+          </div>
+
+        </div>
+      </section>
+
+      {/* FORM */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
         <div className="flex flex-col gap-6">
 
@@ -125,6 +147,17 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
+              {/* COLOR PICKER */}
+              <div className="text-center">
+                <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
+                <input
+                  type="color"
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                  className="w-16 h-10 cursor-pointer"
+                />
+              </div>
+
               {/* UPLOAD */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
@@ -152,7 +185,7 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 MOCKUP PREVIEW */}
+              {/* 🔥 FINAL MOCKUP */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-3">
@@ -160,18 +193,31 @@ export default function Home() {
                   </p>
 
                   <div className="flex justify-center">
-                    <div className="relative p-4 bg-black rounded-xl border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.4)]">
 
-                      {/* glow background */}
-                      <div className="absolute inset-0 rounded-xl bg-green-500/10 blur-xl"></div>
+                    <div
+                      className="relative p-4 bg-black rounded-xl border"
+                      style={{
+                        borderColor: color,
+                        boxShadow: `0 0 60px ${color}`
+                      }}
+                    >
 
-                      {/* image */}
+                      <div
+                        className="absolute inset-0 rounded-xl blur-2xl"
+                        style={{ backgroundColor: color, opacity: 0.3 }}
+                      />
+
+                      <div className="absolute inset-3 rounded-lg border"
+                        style={{ borderColor: color, opacity: 0.5 }}
+                      />
+
                       <img
                         src={preview}
                         className="relative max-h-[280px] object-contain rounded-lg"
                       />
 
                     </div>
+
                   </div>
                 </div>
               )}
