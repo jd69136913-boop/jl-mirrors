@@ -163,14 +163,17 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 LIVE PREVIEW */}
+              {/* 🔥 FIXED PREVIEW */}
               {preview && (
-                <div className="mt-4 text-center">
+                <div className="text-center">
                   <p className="text-sm text-gray-400 mb-2">Preview:</p>
-                  <img
-                    src={preview}
-                    className="max-h-[250px] mx-auto rounded-xl border border-green-500"
-                  />
+
+                  <div className="bg-black p-4 rounded-xl border border-green-500/30">
+                    <img
+                      src={preview}
+                      className="max-h-[300px] w-auto mx-auto rounded-lg"
+                    />
+                  </div>
                 </div>
               )}
 
