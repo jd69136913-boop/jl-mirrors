@@ -6,10 +6,10 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [size, setSize] = useState("medium");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(86400);
-  const [color, setColor] = useState("#00ff88");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,8 +27,8 @@ export default function Home() {
 
     const formData = new FormData();
     formData.append("message", message);
+    formData.append("size", size);
     formData.append("email", email);
-    formData.append("color", color);
     if (file) formData.append("file", file);
 
     await fetch("https://formspree.io/f/xqegzdrw", {
@@ -85,47 +85,31 @@ export default function Home() {
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
-            className="block text-center bg-green-500 text-black font-bold py-5 rounded-xl text-xl hover:scale-105 transition"
+            className="block text-center bg-green-500 text-black font-bold py-5 rounded-xl text-xl hover:scale-105 transition shadow-lg shadow-green-500/30"
           >
             Pay $50 Deposit
           </a>
 
-          {/* 🎨 COLOR PICKER */}
-          <div className="text-center">
-            <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-16 h-10 border-none cursor-pointer"
-            />
-          </div>
-
-          {/* 🔥 INFINITY PREVIEW */}
+          {/* 🔥 ANIMATED INFINITY PREVIEW */}
           {preview && (
             <div className="flex justify-center mt-4">
               <div className="relative w-64 h-64 rounded-xl overflow-hidden group">
 
-                {/* animated glow using selected color */}
-                <div
-                  className="absolute inset-0 rounded-xl border"
-                  style={{
-                    borderColor: color,
-                    boxShadow: `0 0 40px ${color}`,
-                    animation: "pulse 2.5s infinite"
-                  }}
-                />
+                {/* animated glow */}
+                <div className="absolute inset-0 rounded-xl border border-green-500 animate-pulse"></div>
 
-                {/* depth layers */}
+                <div className="absolute inset-0 rounded-xl shadow-[0_0_50px_rgba(0,255,150,0.5)] animate-[pulse_2.5s_infinite]"></div>
+
+                {/* depth layers with motion */}
                 {[...Array(6)].map((_, i) => (
                   <img
                     key={i}
                     src={preview}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     style={{
-                      transform: `scale(${1 - i * 0.08})`,
+                      transform: `scale(${1 - i * 0.08}) translateY(${i * 2}px)`,
                       opacity: 0.15,
-                      filter: `blur(${i * 1.5}px)`
+                      filter: `blur(${i * 1.5}px) brightness(${1 - i * 0.1})`,
                     }}
                   />
                 ))}
@@ -133,7 +117,7 @@ export default function Home() {
                 {/* main image */}
                 <img
                   src={preview}
-                  className="relative w-full h-full object-cover z-10"
+                  className="relative w-full h-full object-cover z-10 transition-transform duration-500 group-hover:scale-105"
                 />
 
               </div>
@@ -149,7 +133,7 @@ export default function Home() {
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 outline-none"
+                className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
               />
 
               <textarea
