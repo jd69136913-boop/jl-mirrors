@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [fileName, setFileName] = useState("");
   const [size, setSize] = useState("medium");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -49,8 +50,6 @@ export default function Home() {
 
       {/* HERO */}
       <section className="w-full max-w-5xl text-center mb-12">
-
-        {/* HERO IMAGE — FIXED */}
         <div className="mb-8 rounded-2xl overflow-hidden shadow-lg shadow-green-500/20 bg-black p-4">
           <img
             src="/images/mirror.jpg"
@@ -74,13 +73,11 @@ export default function Home() {
         <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
           🔥 Limited Build Slots Available This Week
         </div>
-
       </section>
 
       {/* GALLERY */}
       <section className="w-full max-w-5xl mb-16">
         <h2 className="text-xl mb-4 text-center">Recent Builds</h2>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
           <img src="/images/mirror2.jpg" className="rounded-xl w-full object-cover" />
@@ -90,14 +87,12 @@ export default function Home() {
 
       {/* CONVERSION BOX */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
-
         <div className="flex flex-col gap-6">
 
           <h2 className="text-2xl font-bold text-center">
             Secure Your Build Slot
           </h2>
 
-          {/* FIXED COLOR */}
           <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
@@ -127,20 +122,14 @@ export default function Home() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
 
-              <div>
-                <label className="block text-sm mb-1 text-gray-400">
-                  Your Email
-                </label>
-
-                <input
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
-                />
-              </div>
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-3 rounded bg-black border border-gray-600"
+              />
 
               <select
                 value={size}
@@ -158,38 +147,45 @@ export default function Home() {
 
               <textarea
                 required
-                placeholder="Describe your custom mirror (be specific)"
+                placeholder="Describe your custom mirror"
                 className="w-full p-4 rounded bg-black border border-gray-700"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
 
+              {/* FILE UPLOAD WITH FEEDBACK */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
                   Upload Your Design (REQUIRED)
-                </span>
-                <span className="text-sm text-gray-400">
-                  This is what we build from — don’t skip this
                 </span>
 
                 <input
                   type="file"
                   required
-                  onChange={(e) => setFile(e.target.files?.[0] || null)}
+                  onChange={(e) => {
+                    const selected = e.target.files?.[0];
+                    if (selected) {
+                      setFile(selected);
+                      setFileName(selected.name);
+                    }
+                  }}
                   className="hidden"
                 />
+
+                {/* FEEDBACK */}
+                {fileName && (
+                  <div className="mt-3 text-green-400 font-semibold">
+                    ✅ File ready: {fileName}
+                  </div>
+                )}
               </label>
 
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-500 transition"
+                className="w-full bg-green-600 py-4 rounded-xl font-bold"
               >
                 Submit Build Request
               </button>
-
-              <p className="text-xs text-gray-500 text-center">
-                We’ll review your request and contact you within 24 hours
-              </p>
 
             </form>
           ) : (
@@ -199,10 +195,6 @@ export default function Home() {
           )}
 
         </div>
-      </section>
-
-      <section className="text-center mt-12 text-sm text-gray-500">
-        Only a limited number of builds are accepted each week to maintain quality.
       </section>
 
     </main>
