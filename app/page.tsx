@@ -51,10 +51,9 @@ export default function Home() {
 
       {/* HERO */}
       <section className="w-full max-w-5xl text-center mb-12">
-        <div className="mb-8 rounded-2xl overflow-hidden shadow-lg shadow-green-500/20 bg-black p-4">
+        <div className="mb-8 rounded-2xl bg-black p-4 border border-green-500/20">
           <img
             src="/images/mirror.jpg"
-            alt="Custom Infinity Mirror"
             className="w-full max-h-[420px] object-contain mx-auto"
           />
         </div>
@@ -69,6 +68,27 @@ export default function Home() {
 
         <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
           🔥 Limited Build Slots Available This Week
+        </div>
+      </section>
+
+      {/* GALLERY — FIXED */}
+      <section className="w-full max-w-5xl mb-16">
+        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
+            <img src="/images/mirror1.jpg" className="max-h-[250px] object-contain" />
+          </div>
+
+          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
+            <img src="/images/mirror2.jpg" className="max-h-[250px] object-contain" />
+          </div>
+
+          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
+            <img src="/images/mirror3.jpg" className="max-h-[250px] object-contain" />
+          </div>
+
         </div>
       </section>
 
@@ -153,7 +173,7 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 CLEAN PREVIEW */}
+              {/* PREVIEW */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-2">
@@ -161,10 +181,10 @@ export default function Home() {
                   </p>
 
                   <div className="flex justify-center">
-                    <div className="bg-black p-4 rounded-xl border border-green-500/30 shadow-lg">
+                    <div className="bg-black p-4 rounded-xl border border-green-500/30">
                       <img
                         src={preview}
-                        className="max-h-[280px] w-auto rounded-lg"
+                        className="max-h-[280px] object-contain"
                       />
                     </div>
                   </div>
