@@ -78,12 +78,12 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          {/* COUNTDOWN */}
+          {/* TIMER */}
           <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
-          {/* COMMITMENT TRIGGER */}
+          {/* COMMITMENT */}
           <p className="text-center text-green-400 text-sm font-semibold">
             Most builds are reserved within hours
           </p>
@@ -92,7 +92,7 @@ export default function Home() {
             A $50 deposit locks your spot.
           </p>
 
-          {/* DEPOSIT BUTTON */}
+          {/* DEPOSIT */}
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
@@ -112,12 +112,12 @@ export default function Home() {
             />
           </div>
 
-          {/* INFINITY PREVIEW */}
+          {/* PREVIEW */}
           {preview && (
             <div className="flex justify-center">
-              <div className="relative w-64 h-64 rounded-xl overflow-hidden group">
+              <div className="relative w-64 h-64 rounded-xl overflow-hidden">
 
-                {/* animated glow */}
+                {/* glow */}
                 <div
                   className="absolute inset-0 rounded-xl"
                   style={{
@@ -127,7 +127,7 @@ export default function Home() {
                   }}
                 />
 
-                {/* depth layers */}
+                {/* depth */}
                 {[...Array(6)].map((_, i) => (
                   <img
                     key={i}
@@ -141,12 +141,10 @@ export default function Home() {
                   />
                 ))}
 
-                {/* main image */}
                 <img
                   src={preview}
                   className="relative w-full h-full object-cover z-10"
                 />
-
               </div>
             </div>
           )}
@@ -154,15 +152,17 @@ export default function Home() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
 
+              {/* EMAIL (FIXED) */}
               <input
                 type="email"
                 required
-                placeholder="you@example.com"
+                placeholder="Enter your email (required)"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 outline-none"
+                className="w-full p-4 rounded bg-black border-2 border-green-500 text-white placeholder-gray-500 focus:ring-2 focus:ring-green-500 outline-none"
               />
 
+              {/* MESSAGE */}
               <textarea
                 required
                 placeholder="Describe your custom mirror"
@@ -171,8 +171,12 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer">
-                Upload Design
+              {/* UPLOAD */}
+              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
+                <span className="text-green-400 font-bold">
+                  Upload Your Design (Required to Build)
+                </span>
+
                 <input
                   type="file"
                   required
@@ -181,17 +185,38 @@ export default function Home() {
                 />
               </label>
 
-              {/* PRICE FLEXIBILITY */}
+              {/* UPLOAD CONFIRMATION */}
+              {file && (
+                <p className="text-green-400 text-sm text-center">
+                  ✅ Image uploaded: {file.name}
+                </p>
+              )}
+
+              {/* PRICE FLEX */}
               <p className="text-center text-xs text-gray-500">
                 Final price depends on design complexity and lighting effects
               </p>
 
+              {/* TRUST */}
+              <p className="text-center text-xs text-gray-400">
+                Trusted builds. Real customers. Custom-crafted results.
+              </p>
+
+              {/* SPACING FIX */}
+              <div className="mt-4"></div>
+
+              {/* SUBMIT */}
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-500 transition"
               >
                 Submit Build Request
               </button>
+
+              {/* MICRO CONFIDENCE */}
+              <p className="text-xs text-gray-500 text-center">
+                We respond within 24 hours. Your design is reviewed personally.
+              </p>
 
             </form>
           ) : (
