@@ -52,7 +52,7 @@ export default function Home() {
 
       {/* GALLERY */}
       <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-4">Recent Builds</h2>
+        <h2 className="text-xl mb-4 text-center">Recent Builds</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
@@ -74,7 +74,7 @@ export default function Home() {
             A $50 deposit locks your spot. Only a few builds are accepted each week.
           </p>
 
-          {/* BUTTON */}
+          {/* DEPOSIT BUTTON */}
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
@@ -83,13 +83,13 @@ export default function Home() {
             Pay $50 Deposit
           </a>
 
-          {/* FLOW */}
+          {/* STEP FLOW */}
           <p className="text-center text-green-400 font-semibold">
             Step 1: Pay deposit → Step 2: Submit your build details below
           </p>
 
-          {/* TRUST */}
-          <ul className="text-sm text-gray-400 space-y-2">
+          {/* TRUST BULLETS */}
+          <ul className="text-sm text-gray-400 space-y-2 text-center">
             <li>✔ Deposit secures your spot</li>
             <li>✔ You approve design before final build</li>
             <li>✔ Built exactly to your specs</li>
@@ -98,15 +98,21 @@ export default function Home() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-5">
 
-              {/* EMAIL */}
-              <input
-                type="email"
-                required
-                placeholder="Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded bg-black border border-gray-700"
-              />
+              {/* EMAIL (FIXED) */}
+              <div>
+                <label className="block text-sm mb-1 text-gray-400">
+                  Your Email
+                </label>
+
+                <input
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 outline-none"
+                />
+              </div>
 
               {/* SIZE */}
               <select
@@ -120,7 +126,7 @@ export default function Home() {
               </select>
 
               {/* PRICE */}
-              <div className="text-lg font-bold text-green-400">
+              <div className="text-lg font-bold text-green-400 text-center">
                 Estimated Price: {priceMap[size]}
               </div>
 
@@ -150,13 +156,18 @@ export default function Home() {
                 />
               </label>
 
-              {/* SUBMIT */}
+              {/* SUBMIT (STRONGER) */}
               <button
                 type="submit"
-                className="w-full bg-white text-black py-4 rounded-xl font-bold hover:scale-105 transition"
+                className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-500 transition"
               >
                 Submit Build Request
               </button>
+
+              {/* MICRO CONFIDENCE */}
+              <p className="text-xs text-gray-500 text-center">
+                We’ll review your request and contact you within 24 hours
+              </p>
 
             </form>
           ) : (
