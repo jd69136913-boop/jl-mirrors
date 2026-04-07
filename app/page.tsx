@@ -32,14 +32,21 @@ export default function Page() {
         </div>
       </div>
 
-      {/* IMAGE PROOF */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10 max-w-5xl mx-auto">
+      {/* MAIN HERO IMAGE (THIS WAS MISSING) */}
+      <div className="max-w-4xl mx-auto mt-8">
+        <img
+          src="/images/mirror.jpg"
+          alt="Custom Infinity Mirror"
+          className="rounded-2xl shadow-lg w-full"
+        />
+      </div>
+
+      {/* SUPPORTING IMAGES (CLEAN SET ONLY) */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 max-w-5xl mx-auto">
         <img src="/images/mirror1.jpg" className="rounded-xl" />
         <img src="/images/mirror2.jpg" className="rounded-xl" />
         <img src="/images/mirror3.jpg" className="rounded-xl" />
         <img src="/images/mirror4.jpg" className="rounded-xl" />
-        <img src="/images/mirror5.jpg" className="rounded-xl" />
-        <img src="/images/mirror6.jpg" className="rounded-xl" />
       </div>
 
       {/* HOW IT WORKS */}
