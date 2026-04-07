@@ -41,8 +41,13 @@ export default function Home() {
           Custom LED Infinity Mirrors
         </h1>
 
-        <p className="text-gray-400 mb-4">
+        <p className="text-gray-400 mb-3">
           Hand-built. One-of-a-kind. Designed to stand out.
+        </p>
+
+        {/* TRUST BOOST */}
+        <p className="text-xs text-gray-500 mb-4">
+          Trusted by customers for custom one-of-a-kind builds
         </p>
 
         <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
@@ -88,17 +93,17 @@ export default function Home() {
             Step 1: Pay deposit → Step 2: Submit your build details below
           </p>
 
-          {/* TRUST BULLETS */}
-          <ul className="text-sm text-gray-400 space-y-2 text-center">
+          {/* TRUST BULLETS (FIXED SPACING) */}
+          <ul className="text-sm text-gray-400 space-y-2 text-center leading-relaxed">
             <li>✔ Deposit secures your spot</li>
             <li>✔ You approve design before final build</li>
             <li>✔ Built exactly to your specs</li>
           </ul>
 
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
 
-              {/* EMAIL (FIXED) */}
+              {/* EMAIL (ENHANCED) */}
               <div>
                 <label className="block text-sm mb-1 text-gray-400">
                   Your Email
@@ -110,7 +115,7 @@ export default function Home() {
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 outline-none"
+                  className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
                 />
               </div>
 
@@ -156,7 +161,7 @@ export default function Home() {
                 />
               </label>
 
-              {/* SUBMIT (STRONGER) */}
+              {/* SUBMIT (SPACED + STRONG) */}
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-500 transition"
