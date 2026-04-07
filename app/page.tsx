@@ -33,10 +33,10 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-10">
+    <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
       {/* HERO */}
-      <section className="max-w-4xl mx-auto text-center mb-12">
+      <section className="w-full max-w-5xl text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">
           Custom LED Infinity Mirrors
         </h1>
@@ -51,30 +51,30 @@ export default function Home() {
       </section>
 
       {/* GALLERY */}
-      <section className="max-w-5xl mx-auto mb-16">
+      <section className="w-full max-w-5xl mb-16">
         <h2 className="text-xl mb-4">Recent Builds</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <img src="/images/mirror1.jpg" className="rounded-xl" />
-          <img src="/images/mirror2.jpg" className="rounded-xl" />
-          <img src="/images/mirror3.jpg" className="rounded-xl" />
+          <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
+          <img src="/images/mirror2.jpg" className="rounded-xl w-full object-cover" />
+          <img src="/images/mirror3.jpg" className="rounded-xl w-full object-cover" />
         </div>
       </section>
 
-      {/* CONVERSION SECTION */}
-      <section className="max-w-3xl mx-auto mt-12 bg-zinc-900 p-8 rounded-2xl shadow-lg">
+      {/* CONVERSION BOX */}
+      <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg">
 
         <div className="flex flex-col gap-6">
 
-          <h2 className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold text-center">
             Secure Your Build Slot
           </h2>
 
-          <p className="text-gray-400">
+          <p className="text-gray-400 text-center">
             A $50 deposit locks your spot. Only a few builds are accepted each week.
           </p>
 
-          {/* DEPOSIT BUTTON */}
+          {/* BUTTON */}
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
@@ -83,7 +83,7 @@ export default function Home() {
             Pay $50 Deposit
           </a>
 
-          {/* STEP FLOW */}
+          {/* FLOW */}
           <p className="text-center text-green-400 font-semibold">
             Step 1: Pay deposit → Step 2: Submit your build details below
           </p>
@@ -95,7 +95,6 @@ export default function Home() {
             <li>✔ Built exactly to your specs</li>
           </ul>
 
-          {/* FORM */}
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-5">
 
