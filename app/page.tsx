@@ -8,7 +8,7 @@ export default function Home() {
   const [size, setSize] = useState("medium");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(86400); // 24h countdown
+  const [timeLeft, setTimeLeft] = useState(86400);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -86,8 +86,8 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          {/* COUNTDOWN */}
-          <div className="text-center text-red-400 font-bold text-lg">
+          {/* COUNTDOWN (FIXED COLOR) */}
+          <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
@@ -95,7 +95,7 @@ export default function Home() {
             A $50 deposit locks your spot. Only a few builds are accepted each week.
           </p>
 
-          {/* DEPOSIT BUTTON (UPGRADED) */}
+          {/* DEPOSIT BUTTON */}
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
@@ -104,10 +104,12 @@ export default function Home() {
             Pay $50 Deposit
           </a>
 
+          {/* STEP FLOW */}
           <p className="text-center text-green-400 font-semibold">
             Step 1: Pay deposit → Step 2: Submit your build details below
           </p>
 
+          {/* TRUST BULLETS */}
           <ul className="text-sm text-gray-400 space-y-2 text-center leading-relaxed">
             <li>✔ Deposit secures your spot</li>
             <li>✔ You approve design before final build</li>
@@ -117,6 +119,7 @@ export default function Home() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
 
+              {/* EMAIL */}
               <div>
                 <label className="block text-sm mb-1 text-gray-400">
                   Your Email
@@ -132,6 +135,7 @@ export default function Home() {
                 />
               </div>
 
+              {/* SIZE */}
               <select
                 value={size}
                 onChange={(e) => setSize(e.target.value)}
@@ -142,10 +146,12 @@ export default function Home() {
                 <option value="large">Large (~$900)</option>
               </select>
 
+              {/* PRICE */}
               <div className="text-lg font-bold text-green-400 text-center">
                 Estimated Price: {priceMap[size]}
               </div>
 
+              {/* MESSAGE */}
               <textarea
                 required
                 placeholder="Describe your custom mirror (be specific)"
@@ -154,6 +160,7 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
+              {/* UPLOAD */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
                   Upload Your Design (REQUIRED)
@@ -170,6 +177,7 @@ export default function Home() {
                 />
               </label>
 
+              {/* SUBMIT */}
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white py-4 rounded-xl font-bold hover:bg-green-500 transition"
@@ -177,6 +185,7 @@ export default function Home() {
                 Submit Build Request
               </button>
 
+              {/* MICRO CONFIDENCE */}
               <p className="text-xs text-gray-500 text-center">
                 We’ll review your request and contact you within 24 hours
               </p>
@@ -191,6 +200,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FOOTER */}
       <section className="text-center mt-12 text-sm text-gray-500">
         Only a limited number of builds are accepted each week to maintain quality.
       </section>
