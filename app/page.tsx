@@ -147,7 +147,7 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              {/* COLOR PICKER */}
+              {/* COLOR */}
               <div className="text-center">
                 <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
                 <input
@@ -185,7 +185,7 @@ export default function Home() {
                 )}
               </label>
 
-              {/* MIRROR MOCKUP */}
+              {/* 🔥 GLASS EFFECT MOCKUP */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-3">
@@ -201,41 +201,25 @@ export default function Home() {
                       }}
                     >
 
-                      {/* OUTER GLOW */}
-                      <div
-                        className="absolute inset-0 rounded-xl blur-2xl"
-                        style={{ backgroundColor: color, opacity: 0.15 }}
-                      />
-
-                      {/* INNER LED FRAME */}
+                      {/* LED FRAME */}
                       <div
                         className="absolute inset-2 rounded-lg"
                         style={{
                           border: `2px solid ${color}`,
-                          boxShadow: `inset 0 0 15px ${color}`
+                          boxShadow: `inset 0 0 20px ${color}`
                         }}
                       />
 
-                      {/* DEPTH */}
-                      <div
-                        className="absolute inset-4 rounded-lg"
-                        style={{
-                          background: `radial-gradient(circle at center, ${color}22 0%, transparent 70%)`
-                        }}
-                      />
+                      {/* DARK GLASS */}
+                      <div className="absolute inset-3 rounded-lg bg-black opacity-80"></div>
 
-                      {/* REFLECTION */}
+                      {/* DESIGN (ETCHED LOOK) */}
                       <img
                         src={preview}
-                        className="absolute top-4 left-4 opacity-20 scale-95 blur-[2px]"
-                      />
-
-                      {/* MAIN IMAGE */}
-                      <img
-                        src={preview}
-                        className="relative max-h-[260px] object-contain rounded-lg bg-black"
+                        className="relative max-h-[260px] object-contain"
                         style={{
-                          filter: "brightness(0.8) contrast(1.15)"
+                          filter: "invert(1) brightness(1.2) contrast(1.3)",
+                          opacity: 0.9
                         }}
                       />
 
@@ -264,4 +248,4 @@ export default function Home() {
 
     </main>
   );
-}
+}git add <div className=""></div>
