@@ -86,7 +86,7 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          {/* COUNTDOWN (FIXED COLOR) */}
+          {/* COUNTDOWN */}
           <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
@@ -104,12 +104,12 @@ export default function Home() {
             Pay $50 Deposit
           </a>
 
-          {/* STEP FLOW */}
+          {/* FLOW */}
           <p className="text-center text-green-400 font-semibold">
             Step 1: Pay deposit → Step 2: Submit your build details below
           </p>
 
-          {/* TRUST BULLETS */}
+          {/* TRUST */}
           <ul className="text-sm text-gray-400 space-y-2 text-center leading-relaxed">
             <li>✔ Deposit secures your spot</li>
             <li>✔ You approve design before final build</li>
@@ -160,11 +160,12 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              {/* UPLOAD */}
+              {/* UPLOAD WITH CONFIRMATION */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
                   Upload Your Design (REQUIRED)
                 </span>
+
                 <span className="text-sm text-gray-400">
                   This is what we build from — don’t skip this
                 </span>
@@ -175,6 +176,20 @@ export default function Home() {
                   onChange={(e) => setFile(e.target.files?.[0] || null)}
                   className="hidden"
                 />
+
+                {file && (
+                  <div className="mt-4 text-green-400 text-sm font-semibold">
+                    ✅ Uploaded: {file.name}
+                  </div>
+                )}
+
+                {file && file.type.startsWith("image/") && (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt="Preview"
+                    className="mt-4 max-h-40 mx-auto rounded-lg"
+                  />
+                )}
               </label>
 
               {/* SUBMIT */}
