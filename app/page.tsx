@@ -71,27 +71,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GALLERY — FIXED */}
-      <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror1.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror2.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror3.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-        </div>
-      </section>
-
       {/* CONVERSION */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
         <div className="flex flex-col gap-6">
@@ -173,19 +152,25 @@ export default function Home() {
                 )}
               </label>
 
-              {/* PREVIEW */}
+              {/* 🔥 MOCKUP PREVIEW */}
               {preview && (
                 <div className="text-center">
-                  <p className="text-sm text-gray-400 mb-2">
-                    Your Design Preview
+                  <p className="text-sm text-gray-400 mb-3">
+                    Your Mirror Preview
                   </p>
 
                   <div className="flex justify-center">
-                    <div className="bg-black p-4 rounded-xl border border-green-500/30">
+                    <div className="relative p-4 bg-black rounded-xl border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.4)]">
+
+                      {/* glow background */}
+                      <div className="absolute inset-0 rounded-xl bg-green-500/10 blur-xl"></div>
+
+                      {/* image */}
                       <img
                         src={preview}
-                        className="max-h-[280px] object-contain"
+                        className="relative max-h-[280px] object-contain rounded-lg"
                       />
+
                     </div>
                   </div>
                 </div>
