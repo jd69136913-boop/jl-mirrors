@@ -48,22 +48,22 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
       {/* HERO */}
-      <section className="w-full max-w-6xl text-center mb-16">
+      <section className="w-full max-w-5xl text-center mb-12">
 
-        {/* HERO IMAGE FIXED */}
-        <div className="mb-10 rounded-2xl overflow-hidden shadow-2xl shadow-green-500/20">
+        {/* HERO IMAGE (FIXED SIZE) */}
+        <div className="mb-8 rounded-2xl overflow-hidden shadow-lg shadow-green-500/20 max-h-[350px]">
           <img
             src="/images/mirror.jpg"
             alt="Custom Infinity Mirror"
-            className="w-full h-auto object-contain bg-black"
+            className="w-full h-full object-cover"
           />
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <h1 className="text-4xl font-bold mb-4">
           Custom LED Infinity Mirrors
         </h1>
 
-        <p className="text-gray-400 mb-2 text-lg">
+        <p className="text-gray-400 mb-2">
           Hand-built. One-of-a-kind. Designed to stand out.
         </p>
 
@@ -79,7 +79,7 @@ export default function Home() {
 
       {/* GALLERY */}
       <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
+        <h2 className="text-xl mb-4 text-center">Recent Builds</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
@@ -97,7 +97,8 @@ export default function Home() {
             Secure Your Build Slot
           </h2>
 
-          <div className="text-center text-red-400 font-bold text-lg">
+          {/* ✅ FIXED COLOR */}
+          <div className="text-center text-green-400 font-bold text-lg">
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
