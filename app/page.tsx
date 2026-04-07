@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
   const [size, setSize] = useState("medium");
   const [email, setEmail] = useState("");
@@ -66,10 +67,6 @@ export default function Home() {
           Hand-built. One-of-a-kind. Designed to stand out.
         </p>
 
-        <p className="text-xs text-gray-500 mb-4">
-          Trusted by customers for custom one-of-a-kind builds
-        </p>
-
         <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
           🔥 Limited Build Slots Available This Week
         </div>
@@ -97,27 +94,13 @@ export default function Home() {
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
-          <p className="text-gray-400 text-center">
-            A $50 deposit locks your spot. Only a few builds are accepted each week.
-          </p>
-
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
-            className="block text-center bg-green-500 text-black font-bold py-5 rounded-xl text-xl hover:scale-105 transition shadow-lg shadow-green-500/30"
+            className="block text-center bg-green-500 text-black font-bold py-5 rounded-xl text-xl"
           >
             Pay $50 Deposit
           </a>
-
-          <p className="text-center text-green-400 font-semibold">
-            Step 1: Pay deposit → Step 2: Submit your build details below
-          </p>
-
-          <ul className="text-sm text-gray-400 space-y-2 text-center leading-relaxed">
-            <li>✔ Deposit secures your spot</li>
-            <li>✔ You approve design before final build</li>
-            <li>✔ Built exactly to your specs</li>
-          </ul>
 
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -153,10 +136,10 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              {/* FILE UPLOAD WITH FEEDBACK */}
+              {/* FILE UPLOAD */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
-                  Upload Your Design (REQUIRED)
+                  Upload Your Design
                 </span>
 
                 <input
@@ -167,18 +150,29 @@ export default function Home() {
                     if (selected) {
                       setFile(selected);
                       setFileName(selected.name);
+                      setPreview(URL.createObjectURL(selected));
                     }
                   }}
                   className="hidden"
                 />
 
-                {/* FEEDBACK */}
                 {fileName && (
                   <div className="mt-3 text-green-400 font-semibold">
                     ✅ File ready: {fileName}
                   </div>
                 )}
               </label>
+
+              {/* 🔥 LIVE PREVIEW */}
+              {preview && (
+                <div className="mt-4 text-center">
+                  <p className="text-sm text-gray-400 mb-2">Preview:</p>
+                  <img
+                    src={preview}
+                    className="max-h-[250px] mx-auto rounded-xl border border-green-500"
+                  />
+                </div>
+              )}
 
               <button
                 type="submit"
