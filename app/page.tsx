@@ -22,6 +22,12 @@ export default function Home() {
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = timeLeft % 60;
 
+  const priceMap: any = {
+    small: "$150",
+    medium: "$400",
+    large: "$900",
+  };
+
   async function handleSubmit(e: any) {
     e.preventDefault();
 
@@ -69,6 +75,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* GALLERY */}
+      <section className="w-full max-w-5xl mb-16">
+        <h2 className="text-xl mb-4 text-center">Recent Builds</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <img src="/images/mirror1.jpg" className="rounded-xl w-full object-cover" />
+          <img src="/images/mirror2.jpg" className="rounded-xl w-full object-cover" />
+          <img src="/images/mirror3.jpg" className="rounded-xl w-full object-cover" />
+        </div>
+      </section>
+
       {/* CONVERSION */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
 
@@ -82,6 +99,10 @@ export default function Home() {
             ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
           </div>
 
+          <p className="text-gray-400 text-center">
+            A $50 deposit locks your spot. Only a few builds are accepted each week.
+          </p>
+
           <a
             href="https://cash.app/$Jamie6913/50"
             target="_blank"
@@ -90,25 +111,26 @@ export default function Home() {
             Pay $50 Deposit
           </a>
 
-          {/* 🔥 ANIMATED INFINITY PREVIEW */}
+          <p className="text-center text-green-400 font-semibold">
+            Step 1: Pay deposit → Step 2: Submit your build details below
+          </p>
+
+          {/* 🔥 REALISTIC INFINITY PREVIEW */}
           {preview && (
             <div className="flex justify-center mt-4">
-              <div className="relative w-64 h-64 rounded-xl overflow-hidden group">
+              <div className="relative w-64 h-64 rounded-xl overflow-hidden">
 
-                {/* animated glow */}
-                <div className="absolute inset-0 rounded-xl border border-green-500 animate-pulse"></div>
+                {/* glow frame */}
+                <div className="absolute inset-0 rounded-xl shadow-[0_0_40px_rgba(0,255,150,0.4)] border border-green-500"></div>
 
-                <div className="absolute inset-0 rounded-xl shadow-[0_0_50px_rgba(0,255,150,0.5)] animate-[pulse_2.5s_infinite]"></div>
-
-                {/* depth layers with motion */}
+                {/* depth layers */}
                 {[...Array(6)].map((_, i) => (
                   <img
                     key={i}
                     src={preview}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="absolute inset-0 w-full h-full object-cover opacity-20"
                     style={{
-                      transform: `scale(${1 - i * 0.08}) translateY(${i * 2}px)`,
-                      opacity: 0.15,
+                      transform: `scale(${1 - i * 0.08})`,
                       filter: `blur(${i * 1.5}px) brightness(${1 - i * 0.1})`,
                     }}
                   />
@@ -117,7 +139,7 @@ export default function Home() {
                 {/* main image */}
                 <img
                   src={preview}
-                  className="relative w-full h-full object-cover z-10 transition-transform duration-500 group-hover:scale-105"
+                  className="relative w-full h-full object-cover opacity-95"
                 />
 
               </div>
@@ -127,25 +149,48 @@ export default function Home() {
           {!submitted ? (
             <form onSubmit={handleSubmit} className="space-y-6">
 
-              <input
-                type="email"
-                required
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
-              />
+              <div>
+                <label className="block text-sm mb-1 text-gray-400">
+                  Your Email
+                </label>
+
+                <input
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 rounded bg-black border border-gray-600 focus:border-green-500 focus:ring-1 focus:ring-green-500 outline-none"
+                />
+              </div>
+
+              <select
+                value={size}
+                onChange={(e) => setSize(e.target.value)}
+                className="w-full p-3 rounded bg-black border border-gray-700"
+              >
+                <option value="small">Small (~$150)</option>
+                <option value="medium">Medium (~$400)</option>
+                <option value="large">Large (~$900)</option>
+              </select>
+
+              <div className="text-lg font-bold text-green-400 text-center">
+                Estimated Price: {priceMap[size]}
+              </div>
 
               <textarea
                 required
-                placeholder="Describe your custom mirror"
+                placeholder="Describe your custom mirror (be specific)"
                 className="w-full p-4 rounded bg-black border border-gray-700"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer">
-                Upload Design
+              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
+                <span className="block text-lg font-bold text-green-400 mb-2">
+                  Upload Your Design (REQUIRED)
+                </span>
+
                 <input
                   type="file"
                   required
@@ -161,6 +206,10 @@ export default function Home() {
                 Submit Build Request
               </button>
 
+              <p className="text-xs text-gray-500 text-center">
+                We’ll review your request and contact you within 24 hours
+              </p>
+
             </form>
           ) : (
             <div className="text-center text-green-400 font-bold text-xl">
@@ -169,6 +218,10 @@ export default function Home() {
           )}
 
         </div>
+      </section>
+
+      <section className="text-center mt-12 text-sm text-gray-500">
+        Only a limited number of builds are accepted each week to maintain quality.
       </section>
 
     </main>
