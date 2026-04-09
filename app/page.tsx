@@ -50,30 +50,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
-      {/* HERO */}
-      <section className="w-full max-w-5xl text-center mb-12">
-        <div className="mb-8 rounded-2xl bg-black p-4 border border-green-500/20">
-          <img
-            src="/images/mirror.jpg"
-            className="w-full max-h-[420px] object-contain mx-auto"
-          />
-        </div>
-
-        <h1 className="text-4xl font-bold mb-4">
-          Custom LED Infinity Mirrors
-        </h1>
-
-        <p className="text-gray-400 mb-2">
-          Hand-built. One-of-a-kind. Designed to stand out.
-        </p>
-
-        <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
-          🔥 Limited Build Slots Available This Week
-        </div>
-      </section>
-
-      {/* FORM */}
-      <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
+      <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl border border-green-500/20">
         <div className="flex flex-col gap-6">
 
           <h2 className="text-2xl font-bold text-center">
@@ -126,7 +103,6 @@ export default function Home() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              {/* COLOR */}
               <div className="text-center">
                 <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
                 <input
@@ -137,7 +113,6 @@ export default function Home() {
                 />
               </div>
 
-              {/* UPLOAD */}
               <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
                 <span className="block text-lg font-bold text-green-400 mb-2">
                   Upload Your Design
@@ -164,88 +139,60 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 3D INFINITY PREVIEW */}
+              {/* 🔥 DEPTH EFFECT THAT CANNOT FAIL */}
               {preview && (
-                <div className="text-center">
-                  <p className="text-sm text-gray-400 mb-3">
-                    This Is Your Custom Mirror
-                  </p>
+                <div className="text-center mt-6">
 
-                  <div className="flex justify-center">
+                  <div
+                    className="relative w-[280px] h-[280px] mx-auto rounded-xl overflow-hidden"
+                    style={{
+                      boxShadow: `0 0 40px ${color}, 0 0 100px ${color}`
+                    }}
+                  >
 
+                    {/* FRAME */}
                     <div
+                      className="absolute inset-0 rounded-xl"
                       style={{
-                        width: 300,
-                        height: 300,
-                        position: "relative",
-                        perspective: "900px"
+                        border: `3px solid ${color}`,
+                        boxShadow: `inset 0 0 30px ${color}`
                       }}
-                    >
+                    />
 
-                      {/* FRAME */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          borderRadius: 12,
-                          border: `3px solid ${color}`,
-                          boxShadow: `0 0 40px ${color}, inset 0 0 30px ${color}`
-                        }}
-                      />
-
-                      {/* 3D STACK */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          transformStyle: "preserve-3d"
-                        }}
-                      >
-                        {[...Array(8)].map((_, i) => (
-                          <img
-                            key={i}
-                            src={preview}
-                            style={{
-                              position: "absolute",
-                              top: "50%",
-                              left: "50%",
-                              transform: `
-                                translate(-50%, -50%)
-                                translateZ(${-i * 50}px)
-                                scale(${1 - i * 0.08})
-                              `,
-                              opacity: 1 - i * 0.12,
-                              filter: `invert(1) blur(${i * 0.7}px)`
-                            }}
-                          />
-                        ))}
-                      </div>
-
-                      {/* FRONT */}
+                    {/* DEPTH LAYERS */}
+                    {[...Array(10)].map((_, i) => (
                       <img
+                        key={i}
                         src={preview}
+                        className="absolute top-1/2 left-1/2"
                         style={{
-                          position: "absolute",
-                          top: "50%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
-                          maxHeight: 250,
-                          filter: "invert(1) brightness(1.3)"
+                          transform: `translate(-50%, -50%) scale(${1 - i * 0.08})`,
+                          opacity: 0.15 + (1 - i * 0.1),
+                          filter: `
+                            invert(1)
+                            blur(${i * 1}px)
+                            drop-shadow(0 0 ${i * 4}px ${color})
+                          `,
                         }}
                       />
+                    ))}
 
-                      {/* GLASS */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          background: "linear-gradient(to bottom right, rgba(255,255,255,0.1), transparent)"
-                        }}
-                      />
+                    {/* FRONT IMAGE */}
+                    <img
+                      src={preview}
+                      className="absolute top-1/2 left-1/2"
+                      style={{
+                        transform: "translate(-50%, -50%)",
+                        maxHeight: 240,
+                        filter: "invert(1) brightness(1.4)"
+                      }}
+                    />
 
-                    </div>
+                    {/* GLASS SHINE */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
 
                   </div>
+
                 </div>
               )}
 
