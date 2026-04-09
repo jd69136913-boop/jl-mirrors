@@ -139,14 +139,14 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 DEPTH EFFECT THAT CANNOT FAIL */}
+              {/* 🔥 REAL DEPTH (VISIBLE) */}
               {preview && (
                 <div className="text-center mt-6">
 
                   <div
                     className="relative w-[280px] h-[280px] mx-auto rounded-xl overflow-hidden"
                     style={{
-                      boxShadow: `0 0 40px ${color}, 0 0 100px ${color}`
+                      boxShadow: `0 0 40px ${color}, 0 0 120px ${color}`
                     }}
                   >
 
@@ -159,7 +159,7 @@ export default function Home() {
                       }}
                     />
 
-                    {/* DEPTH LAYERS */}
+                    {/* LAYERS */}
                     {[...Array(10)].map((_, i) => (
                       <img
                         key={i}
@@ -167,28 +167,30 @@ export default function Home() {
                         className="absolute top-1/2 left-1/2"
                         style={{
                           transform: `translate(-50%, -50%) scale(${1 - i * 0.08})`,
-                          opacity: 0.15 + (1 - i * 0.1),
+                          opacity: 0.2 + (1 - i * 0.1),
                           filter: `
                             invert(1)
-                            blur(${i * 1}px)
-                            drop-shadow(0 0 ${i * 4}px ${color})
+                            blur(${i * 1.2}px)
+                            drop-shadow(0 0 ${i * 6}px ${color})
                           `,
+                          mixBlendMode: "screen"
                         }}
                       />
                     ))}
 
-                    {/* FRONT IMAGE */}
+                    {/* FRONT (LESS DOMINANT) */}
                     <img
                       src={preview}
                       className="absolute top-1/2 left-1/2"
                       style={{
                         transform: "translate(-50%, -50%)",
                         maxHeight: 240,
-                        filter: "invert(1) brightness(1.4)"
+                        filter: "invert(1) brightness(1.2)",
+                        opacity: 0.9
                       }}
                     />
 
-                    {/* GLASS SHINE */}
+                    {/* GLASS */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
 
                   </div>
