@@ -17,50 +17,72 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center">
+    <main className="min-h-screen bg-black text-white">
+
+      {/* HERO IMAGE */}
+      <div className="w-full flex justify-center pt-10">
+        <img
+          src="/images/mirror.jpg"
+          className="w-[400px] md:w-[500px] rounded-xl border border-green-500 shadow-lg shadow-green-500/20"
+        />
+      </div>
 
       {/* HEADER */}
-      <section className="text-center py-12 px-6">
-        <h1 className="text-4xl font-bold mb-4">
-          Custom Infinity Mirrors
+      <section className="text-center py-6 px-6">
+        <h1 className="text-4xl font-bold mb-2">
+          Custom LED Infinity Mirrors
         </h1>
         <p className="text-gray-400">
-          Upload your image. Watch it gain depth.
+          Hand-built. One-of-a-kind. Designed to stand out.
         </p>
+
+        <div className="mt-3 inline-block bg-green-600 text-black px-4 py-1 rounded-full text-sm font-semibold">
+          🔥 Limited Build Slots Available This Week
+        </div>
       </section>
 
+      {/* RECENT BUILDS */}
+      <h2 className="text-center text-xl mb-4">Recent Builds</h2>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-6 max-w-4xl mx-auto">
+        <img src="/images/mirror.jpg" className="rounded-lg" />
+        <img src="/images/mirror1.jpg" className="rounded-lg" />
+        <img src="/images/mirror2.jpg" className="rounded-lg" />
+      </div>
+
       {/* PREVIEW SECTION */}
-      <div className="mt-6 flex flex-col items-center">
+      <section className="mt-10 flex flex-col items-center px-6">
+
+        <h2 className="text-xl mb-3">Preview Your Design</h2>
 
         <input
           type="file"
           accept="image/*"
           onChange={handleUpload}
-          className="mb-6 text-white"
+          className="mb-6"
         />
 
-        {/* PREVIEW BOX */}
-        <div className="w-[320px] h-[320px] bg-black border-2 border-green-500 rounded-xl flex items-center justify-center perspective-[800px]">
+        <div className="w-[320px] h-[320px] bg-black border-2 border-green-500 rounded-xl flex items-center justify-center">
 
           {!preview && (
             <span className="text-gray-500 text-sm">
-              Preview will appear here
+              Upload to preview your mirror
             </span>
           )}
 
           {preview && (
             <div className="relative w-full h-full flex items-center justify-center">
 
-              {/* INFINITY FRAMES */}
-              {[...Array(12)].map((_, i) => (
+              {/* DEPTH FRAMES */}
+              {[...Array(10)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute border border-green-400 animate-pulse"
+                  className="absolute border border-green-400"
                   style={{
-                    width: `${100 - i * 7}%`,
-                    height: `${100 - i * 7}%`,
-                    boxShadow: `0 0 ${8 + i * 6}px rgba(0,255,120,${0.8 - i * 0.06})`,
-                    opacity: 1 - i * 0.07,
+                    width: `${100 - i * 8}%`,
+                    height: `${100 - i * 8}%`,
+                    boxShadow: `0 0 ${6 + i * 5}px rgba(0,255,120,${0.7 - i * 0.05})`,
+                    opacity: 1 - i * 0.08,
                   }}
                 />
               ))}
@@ -75,15 +97,13 @@ export default function Home() {
           )}
 
         </div>
+      </section>
 
-      </div>
-
-      {/* GALLERY */}
-      <section className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 max-w-4xl">
-        <img src="/images/mirror.jpg" className="w-full rounded-lg" />
-        <img src="/images/mirror1.jpg" className="w-full rounded-lg" />
-        <img src="/images/mirror2.jpg" className="w-full rounded-lg" />
-        <img src="/images/mirror3.jpg" className="w-full rounded-lg" />
+      {/* CTA SECTION */}
+      <section className="mt-12 mb-20 flex justify-center">
+        <button className="bg-green-600 text-black px-6 py-3 rounded-lg font-bold hover:bg-green-500 transition">
+          Start Your Custom Build
+        </button>
       </section>
 
     </main>
