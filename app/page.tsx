@@ -39,8 +39,8 @@ export default function Home() {
           className="mb-6 text-white"
         />
 
-        {/* ALWAYS VISIBLE BOX */}
-        <div className="w-[320px] h-[320px] bg-black border-2 border-green-500 flex items-center justify-center rounded-xl">
+        {/* PREVIEW BOX */}
+        <div className="w-[320px] h-[320px] bg-black border-2 border-green-500 rounded-xl flex items-center justify-center perspective-[800px]">
 
           {!preview && (
             <span className="text-gray-500 text-sm">
@@ -51,16 +51,16 @@ export default function Home() {
           {preview && (
             <div className="relative w-full h-full flex items-center justify-center">
 
-              {/* FRAME DEPTH EFFECT */}
-              {[...Array(8)].map((_, i) => (
+              {/* INFINITY FRAMES */}
+              {[...Array(12)].map((_, i) => (
                 <div
                   key={i}
-                  className="absolute border border-green-400"
+                  className="absolute border border-green-400 animate-pulse"
                   style={{
-                    width: `${100 - i * 10}%`,
-                    height: `${100 - i * 10}%`,
-                    boxShadow: `0 0 ${10 + i * 5}px rgba(0,255,100,0.6)`,
-                    opacity: 1 - i * 0.1,
+                    width: `${100 - i * 7}%`,
+                    height: `${100 - i * 7}%`,
+                    boxShadow: `0 0 ${8 + i * 6}px rgba(0,255,120,${0.8 - i * 0.06})`,
+                    opacity: 1 - i * 0.07,
                   }}
                 />
               ))}
