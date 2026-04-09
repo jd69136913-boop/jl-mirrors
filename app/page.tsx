@@ -185,7 +185,7 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 INFINITY MIRROR PREVIEW */}
+              {/* 🔥 TRUE INFINITY PREVIEW */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-3">
@@ -195,56 +195,53 @@ export default function Home() {
                   <div className="flex justify-center">
 
                     <div
-                      className="relative p-6 bg-black rounded-xl overflow-hidden"
+                      className="relative w-[280px] h-[280px] bg-black rounded-xl overflow-hidden"
                       style={{
-                        boxShadow: `0 0 25px ${color}, 0 0 60px ${color}, 0 0 120px ${color}22`
+                        boxShadow: `0 0 40px ${color}, 0 0 100px ${color}`
                       }}
                     >
 
-                      {/* LED FRAME */}
+                      {/* FRAME */}
                       <div
-                        className="absolute inset-2 rounded-lg"
+                        className="absolute inset-0 rounded-xl"
                         style={{
-                          border: `2px solid ${color}`,
-                          boxShadow: `inset 0 0 25px ${color}, 0 0 25px ${color}`
+                          border: `3px solid ${color}`,
+                          boxShadow: `inset 0 0 30px ${color}`
                         }}
                       />
 
                       {/* DARK GLASS */}
-                      <div className="absolute inset-3 rounded-lg bg-black opacity-85"></div>
+                      <div className="absolute inset-1 bg-black opacity-90 rounded-xl"></div>
 
-                      {/* DEPTH LAYERS */}
-                      {[...Array(7)].map((_, i) => (
+                      {/* DEPTH STACK (FORCED CENTER) */}
+                      {[...Array(8)].map((_, i) => (
                         <img
                           key={i}
                           src={preview}
-                          className="absolute object-contain pointer-events-none"
                           style={{
+                            position: "absolute",
                             top: "50%",
                             left: "50%",
-                            transform: `translate(-50%, -50%) scale(${1 - i * 0.12})`,
+                            width: `${85 - i * 10}%`,
+                            transform: "translate(-50%, -50%)",
                             opacity: 1 - i * 0.12,
-                            filter: `
-                              invert(1)
-                              brightness(${1.2 - i * 0.05})
-                              contrast(1.3)
-                              blur(${i * 0.6}px)
-                            `,
+                            filter: `invert(1) blur(${i * 0.8}px)`,
                           }}
                         />
                       ))}
 
-                      {/* FRONT IMAGE */}
+                      {/* FRONT CLEAN LAYER */}
                       <img
                         src={preview}
-                        className="relative max-h-[260px] object-contain"
+                        className="absolute top-1/2 left-1/2 max-h-[240px]"
                         style={{
-                          filter: "invert(1) brightness(1.3) contrast(1.4)",
+                          transform: "translate(-50%, -50%)",
+                          filter: "invert(1) brightness(1.3)",
                         }}
                       />
 
-                      {/* GLASS REFLECTION */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none"></div>
+                      {/* GLASS SHINE */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
 
                     </div>
 
