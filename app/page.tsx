@@ -29,44 +29,54 @@ export default function Home() {
         </p>
       </section>
 
-      {/* UPLOAD */}
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleUpload}
-        className="mb-6"
-      />
+      {/* PREVIEW SECTION */}
+      <div className="mt-6 flex flex-col items-center">
 
-      {/* PREVIEW */}
-      <div className="relative w-[320px] h-[320px] bg-black rounded-xl overflow-hidden flex items-center justify-center">
-
-  {preview && (
-    <div className="relative w-full h-full flex items-center justify-center">
-
-      {/* Frame layers */}
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute border border-green-400"
-          style={{
-            width: `${100 - i * 10}%`,
-            height: `${100 - i * 10}%`,
-            boxShadow: `0 0 ${10 + i * 5}px rgba(0,255,100,0.6)`,
-            opacity: 1 - i * 0.1,
-          }}
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleUpload}
+          className="mb-6 text-white"
         />
-      ))}
 
-      {/* Center image */}
-      <img
-        src={preview}
-        className="absolute w-[60%] h-[60%] object-contain z-10"
-      />
+        {/* ALWAYS VISIBLE BOX */}
+        <div className="w-[320px] h-[320px] bg-black border-2 border-green-500 flex items-center justify-center rounded-xl">
 
-    </div>
-  )}
+          {!preview && (
+            <span className="text-gray-500 text-sm">
+              Preview will appear here
+            </span>
+          )}
 
-</div>
+          {preview && (
+            <div className="relative w-full h-full flex items-center justify-center">
+
+              {/* FRAME DEPTH EFFECT */}
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute border border-green-400"
+                  style={{
+                    width: `${100 - i * 10}%`,
+                    height: `${100 - i * 10}%`,
+                    boxShadow: `0 0 ${10 + i * 5}px rgba(0,255,100,0.6)`,
+                    opacity: 1 - i * 0.1,
+                  }}
+                />
+              ))}
+
+              {/* CENTER IMAGE */}
+              <img
+                src={preview}
+                className="absolute w-[60%] h-[60%] object-contain z-10"
+              />
+
+            </div>
+          )}
+
+        </div>
+
+      </div>
 
       {/* GALLERY */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 max-w-4xl">
