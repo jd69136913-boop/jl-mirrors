@@ -72,27 +72,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GALLERY */}
-      <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror1.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror2.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror3.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-        </div>
-      </section>
-
       {/* FORM */}
       <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
         <div className="flex flex-col gap-6">
@@ -185,7 +164,7 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 TRUE INFINITY PREVIEW */}
+              {/* 🔥 3D INFINITY PREVIEW */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-3">
@@ -195,53 +174,74 @@ export default function Home() {
                   <div className="flex justify-center">
 
                     <div
-                      className="relative w-[280px] h-[280px] bg-black rounded-xl overflow-hidden"
                       style={{
-                        boxShadow: `0 0 40px ${color}, 0 0 100px ${color}`
+                        width: 300,
+                        height: 300,
+                        position: "relative",
+                        perspective: "900px"
                       }}
                     >
 
                       {/* FRAME */}
                       <div
-                        className="absolute inset-0 rounded-xl"
                         style={{
+                          position: "absolute",
+                          inset: 0,
+                          borderRadius: 12,
                           border: `3px solid ${color}`,
-                          boxShadow: `inset 0 0 30px ${color}`
+                          boxShadow: `0 0 40px ${color}, inset 0 0 30px ${color}`
                         }}
                       />
 
-                      {/* DARK GLASS */}
-                      <div className="absolute inset-1 bg-black opacity-90 rounded-xl"></div>
+                      {/* 3D STACK */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          transformStyle: "preserve-3d"
+                        }}
+                      >
+                        {[...Array(8)].map((_, i) => (
+                          <img
+                            key={i}
+                            src={preview}
+                            style={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: `
+                                translate(-50%, -50%)
+                                translateZ(${-i * 50}px)
+                                scale(${1 - i * 0.08})
+                              `,
+                              opacity: 1 - i * 0.12,
+                              filter: `invert(1) blur(${i * 0.7}px)`
+                            }}
+                          />
+                        ))}
+                      </div>
 
-                      {/* DEPTH STACK (FORCED CENTER) */}
-                      {[...Array(8)].map((_, i) => (
-                        <img
-                          key={i}
-                          src={preview}
-                          style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            width: `${85 - i * 10}%`,
-                            transform: "translate(-50%, -50%)",
-                            opacity: 1 - i * 0.12,
-                            filter: `invert(1) blur(${i * 0.8}px)`,
-                          }}
-                        />
-                      ))}
-
-                      {/* FRONT CLEAN LAYER */}
+                      {/* FRONT */}
                       <img
                         src={preview}
-                        className="absolute top-1/2 left-1/2 max-h-[240px]"
                         style={{
+                          position: "absolute",
+                          top: "50%",
+                          left: "50%",
                           transform: "translate(-50%, -50%)",
-                          filter: "invert(1) brightness(1.3)",
+                          maxHeight: 250,
+                          filter: "invert(1) brightness(1.3)"
                         }}
                       />
 
-                      {/* GLASS SHINE */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                      {/* GLASS */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          background: "linear-gradient(to bottom right, rgba(255,255,255,0.1), transparent)"
+                        }}
+                      />
 
                     </div>
 
