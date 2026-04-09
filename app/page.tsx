@@ -38,21 +38,35 @@ export default function Home() {
       />
 
       {/* PREVIEW */}
-      <div className="relative w-[320px] h-[320px] bg-black rounded-xl overflow-hidden shadow-[0_0_25px_rgba(0,255,255,0.6)]">
+      <div className="relative w-[320px] h-[320px] bg-black rounded-xl overflow-hidden flex items-center justify-center">
 
-        {preview && (
-          <>
-            <img src={preview} className="absolute w-full h-full object-cover opacity-100" />
+  {preview && (
+    <div className="relative w-full h-full flex items-center justify-center">
 
-            <img src={preview} className="absolute w-full h-full object-cover scale-[0.85] blur-sm opacity-60" />
+      {/* Frame layers */}
+      {[...Array(8)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute border border-green-400"
+          style={{
+            width: `${100 - i * 10}%`,
+            height: `${100 - i * 10}%`,
+            boxShadow: `0 0 ${10 + i * 5}px rgba(0,255,100,0.6)`,
+            opacity: 1 - i * 0.1,
+          }}
+        />
+      ))}
 
-            <img src={preview} className="absolute w-full h-full object-cover scale-[0.7] blur-md opacity-40" />
+      {/* Center image */}
+      <img
+        src={preview}
+        className="absolute w-[60%] h-[60%] object-contain z-10"
+      />
 
-            <img src={preview} className="absolute w-full h-full object-cover scale-[0.55] blur-lg opacity-20" />
-          </>
-        )}
+    </div>
+  )}
 
-      </div>
+</div>
 
       {/* GALLERY */}
       <section className="grid grid-cols-2 md:grid-cols-3 gap-4 p-6 max-w-4xl">
