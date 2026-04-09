@@ -185,7 +185,7 @@ export default function Home() {
                 )}
               </label>
 
-              {/* 🔥 GLASS EFFECT MOCKUP */}
+              {/* 🔥 INFINITY MIRROR PREVIEW */}
               {preview && (
                 <div className="text-center">
                   <p className="text-sm text-gray-400 mb-3">
@@ -195,9 +195,9 @@ export default function Home() {
                   <div className="flex justify-center">
 
                     <div
-                      className="relative p-6 bg-black rounded-xl"
+                      className="relative p-6 bg-black rounded-xl overflow-hidden"
                       style={{
-                        boxShadow: `0 0 20px ${color}, 0 0 40px ${color}, 0 0 80px ${color}22`
+                        boxShadow: `0 0 25px ${color}, 0 0 60px ${color}, 0 0 120px ${color}22`
                       }}
                     >
 
@@ -206,22 +206,45 @@ export default function Home() {
                         className="absolute inset-2 rounded-lg"
                         style={{
                           border: `2px solid ${color}`,
-                          boxShadow: `inset 0 0 20px ${color}`
+                          boxShadow: `inset 0 0 25px ${color}, 0 0 25px ${color}`
                         }}
                       />
 
                       {/* DARK GLASS */}
-                      <div className="absolute inset-3 rounded-lg bg-black opacity-80"></div>
+                      <div className="absolute inset-3 rounded-lg bg-black opacity-85"></div>
 
-                      {/* DESIGN (ETCHED LOOK) */}
+                      {/* DEPTH LAYERS */}
+                      {[...Array(7)].map((_, i) => (
+                        <img
+                          key={i}
+                          src={preview}
+                          className="absolute object-contain pointer-events-none"
+                          style={{
+                            top: "50%",
+                            left: "50%",
+                            transform: `translate(-50%, -50%) scale(${1 - i * 0.12})`,
+                            opacity: 1 - i * 0.12,
+                            filter: `
+                              invert(1)
+                              brightness(${1.2 - i * 0.05})
+                              contrast(1.3)
+                              blur(${i * 0.6}px)
+                            `,
+                          }}
+                        />
+                      ))}
+
+                      {/* FRONT IMAGE */}
                       <img
                         src={preview}
                         className="relative max-h-[260px] object-contain"
                         style={{
-                          filter: "invert(1) brightness(1.2) contrast(1.3)",
-                          opacity: 0.9
+                          filter: "invert(1) brightness(1.3) contrast(1.4)",
                         }}
                       />
+
+                      {/* GLASS REFLECTION */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none"></div>
 
                     </div>
 
