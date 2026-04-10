@@ -229,7 +229,7 @@ export default function Home() {
                       {/* MAIN IMAGE */}
                       <img
                         src={preview}
-                        className="absolute inset-[20px] object-contain rounded-lg"
+                        className="absolute inset-[25px] object-contain"
                         style={{
                           filter: "brightness(0.9) contrast(1.2)"
                         }}
