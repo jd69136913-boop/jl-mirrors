@@ -7,10 +7,21 @@ export default function Home() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (file) {
-      const url = URL.createObjectURL(file)
-      setPreviewUrl(url)
+
+    if (!file) {
+      console.log("No file selected")
+      return
     }
+
+    console.log("File selected:", file.name)
+
+    const url = URL.createObjectURL(file)
+
+    // FORCE state refresh
+    setPreviewUrl(null)
+    setTimeout(() => {
+      setPreviewUrl(url)
+    }, 50)
   }
 
   return (
@@ -51,12 +62,12 @@ export default function Home() {
         />
 
         <div className="flex justify-center">
-          <div className="relative w-[320px] h-[320px] group perspective">
+          <div className="relative w-[320px] h-[320px]">
 
-            {/* Frame Glow */}
+            {/* Frame */}
             <div className="absolute inset-0 rounded-xl border-4 border-green-500 shadow-[0_0_25px_#00ff99]" />
 
-            {/* Depth Layers */}
+            {/* Depth */}
             {[...Array(8)].map((_, i) => {
               const scale = 1 - i * 0.08
               const opacity = 1 - i * 0.12
@@ -67,7 +78,7 @@ export default function Home() {
                   className="absolute inset-0 rounded-xl"
                   style={{
                     transform: `scale(${scale})`,
-                    opacity: opacity,
+                    opacity,
                     border: "2px solid rgba(0,255,150,0.6)",
                     boxShadow: `0 0 ${10 + i * 5}px #00ff99`
                   }}
@@ -75,30 +86,34 @@ export default function Home() {
               )
             })}
 
-            {/* REALISTIC LOGO DEPTH */}
-            {[...Array(4)].map((_, i) => {
-              const scale = 1 - i * 0.12
-              const opacity = [1, 0.6, 0.3, 0.15][i]
+            {/* IMAGE */}
+            <div className="absolute inset-0 flex items-center justify-center">
 
-              return (
-                <img
-                  key={i}
-                  src={previewUrl || "/images/mirror1.jpg"}
-                  alt="preview"
-                  className="absolute w-[160px] h-[160px] object-contain left-1/2 top-1/2 transition-transform duration-500 group-hover:scale-[1.05]"
-                  style={{
-                    transform: `translate(-50%, -50%) scale(${scale})`,
-                    opacity: opacity,
-                    filter:
-                      i === 0
-                        ? "brightness(1.2) contrast(1.1)"
-                        : "brightness(1.5) blur(0.6px)"
-                  }}
-                />
-              )
-            })}
+              {[...Array(4)].map((_, i) => {
+                const scale = 1 - i * 0.12
+                const opacity = [1, 0.6, 0.3, 0.15][i]
 
-            {/* Glass Reflection */}
+                return (
+                  <img
+                    key={i}
+                    src={previewUrl ? previewUrl : "/images/mirror1.jpg"}
+                    alt="preview"
+                    className="absolute w-[70%] h-[70%] object-contain"
+                    style={{
+                      transform: `scale(${scale})`,
+                      opacity,
+                      filter:
+                        i === 0
+                          ? "brightness(1.2) contrast(1.1)"
+                          : "brightness(1.5) blur(0.6px)"
+                    }}
+                  />
+                )
+              })}
+
+            </div>
+
+            {/* Glass */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-xl pointer-events-none" />
 
           </div>
@@ -117,23 +132,9 @@ export default function Home() {
 
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-          <img
-            src="/images/mirror1.jpg"
-            alt="Build 1"
-            className="rounded-xl shadow-lg object-cover w-full"
-          />
-
-          <img
-            src="/images/mirror2.jpg"
-            alt="Build 2"
-            className="rounded-xl shadow-lg object-cover w-full"
-          />
-
-          <img
-            src="/images/mirror3.jpg"
-            alt="Build 3"
-            className="rounded-xl shadow-lg object-cover w-full"
-          />
+          <img src="/images/mirror1.jpg" className="rounded-xl" />
+          <img src="/images/mirror2.jpg" className="rounded-xl" />
+          <img src="/images/mirror3.jpg" className="rounded-xl" />
 
         </div>
       </section>
