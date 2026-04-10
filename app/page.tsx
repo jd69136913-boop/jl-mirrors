@@ -45,8 +45,9 @@ export default function Home() {
 
         <input
           type="file"
+          accept="image/*"
           onChange={handleFileChange}
-          className="mb-6 text-white"
+          className="mb-6 block mx-auto text-sm text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-green-500 file:text-black"
         />
 
         <div className="flex justify-center">
@@ -75,26 +76,25 @@ export default function Home() {
               )
             })}
 
-            {/* LOGO ECHO (Infinity Effect) */}
-            {previewUrl &&
-              [...Array(6)].map((_, i) => {
-                const scale = 1 - i * 0.1
-                const opacity = 1 - i * 0.18
+            {/* LOGO / IMAGE DEPTH (with fallback) */}
+            {[...Array(6)].map((_, i) => {
+              const scale = 1 - i * 0.1
+              const opacity = 1 - i * 0.18
 
-                return (
-                  <img
-                    key={i}
-                    src={previewUrl}
-                    alt="preview"
-                    className="absolute w-[160px] h-[160px] object-contain left-1/2 top-1/2"
-                    style={{
-                      transform: `translate(-50%, -50%) scale(${scale})`,
-                      opacity: opacity,
-                      filter: "brightness(1.2) contrast(1.1)"
-                    }}
-                  />
-                )
-              })}
+              return (
+                <img
+                  key={i}
+                  src={previewUrl || "/images/mirror1.jpg"}
+                  alt="preview"
+                  className="absolute w-[160px] h-[160px] object-contain left-1/2 top-1/2"
+                  style={{
+                    transform: `translate(-50%, -50%) scale(${scale})`,
+                    opacity: opacity,
+                    filter: "brightness(1.2) contrast(1.1)"
+                  }}
+                />
+              )
+            })}
 
             {/* Glass Reflection */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-xl pointer-events-none" />
@@ -117,16 +117,19 @@ export default function Home() {
 
           <img
             src="/images/mirror1.jpg"
+            alt="Build 1"
             className="rounded-xl shadow-lg object-cover w-full"
           />
 
           <img
             src="/images/mirror2.jpg"
+            alt="Build 2"
             className="rounded-xl shadow-lg object-cover w-full"
           />
 
           <img
             src="/images/mirror3.jpg"
+            alt="Build 3"
             className="rounded-xl shadow-lg object-cover w-full"
           />
 
