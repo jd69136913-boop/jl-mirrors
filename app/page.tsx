@@ -51,7 +51,7 @@ export default function Home() {
         />
 
         <div className="flex justify-center">
-          <div className="relative w-[320px] h-[320px]">
+          <div className="relative w-[320px] h-[320px] group perspective">
 
             {/* Frame Glow */}
             <div className="absolute inset-0 rounded-xl border-4 border-green-500 shadow-[0_0_25px_#00ff99]" />
@@ -64,33 +64,35 @@ export default function Home() {
               return (
                 <div
                   key={i}
-                  className="absolute inset-0"
+                  className="absolute inset-0 rounded-xl"
                   style={{
                     transform: `scale(${scale})`,
                     opacity: opacity,
                     border: "2px solid rgba(0,255,150,0.6)",
-                    borderRadius: "12px",
                     boxShadow: `0 0 ${10 + i * 5}px #00ff99`
                   }}
                 />
               )
             })}
 
-            {/* LOGO / IMAGE DEPTH (with fallback) */}
-            {[...Array(6)].map((_, i) => {
-              const scale = 1 - i * 0.1
-              const opacity = 1 - i * 0.18
+            {/* REALISTIC LOGO DEPTH */}
+            {[...Array(4)].map((_, i) => {
+              const scale = 1 - i * 0.12
+              const opacity = [1, 0.6, 0.3, 0.15][i]
 
               return (
                 <img
                   key={i}
                   src={previewUrl || "/images/mirror1.jpg"}
                   alt="preview"
-                  className="absolute w-[160px] h-[160px] object-contain left-1/2 top-1/2"
+                  className="absolute w-[160px] h-[160px] object-contain left-1/2 top-1/2 transition-transform duration-500 group-hover:scale-[1.05]"
                   style={{
                     transform: `translate(-50%, -50%) scale(${scale})`,
                     opacity: opacity,
-                    filter: "brightness(1.2) contrast(1.1)"
+                    filter:
+                      i === 0
+                        ? "brightness(1.2) contrast(1.1)"
+                        : "brightness(1.5) blur(0.6px)"
                   }}
                 />
               )
