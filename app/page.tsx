@@ -21,14 +21,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4">
 
-      {/* HERO IMAGE */}
+      {/* HERO */}
       <img
         src="/images/mirror.jpg"
         alt="mirror"
         className="w-full max-w-md rounded-xl mt-6 mb-4"
       />
 
-      {/* TITLE */}
       <h1 className="text-3xl font-bold text-center">
         Custom LED Infinity Mirrors
       </h1>
@@ -68,13 +67,13 @@ export default function Home() {
           className="w-full mb-3 p-2 bg-black border border-gray-700 rounded"
         />
 
-        {/* COLOR PICKER */}
+        {/* COLOR */}
         <div className="text-center mb-3">
           <p className="mb-1">Choose LED Color</p>
           <input type="color" defaultValue="#22c55e" />
         </div>
 
-        {/* FILE UPLOAD */}
+        {/* UPLOAD */}
         <div className="border border-green-500 border-dashed p-3 rounded mb-3 text-center">
           <p className="text-green-400 font-semibold">Upload Your Design</p>
 
@@ -93,36 +92,42 @@ export default function Home() {
             Live Mirror Preview
           </p>
 
-          <div className="relative w-[300px] h-[300px] mx-auto bg-black rounded-xl overflow-hidden">
+          <div className="relative w-[300px] h-[300px] mx-auto bg-black rounded-xl overflow-hidden flex items-center justify-center">
 
-            {/* DEPTH LAYERS */}
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute border rounded-lg"
-                style={{
-                  width: `${100 - i * 10}%`,
-                  height: `${100 - i * 10}%`,
-                  borderColor: `rgba(0,255,150,${0.15 - i * 0.015})`,
-                  boxShadow: `0 0 ${10 + i * 4}px rgba(0,255,150,${0.2 - i * 0.02})`,
-                }}
-              />
-            ))}
+            {/* DEPTH (REAL REFLECTIONS) */}
+            {preview &&
+              [...Array(10)].map((_, i) => (
+                <img
+                  key={i}
+                  src={preview}
+                  className="absolute object-contain pointer-events-none"
+                  style={{
+                    width: "70%",
+                    height: "70%",
+                    opacity: 0.18 - i * 0.015,
+                    transform: `
+                      scale(${1 - i * 0.07})
+                      translateY(${i * 2}px)
+                    `,
+                    filter: `blur(${i * 0.4}px)`,
+                  }}
+                />
+              ))
+            }
 
-            {/* GLOW GRADIENT */}
-            <div className="absolute inset-0 bg-gradient-to-b from-green-400/10 via-transparent to-black opacity-60" />
-
-            {/* IMAGE */}
+            {/* FRONT IMAGE */}
             {preview && (
               <img
                 src={preview}
-                alt="preview"
-                className="relative z-10 max-w-[70%] max-h-[70%] object-contain opacity-95"
+                className="relative z-10 max-w-[70%] max-h-[70%] object-contain"
               />
             )}
 
-            {/* DEPTH DARKEN */}
-            <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+            {/* DEPTH DARKNESS */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black pointer-events-none" />
+
+            {/* LED EDGE GLOW */}
+            <div className="absolute inset-0 rounded-xl border border-green-400 shadow-[0_0_30px_rgba(0,255,150,0.7)] pointer-events-none" />
 
           </div>
         </div>
@@ -131,6 +136,7 @@ export default function Home() {
         <button className="w-full bg-green-500 text-black py-2 rounded font-semibold">
           Submit Build Request
         </button>
+
       </div>
 
       {/* RECENT BUILDS */}
