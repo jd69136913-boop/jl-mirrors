@@ -28,6 +28,7 @@ export default function Home() {
         className="w-full max-w-md rounded-xl mt-6 mb-4"
       />
 
+      {/* TITLE */}
       <h1 className="text-3xl font-bold text-center">
         Custom LED Infinity Mirrors
       </h1>
@@ -86,7 +87,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* 🔥 REAL INFINITY PREVIEW */}
+        {/* 🔥 REALISTIC INFINITY MIRROR PREVIEW */}
         <div className="mb-4">
           <p className="text-center text-sm text-gray-400 mb-1">
             Live Mirror Preview
@@ -94,22 +95,22 @@ export default function Home() {
 
           <div className="relative w-[300px] h-[300px] mx-auto bg-black rounded-xl overflow-hidden flex items-center justify-center">
 
-            {/* DEPTH (REAL REFLECTIONS) */}
+            {/* DEPTH - tuned to match real mirror spacing */}
             {preview &&
-              [...Array(10)].map((_, i) => (
+              [...Array(14)].map((_, i) => (
                 <img
                   key={i}
                   src={preview}
                   className="absolute object-contain pointer-events-none"
                   style={{
-                    width: "70%",
-                    height: "70%",
-                    opacity: 0.18 - i * 0.015,
+                    width: "72%",
+                    height: "72%",
+                    opacity: Math.max(0.25 - i * 0.015, 0),
                     transform: `
-                      scale(${1 - i * 0.07})
-                      translateY(${i * 2}px)
+                      scale(${1 - i * 0.035})
+                      translateY(${i * 1}px)
                     `,
-                    filter: `blur(${i * 0.4}px)`,
+                    filter: `blur(${i * 0.25}px)`,
                   }}
                 />
               ))
@@ -119,15 +120,15 @@ export default function Home() {
             {preview && (
               <img
                 src={preview}
-                className="relative z-10 max-w-[70%] max-h-[70%] object-contain"
+                className="relative z-10 max-w-[72%] max-h-[72%] object-contain"
               />
             )}
 
             {/* DEPTH DARKNESS */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black pointer-events-none" />
 
             {/* LED EDGE GLOW */}
-            <div className="absolute inset-0 rounded-xl border border-green-400 shadow-[0_0_30px_rgba(0,255,150,0.7)] pointer-events-none" />
+            <div className="absolute inset-0 rounded-xl border border-green-400 shadow-[0_0_35px_rgba(0,255,150,0.8)] pointer-events-none" />
 
           </div>
         </div>
