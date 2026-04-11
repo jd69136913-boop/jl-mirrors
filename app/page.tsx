@@ -205,21 +205,20 @@ export default function Home() {
           />
 
           {/* DEPTH LAYERS */}
-          {[...Array(4)].map((_, i) => (
-            <img
-              key={i}
-              src={preview}
-              className="absolute object-contain pointer-events-none"
-              style={{
-                top: `${20 + i * 10}px`,
-                left: `${20 + i * 10}px`,
-                width: `calc(100% - ${(40 + i * 20)}px)`,
-                height: `calc(100% - ${(40 + i * 20)}px)`,
-                opacity: 0.2 - i * 0.04,
-                transform: `scale(${1 - i * 0.05})`,
-              }}
-            />
-          ))}
+          {[...Array(3)].map((_, i) => (
+  <img
+    key={i}
+    src={preview}
+    className="absolute object-contain opacity-20 pointer-events-none"
+    style={{
+      top: `${30 + i * 12}px`,
+      left: `${30 + i * 12}px`,
+      width: `calc(100% - ${(60 + i * 24)}px)`,
+      height: `calc(100% - ${(60 + i * 24)}px)`,
+      transform: `scale(${1 - i * 0.08})`,
+    }}
+  />
+))}
 
           {/* MAIN IMAGE */}
           <img
