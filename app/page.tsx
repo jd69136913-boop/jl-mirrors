@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
-      {/* HERO — FIXED */}
+      {/* HERO */}
       <section className="w-full max-w-5xl text-center mb-12">
         <div className="flex justify-center mb-6">
           <img
@@ -152,20 +152,24 @@ export default function Home() {
               )}
             </label>
 
-            {/* SAFE PREVIEW (ISOLATED) */}
+            {/* 🔥 REALISTIC INFINITY PREVIEW */}
             {preview && (
               <div className="text-center mt-6">
+
                 <p className="text-sm text-gray-400 mb-2">
                   Live Mirror Preview
                 </p>
 
                 <div className="flex justify-center">
+
                   <div className="relative w-[300px] h-[300px] bg-black rounded-xl overflow-hidden isolate">
 
-                    {/* GLOW */}
+                    {/* LED FALLOFF */}
                     <div
-                      className="absolute inset-0 blur-xl"
-                      style={{ backgroundColor: color, opacity: 0.2 }}
+                      className="absolute inset-0"
+                      style={{
+                        background: `radial-gradient(circle, ${color}33 0%, transparent 70%)`
+                      }}
                     />
 
                     {/* FRAME */}
@@ -177,7 +181,7 @@ export default function Home() {
                       }}
                     />
 
-                    {/* DEPTH (SAFE, CLIPPED) */}
+                    {/* DEPTH */}
                     {[...Array(3)].map((_, i) => (
                       <img
                         key={i}
@@ -204,10 +208,20 @@ export default function Home() {
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
+                        filter: "brightness(0.9) contrast(1.15)"
+                      }}
+                    />
+
+                    {/* GLASS REFLECTION */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: "linear-gradient(120deg, rgba(255,255,255,0.15) 0%, transparent 40%)"
                       }}
                     />
 
                   </div>
+
                 </div>
               </div>
             )}
