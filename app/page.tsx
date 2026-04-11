@@ -24,12 +24,6 @@ export default function Home() {
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = timeLeft % 60;
 
-  const priceMap: any = {
-    small: "$150",
-    medium: "$400",
-    large: "$900",
-  };
-
   async function handleSubmit(e: any) {
     e.preventDefault();
 
@@ -52,204 +46,183 @@ export default function Home() {
 
       {/* HERO */}
       <section className="w-full max-w-5xl text-center mb-12">
-        <div className="mb-8 rounded-2xl bg-black p-4 border border-green-500/20">
-          <img src="/images/mirror.jpg" className="w-full max-h-[420px] object-contain mx-auto" />
-        </div>
+        <img src="/images/mirror.jpg" className="w-full max-h-[400px] object-contain mb-6" />
 
-        <h1 className="text-4xl font-bold mb-4">
+        <h1 className="text-4xl font-bold mb-2">
           Custom LED Infinity Mirrors
         </h1>
 
-        <p className="text-gray-400 mb-2">
+        <p className="text-gray-400 mb-4">
           Hand-built. One-of-a-kind. Designed to stand out.
         </p>
 
-        <div className="bg-green-500 text-black px-6 py-2 rounded-full font-bold inline-block">
-          🔥 Limited Build Slots Available This Week
-        </div>
-      </section>
-
-      {/* GALLERY */}
-      <section className="w-full max-w-5xl mb-16">
-        <h2 className="text-xl mb-6 text-center">Recent Builds</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror1.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror2.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
-          <div className="bg-black p-4 rounded-xl border border-green-500/20 flex justify-center items-center">
-            <img src="/images/mirror3.jpg" className="max-h-[250px] object-contain" />
-          </div>
-
+        <div className="bg-green-500 text-black px-5 py-2 rounded-full font-bold inline-block">
+          🔥 Limited Build Slots Available
         </div>
       </section>
 
       {/* FORM */}
-      <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl shadow-lg border border-green-500/20">
-        <div className="flex flex-col gap-6">
+      <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl border border-green-500/20">
 
-          <h2 className="text-2xl font-bold text-center">
-            Secure Your Build Slot
-          </h2>
+        <h2 className="text-2xl font-bold text-center mb-4">
+          Start Your Custom Build
+        </h2>
 
-          <div className="text-center text-green-400 font-bold text-lg">
-            ⏳ Slots reset in: {hours}h {minutes}m {seconds}s
-          </div>
+        <div className="text-center text-green-400 mb-4">
+          ⏳ {hours}h {minutes}m {seconds}s remaining
+        </div>
 
-          <a
-            href="https://cash.app/$Jamie6913/50"
-            target="_blank"
-            className="block text-center bg-green-500 text-black font-bold py-5 rounded-xl text-xl"
-          >
-            Pay $50 Deposit
-          </a>
+        <a
+          href="https://cash.app/$Jamie6913/50"
+          target="_blank"
+          className="block text-center bg-green-500 text-black font-bold py-4 rounded-xl mb-6"
+        >
+          Pay $50 Deposit
+        </a>
 
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-6">
+        {!submitted ? (
+          <form onSubmit={handleSubmit} className="space-y-5">
+
+            <input
+              type="email"
+              required
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 rounded bg-black border border-gray-600"
+            />
+
+            <select
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
+              className="w-full p-3 rounded bg-black border border-gray-700"
+            >
+              <option value="small">Small (~$150)</option>
+              <option value="medium">Medium (~$400)</option>
+              <option value="large">Large (~$900)</option>
+            </select>
+
+            <textarea
+              required
+              placeholder="Describe your custom mirror"
+              className="w-full p-4 rounded bg-black border border-gray-700"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+
+            {/* COLOR */}
+            <div className="text-center">
+              <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
+              <input
+                type="color"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+                className="w-16 h-10"
+              />
+            </div>
+
+            {/* UPLOAD */}
+            <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer">
+              <span className="text-green-400 font-bold">Upload Your Design</span>
 
               <input
-                type="email"
+                type="file"
                 required
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 rounded bg-black border border-gray-600"
+                onChange={(e) => {
+                  const selected = e.target.files?.[0];
+                  if (selected) {
+                    setFile(selected);
+                    setFileName(selected.name);
+                    setPreview(URL.createObjectURL(selected));
+                  }
+                }}
+                className="hidden"
               />
 
-              <select
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-                className="w-full p-3 rounded bg-black border border-gray-700"
-              >
-                <option value="small">Small (~$150)</option>
-                <option value="medium">Medium (~$400)</option>
-                <option value="large">Large (~$900)</option>
-              </select>
+              {fileName && (
+                <div className="mt-2 text-green-400">
+                  ✅ {fileName}
+                </div>
+              )}
+            </label>
 
-              <div className="text-lg font-bold text-green-400 text-center">
-                Estimated Price: {priceMap[size]}
-              </div>
+            {/* ✅ SAFE INFINITY PREVIEW */}
+            {preview && (
+              <div className="text-center mt-6">
 
-              <textarea
-                required
-                placeholder="Describe your custom mirror"
-                className="w-full p-4 rounded bg-black border border-gray-700"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
+                <p className="text-sm text-gray-400 mb-2">
+                  Live Mirror Preview
+                </p>
 
-              {/* COLOR */}
-              <div className="text-center">
-                <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
-                <input
-                  type="color"
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                  className="w-16 h-10 cursor-pointer"
-                />
-              </div>
+                <div className="flex justify-center">
 
-              {/* UPLOAD */}
-              <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer hover:bg-green-500/10 transition">
-                <span className="block text-lg font-bold text-green-400 mb-2">
-                  Upload Your Design
-                </span>
+                  <div className="relative w-[300px] h-[300px] bg-black rounded-xl overflow-hidden isolate">
 
-                <input
-                  type="file"
-                  required
-                  onChange={(e) => {
-                    const selected = e.target.files?.[0];
-                    if (selected) {
-                      setFile(selected);
-                      setFileName(selected.name);
-                      setPreview(URL.createObjectURL(selected));
-                    }
-                  }}
-                  className="hidden"
-                />
+                    {/* GLOW */}
+                    <div
+                      className="absolute inset-0 blur-xl"
+                      style={{ backgroundColor: color, opacity: 0.2 }}
+                    />
 
-                {fileName && (
-                  <div className="mt-3 text-green-400 font-semibold">
-                    ✅ File ready: {fileName}
+                    {/* FRAME */}
+                    <div
+                      className="absolute inset-0 rounded-xl"
+                      style={{
+                        border: `3px solid ${color}`,
+                        boxShadow: `0 0 20px ${color}, inset 0 0 15px ${color}`
+                      }}
+                    />
+
+                    {/* DEPTH */}
+                    {[...Array(3)].map((_, i) => (
+                      <img
+                        key={i}
+                        src={preview}
+                        className="absolute object-contain pointer-events-none"
+                        style={{
+                          top: `${30 + i * 12}px`,
+                          left: `${30 + i * 12}px`,
+                          width: `calc(100% - ${(60 + i * 24)}px)`,
+                          height: `calc(100% - ${(60 + i * 24)}px)`,
+                          opacity: 0.2 - i * 0.05,
+                          transform: `scale(${1 - i * 0.08})`,
+                        }}
+                      />
+                    ))}
+
+                    {/* MAIN IMAGE */}
+                    <img
+                      src={preview}
+                      className="absolute object-contain"
+                      style={{
+                        width: "70%",
+                        height: "70%",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    />
+
                   </div>
-                )}
-              </label>
+                </div>
+              </div>
+            )}
 
-              {/* 🔥 REAL INFINITY PREVIEW */}
-             {preview && (
-  <div className="text-center">
-    <p className="text-sm text-gray-400 mb-3">
-      Live Mirror Preview
-    </p>
+            <button
+              type="submit"
+              className="w-full bg-green-600 py-4 rounded-xl font-bold"
+            >
+              Submit Build Request
+            </button>
 
-    <div className="flex justify-center">
-      <div className="relative w-[300px] h-[300px] rounded-xl overflow-hidden bg-black isolate">
+          </form>
+        ) : (
+          <div className="text-center text-green-400 font-bold">
+            Request Sent — Check Your Email
+          </div>
+        )}
 
-        {/* HARD CONTAINER LOCK */}
-        <div className="absolute inset-0 overflow-hidden">
-
-          {/* LED FRAME */}
-          <div
-            className="absolute inset-0 rounded-xl"
-            style={{
-              border: `3px solid ${color}`,
-              boxShadow: `0 0 15px ${color}, inset 0 0 10px ${color}`
-            }}
-          />
-
-          {/* DEPTH LAYERS */}
-          {[...Array(3)].map((_, i) => (
-  <img
-    key={i}
-    src={preview}
-    className="absolute object-contain opacity-20 pointer-events-none"
-    style={{
-      top: `${30 + i * 12}px`,
-      left: `${30 + i * 12}px`,
-      width: `calc(100% - ${(60 + i * 24)}px)`,
-      height: `calc(100% - ${(60 + i * 24)}px)`,
-      transform: `scale(${1 - i * 0.08})`,
-    }}
-  />
-))}
-
-          {/* MAIN IMAGE */}
-          <img
-            src={preview}
-            className="absolute inset-[25px] object-contain pointer-events-none"
-          />
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-)}
-
-              <button
-                type="submit"
-                className="w-full bg-green-600 py-4 rounded-xl font-bold"
-              >
-                Submit Build Request
-              </button>
-
-            </form>
-          ) : (
-            <div className="text-center text-green-400 font-bold text-xl">
-              Request Sent — Check Your Email
-            </div>
-          )}
-
-        </div>
       </section>
-
     </main>
   );
 }
