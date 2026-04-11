@@ -152,16 +152,14 @@ export default function Home() {
               )}
             </label>
 
-            {/* 🔥 REALISTIC INFINITY PREVIEW */}
+            {/* PREVIEW */}
             {preview && (
               <div className="text-center mt-6">
-
                 <p className="text-sm text-gray-400 mb-2">
                   Live Mirror Preview
                 </p>
 
                 <div className="flex justify-center">
-
                   <div className="relative w-[300px] h-[300px] bg-black rounded-xl overflow-hidden isolate">
 
                     {/* LED FALLOFF */}
@@ -221,7 +219,6 @@ export default function Home() {
                     />
 
                   </div>
-
                 </div>
               </div>
             )}
@@ -241,6 +238,34 @@ export default function Home() {
         )}
 
       </section>
+
+      {/* 🔥 RECENT BUILDS */}
+      <section className="w-full max-w-5xl mt-16">
+
+        <h2 className="text-2xl font-bold text-center mb-6">
+          Recent Builds
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <img
+            src="/images/mirror1.jpg"
+            className="rounded-xl object-cover w-full h-[250px]"
+          />
+
+          <img
+            src="/images/mirror2.jpg"
+            className="rounded-xl object-cover w-full h-[250px]"
+          />
+
+          <img
+            src="/images/mirror3.jpg"
+            className="rounded-xl object-cover w-full h-[250px]"
+          />
+
+        </div>
+      </section>
+
     </main>
   );
 }
