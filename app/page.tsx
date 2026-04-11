@@ -183,63 +183,56 @@ export default function Home() {
               </label>
 
               {/* 🔥 REAL INFINITY PREVIEW */}
-              {preview && (
-                <div className="text-center">
-                  <p className="text-sm text-gray-400 mb-3">
-                    Live Mirror Preview
-                  </p>
+             {preview && (
+  <div className="text-center">
+    <p className="text-sm text-gray-400 mb-3">
+      Live Mirror Preview
+    </p>
 
-                  <div className="flex justify-center">
+    <div className="flex justify-center">
+      <div className="relative w-[300px] h-[300px] rounded-xl overflow-hidden bg-black isolate">
 
-                    <div className="relative w-[280px] h-[280px]">
+        {/* HARD CONTAINER LOCK */}
+        <div className="absolute inset-0 overflow-hidden">
 
-                      {/* OUTER GLOW */}
-                      <div
-                        className="absolute inset-0 rounded-xl blur-2xl animate-pulse"
-                        style={{ backgroundColor: color, opacity: 0.25 }}
-                      />
+          {/* LED FRAME */}
+          <div
+            className="absolute inset-0 rounded-xl"
+            style={{
+              border: `3px solid ${color}`,
+              boxShadow: `0 0 15px ${color}, inset 0 0 10px ${color}`
+            }}
+          />
 
-                      {/* FRAME */}
-                      <div
-                        className="absolute inset-0 rounded-xl border"
-                        style={{
-                          borderColor: color,
-                          boxShadow: `0 0 20px ${color}, inset 0 0 15px ${color}`
-                        }}
-                      />
+          {/* DEPTH LAYERS */}
+          {[...Array(4)].map((_, i) => (
+            <img
+              key={i}
+              src={preview}
+              className="absolute object-contain pointer-events-none"
+              style={{
+                top: `${20 + i * 10}px`,
+                left: `${20 + i * 10}px`,
+                width: `calc(100% - ${(40 + i * 20)}px)`,
+                height: `calc(100% - ${(40 + i * 20)}px)`,
+                opacity: 0.2 - i * 0.04,
+                transform: `scale(${1 - i * 0.05})`,
+              }}
+            />
+          ))}
 
-                      {/* INFINITY DEPTH STACK */}
-                      {[...Array(6)].map((_, i) => (
-                        <img
-                          key={i}
-                          src={preview}
-                          className="absolute rounded-lg"
-                          style={{
-                            top: `${i * 6 + 20}px`,
-                            left: `${i * 6 + 20}px`,
-                            right: `${i * 6 + 20}px`,
-                            bottom: `${i * 6 + 20}px`,
-                            opacity: 0.25 - i * 0.03,
-                            transform: `scale(${1 - i * 0.05})`,
-                            filter: "blur(1px)",
-                          }}
-                        />
-                      ))}
+          {/* MAIN IMAGE */}
+          <img
+            src={preview}
+            className="absolute inset-[25px] object-contain pointer-events-none"
+          />
 
-                      {/* MAIN IMAGE */}
-                      <img
-                        src={preview}
-                        className="absolute inset-[25px] object-contain"
-                        style={{
-                          filter: "brightness(0.9) contrast(1.2)"
-                        }}
-                      />
+        </div>
 
-                    </div>
-
-                  </div>
-                </div>
-              )}
+      </div>
+    </div>
+  </div>
+)}
 
               <button
                 type="submit"
