@@ -1,271 +1,150 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Home() {
-  const [message, setMessage] = useState("");
-  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [fileName, setFileName] = useState("");
-  const [size, setSize] = useState("medium");
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(86400);
-  const [color, setColor] = useState("#22c55e");
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const handleFile = (e: any) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const hours = Math.floor(timeLeft / 3600);
-  const minutes = Math.floor((timeLeft % 3600) / 60);
-  const seconds = timeLeft % 60;
+    setFileName(file.name);
 
-  async function handleSubmit(e: any) {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("message", message);
-    formData.append("size", size);
-    formData.append("email", email);
-    if (file) formData.append("file", file);
-
-    await fetch("https://formspree.io/f/xqegzdrw", {
-      method: "POST",
-      body: formData,
-    });
-
-    setSubmitted(true);
-  }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
+    <main className="min-h-screen bg-black text-white flex flex-col items-center px-4">
 
-      {/* HERO */}
-      <section className="w-full max-w-5xl text-center mb-12">
-        <div className="flex justify-center mb-6">
-          <img
-            src="/images/mirror.jpg"
-            className="max-w-[420px] w-full h-auto rounded-xl object-contain"
-          />
-        </div>
+      {/* HERO IMAGE */}
+      <img
+        src="/images/mirror.jpg"
+        alt="mirror"
+        className="w-full max-w-md rounded-xl mt-6 mb-4"
+      />
 
-        <h1 className="text-4xl font-bold mb-2">
-          Custom LED Infinity Mirrors
-        </h1>
+      {/* TITLE */}
+      <h1 className="text-3xl font-bold text-center">
+        Custom LED Infinity Mirrors
+      </h1>
 
-        <p className="text-gray-400 mb-4">
-          Hand-built. One-of-a-kind. Designed to stand out.
-        </p>
+      <p className="text-gray-400 text-center mb-2">
+        Hand-built. One-of-a-kind. Designed to stand out.
+      </p>
 
-        <div className="bg-green-500 text-black px-5 py-2 rounded-full font-bold inline-block">
-          🔥 Limited Build Slots Available
-        </div>
-      </section>
+      <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm mb-4">
+        🔥 Limited Build Slots Available
+      </div>
 
       {/* FORM */}
-      <section className="w-full max-w-2xl bg-zinc-900 p-8 rounded-2xl border border-green-500/20">
+      <div className="w-full max-w-md bg-neutral-900 p-4 rounded-xl border border-green-500/30">
 
-        <h2 className="text-2xl font-bold text-center mb-4">
+        <h2 className="text-lg font-semibold text-center mb-2">
           Start Your Custom Build
         </h2>
 
-        <div className="text-center text-green-400 mb-4">
-          ⏳ {hours}h {minutes}m {seconds}s remaining
+        <div className="bg-green-500 text-black text-center py-2 rounded mb-3 font-semibold">
+          Pay $50 Deposit
         </div>
 
-        <a
-          href="https://cash.app/$Jamie6913/50"
-          target="_blank"
-          className="block text-center bg-green-500 text-black font-bold py-4 rounded-xl mb-6"
-        >
-          Pay $50 Deposit
-        </a>
+        <input
+          placeholder="you@example.com"
+          className="w-full mb-2 p-2 bg-black border border-gray-700 rounded"
+        />
 
-        {!submitted ? (
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <select className="w-full mb-2 p-2 bg-black border border-gray-700 rounded">
+          <option>Medium (~$400)</option>
+          <option>Small (~$250)</option>
+          <option>Large (~$700+)</option>
+        </select>
 
-            <input
-              type="email"
-              required
-              placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 rounded bg-black border border-gray-600"
-            />
+        <textarea
+          placeholder="Describe your custom mirror"
+          className="w-full mb-3 p-2 bg-black border border-gray-700 rounded"
+        />
 
-            <select
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
-              className="w-full p-3 rounded bg-black border border-gray-700"
-            >
-              <option value="small">Small (~$150)</option>
-              <option value="medium">Medium (~$400)</option>
-              <option value="large">Large (~$900)</option>
-            </select>
+        {/* COLOR PICKER */}
+        <div className="text-center mb-3">
+          <p className="mb-1">Choose LED Color</p>
+          <input type="color" defaultValue="#22c55e" />
+        </div>
 
-            <textarea
-              required
-              placeholder="Describe your custom mirror"
-              className="w-full p-4 rounded bg-black border border-gray-700"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
+        {/* FILE UPLOAD */}
+        <div className="border border-green-500 border-dashed p-3 rounded mb-3 text-center">
+          <p className="text-green-400 font-semibold">Upload Your Design</p>
 
-            {/* COLOR */}
-            <div className="text-center">
-              <p className="text-sm text-gray-400 mb-2">Choose LED Color</p>
-              <input
-                type="color"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                className="w-16 h-10"
-              />
-            </div>
+          <input type="file" onChange={handleFile} className="mt-2" />
 
-            {/* UPLOAD */}
-            <label className="block border-2 border-dashed border-green-500 p-6 text-center rounded-xl cursor-pointer">
-              <span className="text-green-400 font-bold">Upload Your Design</span>
+          {fileName && (
+            <p className="text-green-400 text-sm mt-1">
+              ✅ {fileName}
+            </p>
+          )}
+        </div>
 
-              <input
-                type="file"
-                required
-                accept="image/png,image/jpeg"
-                onChange={(e) => {
-                  const selected = e.target.files?.[0];
-                  if (selected) {
-                    setFile(selected);
-                    setFileName(selected.name);
-                    setPreview(URL.createObjectURL(selected));
-                  }
+        {/* 🔥 REAL INFINITY PREVIEW */}
+        <div className="mb-4">
+          <p className="text-center text-sm text-gray-400 mb-1">
+            Live Mirror Preview
+          </p>
+
+          <div className="relative w-[300px] h-[300px] mx-auto bg-black rounded-xl overflow-hidden">
+
+            {/* DEPTH LAYERS */}
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute border rounded-lg"
+                style={{
+                  width: `${100 - i * 10}%`,
+                  height: `${100 - i * 10}%`,
+                  borderColor: `rgba(0,255,150,${0.15 - i * 0.015})`,
+                  boxShadow: `0 0 ${10 + i * 4}px rgba(0,255,150,${0.2 - i * 0.02})`,
                 }}
-                className="hidden"
               />
+            ))}
 
-              {fileName && (
-                <div className="mt-2 text-green-400">
-                  ✅ {fileName}
-                </div>
-              )}
-            </label>
+            {/* GLOW GRADIENT */}
+            <div className="absolute inset-0 bg-gradient-to-b from-green-400/10 via-transparent to-black opacity-60" />
 
-            {/* PREVIEW */}
+            {/* IMAGE */}
             {preview && (
-              <div className="text-center mt-6">
-                <p className="text-sm text-gray-400 mb-2">
-                  Live Mirror Preview
-                </p>
-
-                <div className="flex justify-center">
-                  <div className="relative w-[300px] h-[300px] bg-black rounded-xl overflow-hidden isolate">
-
-                    {/* LED FALLOFF */}
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: `radial-gradient(circle, ${color}33 0%, transparent 70%)`
-                      }}
-                    />
-
-                    {/* FRAME */}
-                    <div
-                      className="absolute inset-0 rounded-xl"
-                      style={{
-                        border: `3px solid ${color}`,
-                        boxShadow: `0 0 20px ${color}, inset 0 0 15px ${color}`
-                      }}
-                    />
-
-                    {/* DEPTH */}
-                    {[...Array(3)].map((_, i) => (
-                      <img
-                        key={i}
-                        src={preview}
-                        className="absolute object-contain pointer-events-none"
-                        style={{
-                          top: `${30 + i * 12}px`,
-                          left: `${30 + i * 12}px`,
-                          width: `calc(100% - ${(60 + i * 24)}px)`,
-                          height: `calc(100% - ${(60 + i * 24)}px)`,
-                          opacity: 0.2 - i * 0.05,
-                          transform: `scale(${1 - i * 0.08})`,
-                        }}
-                      />
-                    ))}
-
-                    {/* MAIN IMAGE */}
-                    <img
-                      src={preview}
-                      className="absolute object-contain pointer-events-none"
-                      style={{
-                        width: "70%",
-                        height: "70%",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        filter: "brightness(0.9) contrast(1.15)"
-                      }}
-                    />
-
-                    {/* GLASS REFLECTION */}
-                    <div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background: "linear-gradient(120deg, rgba(255,255,255,0.15) 0%, transparent 40%)"
-                      }}
-                    />
-
-                  </div>
-                </div>
-              </div>
+              <img
+                src={preview}
+                alt="preview"
+                className="relative z-10 max-w-[70%] max-h-[70%] object-contain opacity-95"
+              />
             )}
 
-            <button
-              type="submit"
-              className="w-full bg-green-600 py-4 rounded-xl font-bold"
-            >
-              Submit Build Request
-            </button>
+            {/* DEPTH DARKEN */}
+            <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-          </form>
-        ) : (
-          <div className="text-center text-green-400 font-bold">
-            Request Sent — Check Your Email
           </div>
-        )}
-
-      </section>
-
-      {/* 🔥 RECENT BUILDS */}
-      <section className="w-full max-w-5xl mt-16">
-
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Recent Builds
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-          <img
-            src="/images/mirror1.jpg"
-            className="rounded-xl object-cover w-full h-[250px]"
-          />
-
-          <img
-            src="/images/mirror2.jpg"
-            className="rounded-xl object-cover w-full h-[250px]"
-          />
-
-          <img
-            src="/images/mirror3.jpg"
-            className="rounded-xl object-cover w-full h-[250px]"
-          />
-
         </div>
-      </section>
 
+        {/* CTA */}
+        <button className="w-full bg-green-500 text-black py-2 rounded font-semibold">
+          Submit Build Request
+        </button>
+      </div>
+
+      {/* RECENT BUILDS */}
+      <div className="mt-6 w-full max-w-4xl">
+        <h3 className="text-center text-xl mb-3">Recent Builds</h3>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <img src="/images/mirror1.jpg" className="rounded-xl" />
+          <img src="/images/mirror2.jpg" className="rounded-xl" />
+          <img src="/images/mirror3.jpg" className="rounded-xl" />
+        </div>
+      </div>
+
+      <div className="h-10" />
     </main>
   );
 }
