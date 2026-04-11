@@ -44,9 +44,14 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center px-4 py-12">
 
-      {/* HERO */}
+      {/* HERO — FIXED */}
       <section className="w-full max-w-5xl text-center mb-12">
-        <img src="/images/mirror.jpg" className="w-full max-h-[400px] object-contain mb-6" />
+        <div className="flex justify-center mb-6">
+          <img
+            src="/images/mirror.jpg"
+            className="max-w-[420px] w-full h-auto rounded-xl object-contain"
+          />
+        </div>
 
         <h1 className="text-4xl font-bold mb-2">
           Custom LED Infinity Mirrors
@@ -128,6 +133,7 @@ export default function Home() {
               <input
                 type="file"
                 required
+                accept="image/png,image/jpeg"
                 onChange={(e) => {
                   const selected = e.target.files?.[0];
                   if (selected) {
@@ -146,16 +152,14 @@ export default function Home() {
               )}
             </label>
 
-            {/* ✅ SAFE INFINITY PREVIEW */}
+            {/* SAFE PREVIEW (ISOLATED) */}
             {preview && (
               <div className="text-center mt-6">
-
                 <p className="text-sm text-gray-400 mb-2">
                   Live Mirror Preview
                 </p>
 
                 <div className="flex justify-center">
-
                   <div className="relative w-[300px] h-[300px] bg-black rounded-xl overflow-hidden isolate">
 
                     {/* GLOW */}
@@ -173,7 +177,7 @@ export default function Home() {
                       }}
                     />
 
-                    {/* DEPTH */}
+                    {/* DEPTH (SAFE, CLIPPED) */}
                     {[...Array(3)].map((_, i) => (
                       <img
                         key={i}
@@ -193,7 +197,7 @@ export default function Home() {
                     {/* MAIN IMAGE */}
                     <img
                       src={preview}
-                      className="absolute object-contain"
+                      className="absolute object-contain pointer-events-none"
                       style={{
                         width: "70%",
                         height: "70%",
