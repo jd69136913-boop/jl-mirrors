@@ -1,157 +1,120 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [fileName, setFileName] = useState("");
+  const tunnelRef = useRef<HTMLDivElement | null>(null);
+  const [image, setImage] = useState<string | null>(null);
 
-  const handleFile = (e: any) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // BUILD DEPTH LAYERS
+  useEffect(() => {
+    if (!tunnelRef.current) return;
 
-    setFileName(file.name);
+    const tunnel = tunnelRef.current;
+    tunnel.innerHTML = "";
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setPreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
+    for (let i = 0; i < 8; i++) {
+      const layer = document.createElement("div");
+      layer.className = "layer";
+      tunnel.appendChild(layer);
+    }
+  }, []);
+
+  // APPLY IMAGE TO ALL LAYERS
+  useEffect(() => {
+    if (!image) return;
+
+    const layers = document.querySelectorAll(".layer");
+
+    layers.forEach((layer) => {
+      (layer as HTMLElement).style.backgroundImage = `url(${image})`;
+    });
+  }, [image]);
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col items-center px-4">
+    <div style={{ background: "black", minHeight: "100vh", color: "white", textAlign: "center" }}>
+      <h1>Custom LED Infinity Mirrors</h1>
 
-      {/* HERO */}
-      <img
-        src="/images/mirror.jpg"
-        alt="mirror"
-        className="w-full max-w-md rounded-xl mt-6 mb-4"
+      {/* UPLOAD */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
+          setImage(URL.createObjectURL(file));
+        }}
       />
 
-      {/* TITLE */}
-      <h1 className="text-3xl font-bold text-center">
-        Custom LED Infinity Mirrors
-      </h1>
+      {/* MIRROR */}
+      <div className="mirror-wrap">
+        <div className="mirror">
+          <div className="tunnel" ref={tunnelRef}></div>
 
-      <p className="text-gray-400 text-center mb-2">
-        Hand-built. One-of-a-kind. Designed to stand out.
-      </p>
+          {image && <img src={image} className="center-img" />}
 
-      <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm mb-4">
-        🔥 Limited Build Slots Available
-      </div>
-
-      {/* FORM */}
-      <div className="w-full max-w-md bg-neutral-900 p-4 rounded-xl border border-green-500/30">
-
-        <h2 className="text-lg font-semibold text-center mb-2">
-          Start Your Custom Build
-        </h2>
-
-        <div className="bg-green-500 text-black text-center py-2 rounded mb-3 font-semibold">
-          Pay $50 Deposit
-        </div>
-
-        <input
-          placeholder="you@example.com"
-          className="w-full mb-2 p-2 bg-black border border-gray-700 rounded"
-        />
-
-        <select className="w-full mb-2 p-2 bg-black border border-gray-700 rounded">
-          <option>Medium (~$400)</option>
-          <option>Small (~$250)</option>
-          <option>Large (~$700+)</option>
-        </select>
-
-        <textarea
-          placeholder="Describe your custom mirror"
-          className="w-full mb-3 p-2 bg-black border border-gray-700 rounded"
-        />
-
-        {/* COLOR */}
-        <div className="text-center mb-3">
-          <p className="mb-1">Choose LED Color</p>
-          <input type="color" defaultValue="#22c55e" />
-        </div>
-
-        {/* UPLOAD */}
-        <div className="border border-green-500 border-dashed p-3 rounded mb-3 text-center">
-          <p className="text-green-400 font-semibold">Upload Your Design</p>
-
-          <input type="file" onChange={handleFile} className="mt-2" />
-
-          {fileName && (
-            <p className="text-green-400 text-sm mt-1">
-              ✅ {fileName}
-            </p>
-          )}
-        </div>
-
-        {/* 🔥 REALISTIC INFINITY MIRROR PREVIEW */}
-        <div className="mb-4">
-          <p className="text-center text-sm text-gray-400 mb-1">
-            Live Mirror Preview
-          </p>
-
-          <div className="relative w-[300px] h-[300px] mx-auto bg-black rounded-xl overflow-hidden flex items-center justify-center">
-
-            {/* DEPTH - tuned to match real mirror spacing */}
-            {preview &&
-              [...Array(14)].map((_, i) => (
-                <img
-                  key={i}
-                  src={preview}
-                  className="absolute object-contain pointer-events-none"
-                  style={{
-                    width: "72%",
-                    height: "72%",
-                    opacity: Math.max(0.25 - i * 0.015, 0),
-                    transform: `
-                      scale(${1 - i * 0.035})
-                      translateY(${i * 1}px)
-                    `,
-                    filter: `blur(${i * 0.25}px)`,
-                  }}
-                />
-              ))
-            }
-
-            {/* FRONT IMAGE */}
-            {preview && (
-              <img
-                src={preview}
-                className="relative z-10 max-w-[72%] max-h-[72%] object-contain"
-              />
-            )}
-
-            {/* DEPTH DARKNESS */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black pointer-events-none" />
-
-            {/* LED EDGE GLOW */}
-            <div className="absolute inset-0 rounded-xl border border-green-400 shadow-[0_0_35px_rgba(0,255,150,0.8)] pointer-events-none" />
-
-          </div>
-        </div>
-
-        {/* CTA */}
-        <button className="w-full bg-green-500 text-black py-2 rounded font-semibold">
-          Submit Build Request
-        </button>
-
-      </div>
-
-      {/* RECENT BUILDS */}
-      <div className="mt-6 w-full max-w-4xl">
-        <h3 className="text-center text-xl mb-3">Recent Builds</h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <img src="/images/mirror1.jpg" className="rounded-xl" />
-          <img src="/images/mirror2.jpg" className="rounded-xl" />
-          <img src="/images/mirror3.jpg" className="rounded-xl" />
+          <div className="fade"></div>
         </div>
       </div>
 
-      <div className="h-10" />
-    </main>
+      {/* STYLES */}
+      <style jsx>{`
+        .mirror-wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+        }
+
+        .mirror {
+          width: 300px;
+          height: 300px;
+          border-radius: 20px;
+          background: black;
+          box-shadow: 0 0 40px #00ffff;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .tunnel {
+          position: absolute;
+          inset: 0;
+        }
+
+        .layer {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border: 2px solid #00ffff;
+          border-radius: 20px;
+          background-size: cover;
+          background-position: center;
+          opacity: 0.15;
+          box-shadow: 0 0 15px #00ffff;
+        }
+
+        .layer:nth-child(1) { transform: scale(1); opacity: 0.2; }
+        .layer:nth-child(2) { transform: scale(0.9); }
+        .layer:nth-child(3) { transform: scale(0.8); }
+        .layer:nth-child(4) { transform: scale(0.7); }
+        .layer:nth-child(5) { transform: scale(0.6); }
+        .layer:nth-child(6) { transform: scale(0.5); }
+        .layer:nth-child(7) { transform: scale(0.4); }
+        .layer:nth-child(8) { transform: scale(0.3); }
+
+        .center-img {
+          position: absolute;
+          width: 55%;
+          height: 55%;
+          object-fit: contain;
+          filter: brightness(0) invert(1);
+          opacity: 0.9;
+        }
+
+        .fade {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle, transparent 30%, black 80%);
+        }
+      `}</style>
+    </div>
   );
 }
