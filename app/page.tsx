@@ -145,6 +145,7 @@ export default function Home() {
           {/* GLASS */}
           <div style={{
             position: 'absolute',
+  pointerEvents: 'none',
             inset: 0,
             borderRadius: '25px',
             background:
