@@ -132,7 +132,16 @@ export default function Home() {
                 />
               );
             })}
-
+<div className="flex justify-center mt-6">
+  <a
+    href="https://buy.stripe.com/test_eVq5kC6Xs7e12Ga9UA87K00"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-6 rounded-xl text-lg"
+  >
+    Start Your Custom Build
+  </a>
+</div>
           {/* GLASS */}
           <div style={{
             position: 'absolute',
