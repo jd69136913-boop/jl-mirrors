@@ -14,153 +14,138 @@ export default function Home() {
   }
 
   return (
-    <main
-      style={{
-        background: '#000',
-        color: '#fff',
-        minHeight: '100vh',
-        padding: '20px',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
-      {/* HERO */}
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>
-        Custom LED Infinity Mirrors
-      </h1>
+    <main style={{
+      background: '#000',
+      color: '#fff',
+      minHeight: '100vh',
+      fontFamily: 'Arial, sans-serif'
+    }}>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto 30px' }}>
+      {/* HEADER */}
+      <div style={{
+        textAlign: 'center',
+        padding: '20px 10px',
+        borderBottom: '1px solid #111'
+      }}>
+        <h1 style={{ fontSize: '28px', marginBottom: '5px' }}>
+          Custom LED Infinity Mirrors
+        </h1>
+        <p style={{ color: '#aaa', fontSize: '14px' }}>
+          Upload your design. See it come to life.
+        </p>
+      </div>
+
+      {/* HERO */}
+      <div style={{
+        maxWidth: '900px',
+        margin: '30px auto'
+      }}>
         <img
           src="/images/mirror.jpg"
-          alt="Main Mirror"
-          style={{
-            width: '100%',
-            borderRadius: '10px',
-          }}
+          style={{ width: '100%', borderRadius: '12px' }}
         />
       </div>
 
       {/* GALLERY */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '15px',
-          maxWidth: '900px',
-          margin: '0 auto 50px',
-        }}
-      >
-        {['mirror1.jpg', 'mirror2.jpg', 'mirror3.jpg', 'mirror4.jpg'].map(
-          (img, i) => (
-            <img
-              key={i}
-              src={`/images/${img}`}
-              alt={`Mirror ${i}`}
-              style={{
-                width: '100%',
-                borderRadius: '8px',
-              }}
-            />
-          )
-        )}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '15px',
+        maxWidth: '900px',
+        margin: '0 auto 50px',
+        padding: '0 10px'
+      }}>
+        {['mirror1.jpg','mirror2.jpg','mirror3.jpg','mirror4.jpg'].map((img, i) => (
+          <img key={i} src={`/images/${img}`} style={{ width: '100%', borderRadius: '8px' }} />
+        ))}
       </div>
 
-      {/* UPLOAD + PREVIEW */}
-      <div style={{ textAlign: 'center' }}>
-        <p style={{ marginBottom: '10px' }}>
-          Upload your design to preview it in an infinity mirror:
-        </p>
+      {/* UPLOAD SECTION */}
+      <div style={{ textAlign: 'center', paddingBottom: '60px' }}>
+
+        <h2 style={{ marginBottom: '10px' }}>
+          Preview Your Custom Mirror
+        </h2>
 
         <input
           type="file"
           accept="image/*"
           onChange={handleUpload}
-          style={{
-            marginBottom: '20px',
-            color: '#fff',
-          }}
+          style={{ marginBottom: '20px', color: '#fff' }}
         />
 
-        {/* COLOR PICKER */}
+        <br />
+
         <input
           type="color"
           value={color}
           onChange={(e) => setColor(e.target.value)}
-          style={{
-            marginBottom: '20px',
-            cursor: 'pointer',
-          }}
+          style={{ marginBottom: '30px' }}
         />
 
-        {/* PREVIEW */}
-        <div
-          style={{
-            width: '320px',
-            height: '320px',
-            margin: '0 auto',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            position: 'relative',
-            background: '#000',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {/* GLOW */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: `radial-gradient(circle, ${color}33 0%, transparent 70%)`,
-              filter: 'blur(25px)',
-            }}
-          />
+        {/* PREVIEW FRAME */}
+        <div style={{
+          width: '360px',
+          height: '360px',
+          margin: '0 auto',
+          borderRadius: '25px',
+          position: 'relative',
+          background: '#000',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: `0 0 40px ${color}`
+        }}>
+
+          {/* INNER GLOW */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '25px',
+            boxShadow: `inset 0 0 80px ${color}`
+          }} />
 
           {/* DEPTH */}
           {image &&
-            [...Array(7)].map((_, i) => {
-              const scale = 1 - i * 0.1;
-              const opacity = 1 - i * 0.15;
+            [...Array(8)].map((_, i) => {
+              const scale = 1 - i * 0.08;
+              const opacity = 1 - i * 0.12;
 
               return (
                 <img
                   key={i}
                   src={image}
-                  alt="preview"
                   style={{
                     position: 'absolute',
-                    width: '180px',
-                    height: '180px',
+                    width: '70%',
+                    height: '70%',
                     objectFit: 'contain',
-                    transform: `scale(${scale})`,
+                    top: '50%',
+                    left: '50%',
+                    transform: `translate(-50%, -50%) scale(${scale})`,
                     opacity,
-                    filter: `blur(${i * 1.2}px) brightness(${1 - i * 0.05})`,
+                    filter:
+                      i === 0
+                        ? 'none'
+                        : `blur(${i * 0.4}px) brightness(${1 - i * 0.04})`,
                   }}
                 />
               );
             })}
 
-          {/* EDGE LIGHT */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              borderRadius: '20px',
-              boxShadow: `0 0 30px ${color}, inset 0 0 40px ${color}`,
-            }}
-          />
-
           {/* GLASS */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background:
-                'linear-gradient(120deg, rgba(255,255,255,0.15), transparent 40%)',
-            }}
-          />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '25px',
+            background:
+              'linear-gradient(120deg, rgba(255,255,255,0.15), transparent 40%)'
+          }} />
+
         </div>
+
       </div>
+
     </main>
   );
 }
