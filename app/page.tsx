@@ -132,7 +132,10 @@ export default function Home() {
                 />
               );
             })}
-<div className="flex justify-center mt-6">
+<div
+  className="flex justify-center mt-6"
+  style={{ position: 'relative', zIndex: 50 }}
+>
   <a
     href="https://buy.stripe.com/test_eVq5kC6Xs7e12Ga9UA87K00"
     target="_blank"
