@@ -1,164 +1,107 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
+import { useState } from "react"
 
 export default function Home() {
-  const [image, setImage] = useState<string | null>(null);
-  const [color, setColor] = useState('#00ffcc');
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
-  function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
     if (file) {
-      setImage(URL.createObjectURL(file));
+      const url = URL.createObjectURL(file)
+      setPreviewUrl(url)
     }
   }
 
   return (
-    <main style={{
-      background: '#000',
-      color: '#fff',
-      minHeight: '100vh',
-      fontFamily: 'Arial, sans-serif'
-    }}>
+    <main className="min-h-screen bg-black text-white flex flex-col items-center p-6">
 
       {/* HEADER */}
-      <div style={{
-        textAlign: 'center',
-        padding: '20px 10px',
-        borderBottom: '1px solid #111'
-      }}>
-        <h1 style={{ fontSize: '28px', marginBottom: '5px' }}>
-          Custom LED Infinity Mirrors
-        </h1>
-        <p style={{ color: '#aaa', fontSize: '14px' }}>
-          Upload your design. See it come to life.
-        </p>
-      </div>
+      <h1 className="text-3xl mb-2 text-center">
+        Custom LED Infinity Mirrors
+      </h1>
+      <p className="text-gray-400 mb-10 text-center">
+        Upload your design. See it come to life.
+      </p>
 
-      {/* HERO */}
-      <div style={{
-        maxWidth: '900px',
-        margin: '30px auto'
-      }}>
-        <img
-          src="/images/mirror.jpg"
-          style={{ width: '100%', borderRadius: '12px' }}
-        />
-      </div>
-
-      {/* GALLERY */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '15px',
-        maxWidth: '900px',
-        margin: '0 auto 50px',
-        padding: '0 10px'
-      }}>
-        {['mirror1.jpg','mirror2.jpg','mirror3.jpg','mirror4.jpg'].map((img, i) => (
-          <img key={i} src={`/images/${img}`} style={{ width: '100%', borderRadius: '8px' }} />
-        ))}
+      {/* SAMPLE IMAGES */}
+      <div className="flex gap-6 mb-16 flex-wrap justify-center">
+        <img src="/images/mirror1.jpg" className="w-48 rounded-lg" />
+        <img src="/images/mirror2.jpg" className="w-48 rounded-lg" />
+        <img src="/images/mirror3.jpg" className="w-48 rounded-lg" />
+        <img src="/images/mirror4.jpg" className="w-48 rounded-lg" />
       </div>
 
       {/* UPLOAD SECTION */}
-      <div style={{ textAlign: 'center', paddingBottom: '60px' }}>
+      <h2 className="text-xl mb-4">Preview Your Custom Mirror</h2>
 
-        <h2 style={{ marginBottom: '10px' }}>
-          Preview Your Custom Mirror
-        </h2>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="mb-6 block text-sm text-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-green-500 file:text-black"
+      />
 
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleUpload}
-          style={{ marginBottom: '20px', color: '#fff' }}
-        />
+      {/* INFINITY PREVIEW */}
+      <div style={{ perspective: "900px" }}>
+        <div
+          className="relative flex items-center justify-center"
+          style={{
+            width: "320px",
+            height: "320px",
+            borderRadius: "20px",
+            boxShadow: `
+              0 0 15px #00ffcc,
+              0 0 40px #00ffcc,
+              inset 0 0 25px #00ffcc
+            `,
+            background: "black",
+            overflow: "hidden",
+            transformStyle: "preserve-3d",
+          }}
+        >
 
-        <br />
+          {/* FRONT FACE IMAGE */}
+          {previewUrl && (
+            <img
+              src={previewUrl}
+              className="absolute left-1/2 top-1/2 object-contain"
+              style={{
+                width: "280px",
+                height: "280px",
+                transform: "translate(-50%, -50%)",
+                zIndex: 20,
+              }}
+            />
+          )}
 
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          style={{ marginBottom: '30px' }}
-        />
-
-        {/* PREVIEW FRAME */}
-        <div style={{
-          width: '360px',
-          height: '360px',
-          margin: '0 auto',
-          borderRadius: '25px',
-          position: 'relative',
-          background: '#000',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: `0 0 40px ${color}`
-        }}>
-
-          {/* INNER GLOW */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '25px',
-            boxShadow: `inset 0 0 80px ${color}`
-          }} />
-
-          {/* DEPTH */}
-          {image &&
-            [...Array(8)].map((_, i) => {
-              const scale = 1 - i * 0.08;
-              const opacity = 1 - i * 0.12;
+          {/* DEPTH LAYERS */}
+          {previewUrl &&
+            [...Array(12)].map((_, i) => {
+              const scale = 1 - i * 0.07
+              const opacity = 1 - i * 0.09
+              const blur = i * 0.8
 
               return (
                 <img
                   key={i}
-                  src={image}
+                  src={previewUrl}
+                  className="absolute left-1/2 top-1/2 object-contain pointer-events-none"
                   style={{
-                    position: 'absolute',
-                    width: '70%',
-                    height: '70%',
-                    objectFit: 'contain',
-                    top: '50%',
-                    left: '50%',
-                    transform: `translate(-50%, -50%) scale(${scale})`,
-                    opacity,
-                    filter:
-                      i === 0
-                        ? 'none'
-                        : `blur(${i * 0.4}px) brightness(${1 - i * 0.04})`,
+                    width: "260px",
+                    height: "260px",
+                    transform: `
+                      translate(-50%, -50%)
+                      scale(${scale})
+                      rotateX(6deg)
+                      translateZ(${-i * 18}px)
+                    `,
+                    opacity: opacity,
+                    filter: `
+                      blur(${blur}px)
+                      brightness(${1 - i * 0.05})
+                    `,
                   }}
                 />
-              );
+              )
             })}
-<div
-  className="flex justify-center mt-6"
-  style={{ position: 'relative', zIndex: 50 }}
->
-  <a
-    href="https://buy.stripe.com/test_eVq5kC6Xs7e12Ga9UA87K00"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-6 rounded-xl text-lg"
-  >
-    Start Your Custom Build
-  </a>
-</div>
-          {/* GLASS */}
-          <div style={{
-            position: 'absolute',
-  pointerEvents: 'none',
-            inset: 0,
-            borderRadius: '25px',
-            background:
-              'linear-gradient(120deg, rgba(255,255,255,0.15), transparent 40%)'
-          }} />
-
-        </div>
-
-      </div>
-
-    </main>
-  );
-}
