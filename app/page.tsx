@@ -114,7 +114,7 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <img
               src="/images/mirror1.jpg"
-              alt="Featured custom infinity mirror"
+              alt="Custom infinity mirror sample 1"
               className="h-64 w-full rounded-2xl border border-white/10 bg-zinc-900 object-cover"
             />
             <img
